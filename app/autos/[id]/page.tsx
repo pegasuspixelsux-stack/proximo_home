@@ -22,6 +22,9 @@ import {
 import JsonLd, { breadcrumbs } from "@/lib/json-ld";
 import { vehicleSchema } from "@/lib/schema";
 import { absoluteUrl } from "@/lib/seo";
+import FAQSection from "../../components/FAQSection";
+import FinanceCalculator from "../../components/FinanceCalculator";
+import FinancingCallout from "../../components/FinancingCallout";
 import Footer from "../../components/Footer";
 import SiteHeader from "../../components/SiteHeader";
 import ShareVehicle from "../../components/ShareVehicle";
@@ -122,7 +125,7 @@ async function VehicleDetail({ params }: Props) {
   if (!vehicle) notFound();
 
   const title = `${vehicle.year} ${vehicle.make} ${vehicle.model}`;
-  const { whatsappNumber } = await getSiteSettings();
+  const { whatsappNumber, calculatorCurrency } = await getSiteSettings();
   const whatsappMessage = `Hola, me interesa el ${title} publicado en Tu Próximo Auto.`;
   const plan12 = calculateFinancing(vehicle.price, 12);
   const plan24 = calculateFinancing(vehicle.price, 24);
@@ -444,7 +447,13 @@ async function VehicleDetail({ params }: Props) {
           </ul>
         </section>
       </main>
-      <div className="mx-auto w-full max-w-[1440px]">
+      <div className="mx-auto w-full max-w-[1440px] bg-bg text-fg">
+        <FinancingCallout
+          whatsappNumber={whatsappNumber}
+          imageSrc="/banner_image/mother_kids.webp"
+        />
+        <FinanceCalculator defaultCurrency={calculatorCurrency} />
+        <FAQSection />
         <Footer />
       </div>
     </>
