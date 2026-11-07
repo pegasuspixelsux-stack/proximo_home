@@ -7,6 +7,20 @@ import type { HeroSlide } from "../data/hero";
 
 const INTERVAL_MS = 6000;
 
+/** On mobile the last three words of a longer heading drop to their own row. */
+function Heading({ text }: { text: string }) {
+  const words = text.split(" ");
+  if (words.length < 5) return <>{text}</>;
+  return (
+    <>
+      {words.slice(0, -3).join(" ")}
+      <br className="sm:hidden" />
+      <span className="max-sm:hidden"> </span>
+      {words.slice(-3).join(" ")}
+    </>
+  );
+}
+
 export default function Hero({ slides }: { slides: HeroSlide[] }) {
   const [index, setIndex] = useState(0);
   // Slide being faded out underneath the incoming one.
@@ -67,7 +81,7 @@ export default function Hero({ slides }: { slides: HeroSlide[] }) {
         />
         <div className="absolute inset-0 bg-gradient-to-r from-black/65 via-black/30 to-transparent" />
       </div>
-      <div className="relative z-10 mx-auto flex w-full max-w-[1440px] flex-1 flex-col justify-start px-5 py-3 sm:justify-end sm:px-8 sm:pb-12 sm:pt-10 lg:justify-center lg:px-10 lg:py-6">
+      <div className="relative z-10 mx-auto flex w-full max-w-[1440px] flex-1 flex-col justify-center px-5 py-3 sm:px-8 sm:pb-12 sm:pt-10 lg:px-10 lg:py-6">
         <div className="w-full text-left sm:w-[65%] lg:w-[45%]">
           <div
             key={slide.id}
@@ -97,9 +111,11 @@ export default function Hero({ slides }: { slides: HeroSlide[] }) {
                 className="hero-rise text-balance text-[22px] font-semibold leading-[1.08] tracking-[-0.02em] sm:text-4xl lg:text-6xl"
             >
               {slide.highlight && (
-                <span className="text-brand">{slide.highlight} </span>
+                <span className="text-brand max-sm:block">
+                  {slide.highlight}{" "}
+                </span>
               )}
-              {slide.heading}
+              <Heading text={slide.heading} />
             </p>
             {slide.supportText && (
               <p
@@ -113,7 +129,7 @@ export default function Hero({ slides }: { slides: HeroSlide[] }) {
               <div
                 style={rise(0.4)}
                 data-testid="hero-rating"
-                className="hero-rise mt-2 hidden flex-col items-start gap-1 text-[11px] sm:flex sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-2 text-muted sm:mt-5 sm:text-sm"
+                className="hero-rise mt-1.5 flex flex-col items-start gap-0.5 text-[10px] sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-2 text-muted sm:mt-5 sm:text-sm"
               >
                 <span className="flex items-center gap-2">
                   <span className="font-semibold text-fg">{slide.rating}</span>
