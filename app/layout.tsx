@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import BottomNav from "./components/BottomNav";
 import { CurrencyProvider } from "./components/CurrencyProvider";
 import { getSiteSettings } from "./data/site-store";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/seo";
@@ -54,9 +55,10 @@ export default async function RootLayout({
           }}
         />
       </head>
-      <body className="min-h-full flex flex-col">
+      <body className="min-h-full flex flex-col max-lg:pb-14">
         <CurrencyProvider arsRate={arsRate}>
           {children}
+          <BottomNav />
         </CurrencyProvider>
       </body>
     </html>
