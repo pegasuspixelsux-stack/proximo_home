@@ -21,6 +21,9 @@ function Heading({ text }: { text: string }) {
   );
 }
 
+/** Image focus per slide: the first one is nudged up 15% (shows more of its lower part). */
+const focus = (i: number) => (i === 0 ? "object-[50%_65%]" : "object-center");
+
 export default function Hero({ slides }: { slides: HeroSlide[] }) {
   const [index, setIndex] = useState(0);
   // Slide being faded out underneath the incoming one.
@@ -56,7 +59,7 @@ export default function Hero({ slides }: { slides: HeroSlide[] }) {
       onMouseLeave={() => setPaused(false)}
       onFocus={() => setPaused(true)}
       onBlur={() => setPaused(false)}
-      className="hero-on-photo relative mx-auto mt-[10px] flex aspect-[2/1] w-[calc(100%-1.5rem)] sm:aspect-auto lg:w-[calc(100%-3rem)] max-w-[1440px] flex-col rounded-xl sm:min-h-[max(336px,calc((100svh_-_290px)_*_0.56))] lg:h-[calc((100svh_-_290px)_*_0.924)] lg:min-h-[443px] overflow-hidden bg-bg text-fg selection:bg-fg selection:text-bg"
+      className="hero-on-photo relative mx-auto mt-[10px] flex aspect-[2/1] w-[calc(100%-1.5rem)] sm:aspect-auto lg:w-[calc(100%-3rem)] max-w-[1392px] flex-col rounded-xl sm:min-h-[max(336px,calc((100svh_-_290px)_*_0.56))] lg:h-[calc((100svh_-_290px)_*_0.924)] lg:min-h-[443px] overflow-hidden bg-bg text-fg selection:bg-fg selection:text-bg"
     >
       <h1 className="sr-only">Tu Próximo Auto – Autos usados en Buenos Aires</h1>
       <div className="absolute inset-0 z-0">
@@ -67,7 +70,7 @@ export default function Hero({ slides }: { slides: HeroSlide[] }) {
             alt=""
             fill
             sizes="100vw"
-            className="object-cover object-center"
+            className={`object-cover ${focus(prevIndex)}`}
           />
         )}
         <Image
@@ -77,7 +80,7 @@ export default function Hero({ slides }: { slides: HeroSlide[] }) {
           fill
           priority={index === 0}
           sizes="100vw"
-          className={`object-cover object-center ${prevIndex !== null ? "hero-fade" : ""}`}
+          className={`object-cover ${focus(index)} ${prevIndex !== null ? "hero-fade" : ""}`}
         />
         <div className="absolute inset-0 bg-gradient-to-r from-black/65 via-black/30 to-transparent" />
       </div>

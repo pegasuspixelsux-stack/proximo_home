@@ -17,7 +17,7 @@ export default function SiteHeader() {
             <Link
               key={link.label}
               href={link.href}
-              className="text-xs font-medium uppercase tracking-widest text-muted transition-colors duration-150 hover:text-fg"
+              className="relative after:absolute after:inset-x-0 after:-bottom-1 after:h-px after:origin-left after:scale-x-0 after:bg-current after:transition-transform after:duration-200 after:ease-out hover:after:scale-x-100 motion-reduce:after:transition-none text-xs font-medium uppercase tracking-widest text-muted transition-colors duration-150 hover:text-fg"
             >
               {link.label}
             </Link>
@@ -35,7 +35,7 @@ export default function SiteHeader() {
             <Link
               key={link.label}
               href={link.href}
-              className={`text-xs font-medium uppercase tracking-widest text-muted transition-colors duration-150 hover:text-fg ${link.wide ? "hidden lg:inline" : ""}`}
+              className={`relative after:absolute after:inset-x-0 after:-bottom-1 after:h-px after:origin-left after:scale-x-0 after:bg-current after:transition-transform after:duration-200 after:ease-out hover:after:scale-x-100 motion-reduce:after:transition-none text-xs font-medium uppercase tracking-widest text-muted transition-colors duration-150 hover:text-fg ${link.wide ? "hidden lg:inline" : ""}`}
             >
               {link.label}
             </Link>

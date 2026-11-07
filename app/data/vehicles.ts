@@ -71,7 +71,7 @@ export interface Vehicle {
   homepage?: boolean;
 }
 
-export const HOMEPAGE_LIMIT = 12;
+export const HOMEPAGE_LIMIT = 48;
 
 const KM_PER_MILE = 1.60934;
 
