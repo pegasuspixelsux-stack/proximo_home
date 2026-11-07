@@ -65,7 +65,7 @@ const FUELS: [FuelType, string][] = [
   ["Hybrid", "Híbrido"],
   ["Electric", "Eléctrico"],
 ];
-const BODIES: BodyType[] = ["Auto", "SUV", "Deportivo", "Clásico", "Moto"];
+const BODIES: BodyType[] = ["Auto", "SUV", "Deportivo", "Clásico", "Moto", "Camioneta", "Camión"];
 
 /** Parses "Label: value" lines into the extra technical-sheet rows. */
 function parseSpecs(text: string) {

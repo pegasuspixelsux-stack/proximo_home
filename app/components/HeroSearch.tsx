@@ -30,16 +30,142 @@ function Field({ label, children }: { label: string; children: ReactNode }) {
   );
 }
 
+
+/** The advanced filter fields; shared by the inline panel and the mobile search modal. */
+export function AdvancedFields({
+  defaults,
+}: {
+  defaults?: Partial<SearchCriteria>;
+}) {
+  return (
+    <>
+      <Field label="Marca">
+        <input
+          type="text"
+          name="make"
+          defaultValue={defaults?.make}
+          placeholder="Ej. Audi"
+          className={FIELD}
+        />
+      </Field>
+      <Field label="Tipo">
+        <select name="bodyType" defaultValue={defaults?.bodyType ?? ""} className={FIELD}>
+          <option value="">Todos</option>
+          <option value="Auto">Auto</option>
+          <option value="SUV">SUV</option>
+          <option value="Deportivo">Deportivo</option>
+          <option value="Clásico">Clásico</option>
+          <option value="Moto">Moto</option>
+          <option value="Camioneta">Camioneta</option>
+          <option value="Camión">Camión pesado</option>
+        </select>
+      </Field>
+      <Field label="Transmisión">
+        <select name="transmission" defaultValue={defaults?.transmission ?? ""} className={FIELD}>
+          <option value="">Todas</option>
+          <option value="Automática">Automática</option>
+          <option value="Manual">Manual</option>
+        </select>
+      </Field>
+      <Field label="Combustible">
+        <select name="fuel" defaultValue={defaults?.fuel ?? ""} className={FIELD}>
+          <option value="">Todos</option>
+          <option value="Electric">Eléctrico</option>
+          <option value="Hybrid">Híbrido</option>
+          <option value="Gasoline">Nafta</option>
+          <option value="Diesel">Diésel</option>
+        </select>
+      </Field>
+      <Field label="Año desde">
+        <input
+          type="number"
+          name="yearMin"
+          defaultValue={defaults?.yearMin}
+          inputMode="numeric"
+          min={1990}
+          placeholder="2020"
+          className={FIELD}
+        />
+      </Field>
+      <Field label="Año hasta">
+        <input
+          type="number"
+          name="yearMax"
+          defaultValue={defaults?.yearMax}
+          inputMode="numeric"
+          min={1990}
+          placeholder="2025"
+          className={FIELD}
+        />
+      </Field>
+      <Field label="Precio mín. (US$)">
+        <input
+          type="number"
+          name="priceMin"
+          defaultValue={defaults?.priceMin}
+          inputMode="numeric"
+          min={0}
+          placeholder="10000"
+          className={FIELD}
+        />
+      </Field>
+      <Field label="Precio máx. (US$)">
+        <input
+          type="number"
+          name="priceMax"
+          defaultValue={defaults?.priceMax}
+          inputMode="numeric"
+          min={0}
+          placeholder="100000"
+          className={FIELD}
+        />
+      </Field>
+      <Field label="Kilometraje máx.">
+        <input
+          type="number"
+          name="kmMax"
+          defaultValue={defaults?.kmMax}
+          inputMode="numeric"
+          min={0}
+          placeholder="50000"
+          className={FIELD}
+        />
+      </Field>
+      <Field label="Vendedor">
+        <select name="seller" defaultValue={defaults?.seller ?? ""} className={FIELD}>
+          <option value="">Todos</option>
+          <option value="private">Particulares</option>
+          <option value="dealer">Concesionarias</option>
+        </select>
+      </Field>
+      <Field label="Ubicación">
+        <input
+          type="text"
+          name="location"
+          defaultValue={defaults?.location}
+          placeholder="Ej. Tigre"
+          className={FIELD}
+        />
+      </Field>
+    </>
+  );
+}
+
 export default function HeroSearch({
   compact = false,
   onSearch,
+  initial,
 }: {
   compact?: boolean;
   /** When given, the search filters live on the page instead of reloading it. */
   onSearch?: (criteria: SearchCriteria) => void;
+  /** Pre-fills the search box (e.g. from the mobile search modal). */
+  initial?: Partial<SearchCriteria>;
 }) {
   const reduce = useReducedMotion();
-  const [filtersOpen, setFiltersOpen] = useState(false);
+  const [filtersOpen, setFiltersOpen] = useState(() =>
+    Boolean(initial && Object.entries(initial).some(([k, v]) => k !== "q" && v)),
+  );
 
   return (
     <div
@@ -79,6 +205,7 @@ export default function HeroSearch({
           <input
             type="search"
             name="q"
+            defaultValue={initial?.q}
             aria-label="Buscar en el inventario"
             placeholder={
               compact
@@ -130,105 +257,7 @@ export default function HeroSearch({
               <div
                 className={`mt-3 grid grid-cols-2 gap-3 rounded-xl border border-line p-4 ${compact ? "bg-bg shadow-2xl" : "bg-surface"} text-left backdrop-blur-md`}
               >
-                <Field label="Marca">
-                  <input
-                    type="text"
-                    name="make"
-                    placeholder="Ej. Audi"
-                    className={FIELD}
-                  />
-                </Field>
-                <Field label="Tipo">
-                  <select name="bodyType" defaultValue="" className={FIELD}>
-                    <option value="">Todos</option>
-                    <option value="Auto">Auto</option>
-                    <option value="SUV">SUV</option>
-                    <option value="Deportivo">Deportivo</option>
-                    <option value="Clásico">Clásico</option>
-                    <option value="Moto">Moto</option>
-                  </select>
-                </Field>
-                <Field label="Transmisión">
-                  <select name="transmission" defaultValue="" className={FIELD}>
-                    <option value="">Todas</option>
-                    <option value="Automática">Automática</option>
-                    <option value="Manual">Manual</option>
-                  </select>
-                </Field>
-                <Field label="Combustible">
-                  <select name="fuel" defaultValue="" className={FIELD}>
-                    <option value="">Todos</option>
-                    <option value="Electric">Eléctrico</option>
-                    <option value="Hybrid">Híbrido</option>
-                    <option value="Gasoline">Nafta</option>
-                    <option value="Diesel">Diésel</option>
-                  </select>
-                </Field>
-                <Field label="Año desde">
-                  <input
-                    type="number"
-                    name="yearMin"
-                    inputMode="numeric"
-                    min={1990}
-                    placeholder="2020"
-                    className={FIELD}
-                  />
-                </Field>
-                <Field label="Año hasta">
-                  <input
-                    type="number"
-                    name="yearMax"
-                    inputMode="numeric"
-                    min={1990}
-                    placeholder="2025"
-                    className={FIELD}
-                  />
-                </Field>
-                <Field label="Precio mín. (US$)">
-                  <input
-                    type="number"
-                    name="priceMin"
-                    inputMode="numeric"
-                    min={0}
-                    placeholder="10000"
-                    className={FIELD}
-                  />
-                </Field>
-                <Field label="Precio máx. (US$)">
-                  <input
-                    type="number"
-                    name="priceMax"
-                    inputMode="numeric"
-                    min={0}
-                    placeholder="100000"
-                    className={FIELD}
-                  />
-                </Field>
-                <Field label="Kilometraje máx.">
-                  <input
-                    type="number"
-                    name="kmMax"
-                    inputMode="numeric"
-                    min={0}
-                    placeholder="50000"
-                    className={FIELD}
-                  />
-                </Field>
-                <Field label="Vendedor">
-                  <select name="seller" defaultValue="" className={FIELD}>
-                    <option value="">Todos</option>
-                    <option value="private">Particulares</option>
-                    <option value="dealer">Concesionarias</option>
-                  </select>
-                </Field>
-                <Field label="Ubicación">
-                  <input
-                    type="text"
-                    name="location"
-                    placeholder="Ej. Tigre"
-                    className={FIELD}
-                  />
-                </Field>
+                <AdvancedFields defaults={initial} />
               </div>
             </motion.div>
           )}

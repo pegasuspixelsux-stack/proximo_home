@@ -1,3 +1,4 @@
+import path from "node:path";
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
@@ -34,6 +35,8 @@ const nextConfig: NextConfig = {
     ],
   },
   turbopack: {
+    // Pin the root: a stray package-lock.json in a parent folder makes Next infer the wrong one.
+    root: path.resolve(__dirname),
     rules: {
       "*.css": {
         loaders: ["@tailwindcss/turbopack"],

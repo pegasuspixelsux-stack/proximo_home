@@ -64,7 +64,7 @@ export default function VehicleCard({
       className={`card-glow group relative w-full min-w-0 cursor-pointer overflow-hidden rounded-xl border border-line bg-surface shadow-[var(--card-shadow)] backdrop-blur-xl focus-within:ring-2 focus-within:ring-fg/60 ${compact === true ? "flex h-full flex-col" : compact ? "flex h-full flex-col sm:block sm:h-auto" : ""}`}
     >
       <div
-        className={`relative w-full overflow-hidden bg-neutral-900 ${pick(compact, "h-36 max-sm:h-[173px]", "h-52 max-sm:h-[250px]", "h-[173px] sm:h-52")}`}
+        className={`relative w-full overflow-hidden bg-neutral-900 ${pick(compact, "h-36 max-sm:h-[120px]", "h-52 max-sm:h-[250px]", "h-[173px] sm:h-52")}`}
       >
         {!vehicle.image ? (
           <PhotoPlaceholder />
@@ -132,13 +132,13 @@ export default function VehicleCard({
       <div
         className={pick(
           compact,
-          "flex flex-1 flex-col p-3.5",
+          "flex flex-1 flex-col p-3",
           "p-5",
           "sm:block sm:p-5",
         )}
       >
         <h3
-          className={`mt-1 font-medium tracking-tight text-fg ${pick(compact, "text-base", "text-xl", "sm:text-xl")}`}
+          className={`font-medium tracking-tight text-fg ${pick(compact, "text-base", "text-xl", "sm:text-xl")}`}
         >
           <Link
             href={`/autos/${vehicle.id}`}
@@ -154,7 +154,7 @@ export default function VehicleCard({
           {km.format(mileageKm(vehicle.mileage))} km
         </p>
         <p
-          className={`mt-1 text-subtle ${pick(compact, "mb-3 text-[10px]", "text-xs", "sm:mb-0 sm:text-xs")}`}
+          className={`mt-1 text-subtle ${pick(compact, "text-[10px]", "text-xs", "sm:mb-0 sm:text-xs")}`}
         >
           <span className="inline-flex items-center gap-1">
             <MapPin
@@ -167,7 +167,7 @@ export default function VehicleCard({
         </p>
 
         <div
-          className={`flex items-center justify-between border-t border-line ${pick(compact, "mt-auto pt-3", "mt-4 pt-4", "sm:mt-4 sm:pt-4")}`}
+          className={`flex items-center justify-between border-t border-line ${pick(compact, "mt-2 pt-2", "mt-4 pt-4", "sm:mt-4 sm:pt-4")}`}
         >
           <p
             className={`font-light tabular-nums tracking-tight text-fg ${pick(compact, "text-base", "text-xl", "sm:text-xl")}`}

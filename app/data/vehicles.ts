@@ -1,5 +1,5 @@
 export type FuelType = "Electric" | "Gasoline" | "Hybrid" | "Diesel";
-export type BodyType = "Auto" | "SUV" | "Deportivo" | "Clásico" | "Moto";
+export type BodyType = "Auto" | "SUV" | "Deportivo" | "Clásico" | "Moto" | "Camioneta" | "Camión";
 
 export type SellerType = "private" | "dealer";
 

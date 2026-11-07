@@ -16,7 +16,7 @@ import {
 export const TEMPLATE_FILE_NAME = "Plantilla_Carga_Inventario_Vehiculos.xlsx";
 
 const KM_PER_MILE = 1.60934;
-const BODY_TYPES: BodyType[] = ["Auto", "SUV", "Deportivo", "Clásico", "Moto"];
+const BODY_TYPES: BodyType[] = ["Auto", "SUV", "Deportivo", "Clásico", "Moto", "Camioneta", "Camión"];
 const TRANSMISSIONS = ["Automática", "Manual"];
 const FUELS: Record<string, FuelType> = {
   Nafta: "Gasoline",

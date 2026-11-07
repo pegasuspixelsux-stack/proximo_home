@@ -1,6 +1,7 @@
 import Link from "next/link";
-import Logo, { Country } from "./Logo";
+import Logo from "./Logo";
 import MobileMenu from "./MobileMenu";
+import MobileSearch from "./MobileSearch";
 import { NAV_LINKS, NAV_RIGHT_LINKS } from "./navLinks";
 
 export default function SiteHeader() {
@@ -27,7 +28,7 @@ export default function SiteHeader() {
           aria-label="Tu Próximo Auto Argentina, inicio"
           className="absolute left-1/2 -translate-x-1/2"
         >
-          <Logo countryOnMobile={false} />
+          <Logo />
         </Link>
         <div className="hidden items-center gap-6 lg:flex">
           {NAV_RIGHT_LINKS.map((link) => (
@@ -40,7 +41,7 @@ export default function SiteHeader() {
             </Link>
           ))}
         </div>
-        <Country className="sm:hidden" />
+        <MobileSearch />
       </nav>
     </header>
   );

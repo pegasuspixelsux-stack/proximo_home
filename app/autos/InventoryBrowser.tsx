@@ -2,7 +2,7 @@
 
 import { LayoutGroup, motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { useId, useMemo, useRef, useState } from "react";
+import { useEffect, useId, useMemo, useRef, useState } from "react";
 import {
   EMPTY_CRITERIA,
   FILTER_PILLS,
@@ -38,10 +38,26 @@ export default function InventoryBrowser({
   const [sort, setSort] = useState<Sort>("recent");
   const [pill, setPill] = useState<PillId>("all");
   const [page, setPage] = useState(1);
+  const [initial, setInitial] = useState<Partial<SearchCriteria>>();
   const pillsRef = useRef<HTMLDivElement>(null);
   const topRef = useRef<HTMLDivElement>(null);
   const sortId = useId();
   const arsRate = useArsRate();
+
+  // The mobile search modal sends its query as URL params; apply them once on arrival.
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const fromUrl = { ...EMPTY_CRITERIA };
+    for (const key of Object.keys(fromUrl) as (keyof SearchCriteria)[])
+      fromUrl[key] = (params.get(key) ?? "").trim();
+    if (!hasCriteria(fromUrl)) return;
+    // Deferred so the first (server-matching) render stays untouched.
+    queueMicrotask(() => {
+      setInitial(fromUrl);
+      setCriteria(fromUrl);
+      setSearchKey((k) => k + 1);
+    });
+  }, []);
 
   const counts = useMemo(
     () => pillCounts(vehicles, criteria, arsRate),
@@ -70,6 +86,7 @@ export default function InventoryBrowser({
   function clearFilters() {
     setPill("all");
     setCriteria(EMPTY_CRITERIA);
+    setInitial(undefined);
     setSearchKey((k) => k + 1);
     setPage(1);
   }
@@ -101,6 +118,7 @@ export default function InventoryBrowser({
           <HeroSearch
             key={searchKey}
             compact
+            initial={initial}
             onSearch={(next) => {
               setCriteria(next);
               setPage(1);

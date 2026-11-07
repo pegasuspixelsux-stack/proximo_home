@@ -1,6 +1,6 @@
 "use client";
 
-import { AnimatePresence, LayoutGroup, motion } from "framer-motion";
+import { LayoutGroup, motion } from "framer-motion";
 import {
   ArrowRight,
   ChevronLeft,
@@ -21,19 +21,15 @@ import {
 } from "@/lib/vehicle-search";
 import type { Vehicle } from "../data/vehicles";
 import { useArsRate } from "./CurrencyProvider";
-import GridToggle, { useGridCols } from "./GridToggle";
+import CategoryScroller from "./CategoryScroller";
 import HeroSearch from "./HeroSearch";
 import VehicleCard from "./VehicleCard";
 
-const PAGE_SIZE = 12;
-
 export default function Catalog({ vehicles }: { vehicles: Vehicle[] }) {
   const [filter, setFilter] = useState<PillId>("all");
-  const [page, setPage] = useState(1);
   const [criteria, setCriteria] = useState<SearchCriteria>(EMPTY_CRITERIA);
   // Bumping this remounts the search box, which empties its inputs.
   const [searchKey, setSearchKey] = useState(0);
-  const [gridCols, setGridCols] = useGridCols();
   const arsRate = useArsRate();
   const pillsRef = useRef<HTMLDivElement>(null);
 
@@ -52,7 +48,6 @@ export default function Catalog({ vehicles }: { vehicles: Vehicle[] }) {
 
   function selectPill(id: PillId) {
     setFilter(id);
-    setPage(1);
     const url = new URL(window.location.href);
     if (id === "all") url.searchParams.delete("filtro");
     else url.searchParams.set("filtro", id);
@@ -77,31 +72,16 @@ export default function Catalog({ vehicles }: { vehicles: Vehicle[] }) {
     selectPill("all");
     setCriteria(EMPTY_CRITERIA);
     setSearchKey((k) => k + 1);
-    setPage(1);
-  }
-
-  const pageCount = Math.max(1, Math.ceil(visible.length / PAGE_SIZE));
-  const current = Math.min(page, pageCount);
-  const pageItems = visible.slice(
-    (current - 1) * PAGE_SIZE,
-    current * PAGE_SIZE,
-  );
-
-  function goTo(next: number) {
-    setPage(next);
-    document
-      .getElementById("inventory")
-      ?.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
   return (
     <section
       id="inventory"
       data-testid="catalog"
-      className="mx-auto max-w-[1440px] scroll-mt-4 px-3 pb-10 pt-4 md:pb-12 md:pt-12 lg:px-6 lg:pb-16 lg:pt-16"
+      className="mx-auto max-w-[1440px] scroll-mt-4 px-3 pb-4 pt-2 md:pb-12 md:pt-12 lg:px-6 lg:pb-16 lg:pt-16"
     >
       <h2 className="sr-only">Autos usados en venta</h2>
-      <div className="mb-5 md:mb-10 flex flex-col justify-between gap-4 md:flex-row md:items-center md:gap-6">
+      <div className="mb-2 md:mb-10 flex flex-col justify-between gap-4 md:flex-row md:items-center md:gap-6">
         <LayoutGroup id="inventory-filters">
           <div className="hidden min-w-0 items-center gap-2 md:flex md:max-w-[50%]">
             <button
@@ -163,35 +143,43 @@ export default function Catalog({ vehicles }: { vehicles: Vehicle[] }) {
             </button>
           </div>
         </LayoutGroup>
-        <div className="relative flex w-full items-start gap-2 md:w-[32rem] md:max-w-[50%] lg:w-[42rem]">
-          <div className="min-w-0 flex-1">
+        <div className="relative flex w-full flex-wrap items-start justify-end gap-2 md:flex-nowrap md:justify-start md:w-[32rem] md:max-w-[50%] lg:w-[42rem]">
+          <div className="w-full min-w-0 md:hidden">
+            <CategoryScroller />
+          </div>
+          <div className="hidden min-w-0 flex-1 md:block">
             <HeroSearch
               key={searchKey}
               compact
               onSearch={(next) => {
                 setCriteria(next);
-                setPage(1);
-              }}
+                          }}
             />
           </div>
-          <GridToggle cols={gridCols} onChange={setGridCols} />
         </div>
       </div>
 
-      <motion.div
-        layout
-        className={`grid gap-3 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4 ${gridCols === 2 ? "grid-cols-2" : "grid-cols-1"}`}
-      >
-        <AnimatePresence mode="popLayout">
-          {pageItems.map((vehicle) => (
-            <VehicleCard
-              key={vehicle.id}
-              vehicle={vehicle}
-              compact={gridCols === 2 ? "mobile" : false}
-            />
-          ))}
-        </AnimatePresence>
-      </motion.div>
+      {visible.length > 0 && (
+        <>
+          <h2 className="mb-2 text-balance text-xl font-light tracking-[-0.02em] md:text-3xl">
+            Destacados
+          </h2>
+          <ul
+            tabIndex={0}
+            aria-label="Vehículos destacados, desplazá horizontalmente"
+            className="-mx-3 flex snap-x snap-mandatory gap-3 overflow-x-auto scroll-px-3 px-3 pb-2 [scrollbar-width:thin] lg:-mx-6 lg:scroll-px-6 lg:px-6"
+          >
+            {visible.map((vehicle) => (
+              <li
+                key={vehicle.id}
+                className="flex w-[189px] shrink-0 snap-start sm:w-[230px] lg:w-[260px]"
+              >
+                <VehicleCard vehicle={vehicle} compact />
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
 
       {visible.length === 0 && (
         <div
@@ -214,62 +202,19 @@ export default function Catalog({ vehicles }: { vehicles: Vehicle[] }) {
         </div>
       )}
 
-      {pageCount > 1 && (
-        <nav
-          aria-label="Paginación"
-          data-testid="pagination"
-          className="mt-12 flex items-center justify-center gap-2"
-        >
-          <button
-            type="button"
-            aria-label="Página anterior"
-            disabled={current === 1}
-            onClick={() => goTo(current - 1)}
-            className="flex h-9 w-9 items-center justify-center rounded-full border border-line text-muted transition-[color,transform] duration-150 hover:text-fg active:scale-95 disabled:pointer-events-none disabled:opacity-40"
-          >
-            <ChevronLeft className="h-4 w-4" strokeWidth={1.75} />
-          </button>
-          {Array.from({ length: pageCount }, (_, i) => i + 1).map((n) => (
-            <button
-              key={n}
-              type="button"
-              aria-label={`Página ${n}`}
-              aria-current={n === current ? "page" : undefined}
-              onClick={() => goTo(n)}
-              className={`h-9 min-w-9 rounded-full px-3 text-xs font-medium tabular-nums transition-[color,background-color,transform] duration-150 active:scale-95 ${
-                n === current
-                  ? "bg-inverse text-on-inverse"
-                  : "border border-line text-muted hover:text-fg"
-              }`}
-            >
-              {n}
-            </button>
-          ))}
-          <button
-            type="button"
-            aria-label="Página siguiente"
-            disabled={current === pageCount}
-            onClick={() => goTo(current + 1)}
-            className="flex h-9 w-9 items-center justify-center rounded-full border border-line text-muted transition-[color,transform] duration-150 hover:text-fg active:scale-95 disabled:pointer-events-none disabled:opacity-40"
-          >
-            <ChevronRight className="h-4 w-4" strokeWidth={1.75} />
-          </button>
-        </nav>
-      )}
-
       {/* Count on the left, advanced search in the middle, full inventory on the right. */}
-      <div className="mt-10 grid items-center gap-4 sm:grid-cols-[1fr_auto_1fr]">
+      <div className="mt-3 grid items-center gap-3 sm:mt-10 sm:grid-cols-[1fr_auto_1fr] sm:gap-4">
         <p
           data-testid="result-count"
           aria-live="polite"
-          className="text-center text-xs tabular-nums text-subtle sm:text-left"
+          className="hidden text-center text-xs tabular-nums text-subtle sm:block sm:text-left"
         >
           {visible.length} {visible.length === 1 ? "vehículo" : "vehículos"}
         </p>
         <Link
           href="/autos"
           data-testid="advanced-search-link"
-          className="group inline-flex items-center justify-center gap-2 justify-self-center rounded-full border border-line px-6 py-3 text-xs font-semibold uppercase tracking-wider text-fg transition-[border-color,transform] duration-150 hover:border-fg/40 active:scale-95"
+          className="group inline-flex items-center justify-center gap-2 justify-self-center rounded-full border border-line px-6 py-2.5 text-xs font-semibold uppercase tracking-wider text-fg transition-[border-color,transform] duration-150 hover:border-fg/40 active:scale-95 sm:py-3"
         >
           <SlidersHorizontal
             className="h-4 w-4"
