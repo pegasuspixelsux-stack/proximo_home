@@ -132,7 +132,7 @@ export default function VehicleCard({
       <div
         className={pick(
           compact,
-          "flex flex-1 flex-col px-3 pb-2 pt-3",
+          "flex flex-1 flex-col px-3 pb-0 pt-1.5",
           "p-5",
           "sm:block sm:p-5",
         )}
@@ -167,7 +167,7 @@ export default function VehicleCard({
         </p>
 
         <div
-          className={`flex items-center justify-between border-t border-line ${pick(compact, "mt-2 pt-2", "mt-4 pt-4", "sm:mt-4 sm:pt-4")}`}
+          className={`flex items-center justify-between border-t border-line ${pick(compact, "mt-2 pt-1.5", "mt-4 pt-4", "sm:mt-4 sm:pt-4")}`}
         >
           <p
             className={`font-light tabular-nums tracking-tight text-fg ${pick(compact, "text-base", "text-xl", "sm:text-xl")}`}
@@ -178,7 +178,7 @@ export default function VehicleCard({
             href={`/autos/${vehicle.id}`}
             aria-label={`Ver la ficha del ${title}`}
             data-testid={`open-${vehicle.id}`}
-            className="relative z-10 flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-line text-muted transition-[color,transform,border-color] duration-150 hover:border-fg/40 hover:text-fg group-hover:translate-x-0.5 active:scale-95"
+            className={`relative z-10 flex shrink-0 ${compact === true ? "h-7 w-7" : "h-8 w-8"} items-center justify-center rounded-full border border-line text-muted transition-[color,transform,border-color] duration-150 hover:border-fg/40 hover:text-fg group-hover:translate-x-0.5 active:scale-95`}
           >
             <ArrowRight className="h-4 w-4" strokeWidth={1.75} aria-hidden />
           </Link>
