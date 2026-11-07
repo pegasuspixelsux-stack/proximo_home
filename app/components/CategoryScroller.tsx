@@ -5,7 +5,7 @@ const CATEGORIES = [
   { label: "Autos", bodyType: "Auto", icon: Car },
   { label: "Camionetas", bodyType: "Camioneta", icon: Truck },
   { label: "Motos", bodyType: "Moto", icon: Bike },
-  { label: "Camiones pesados", bodyType: "Camión", icon: Container },
+  { label: "Camiones", bodyType: "Camión", icon: Container },
 ];
 
 /** Horizontal scroller of vehicle categories; each opens /autos filtered by body type. */

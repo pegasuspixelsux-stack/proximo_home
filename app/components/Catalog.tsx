@@ -2,10 +2,8 @@
 
 import { LayoutGroup, motion } from "framer-motion";
 import {
-  ArrowRight,
   ChevronLeft,
   ChevronRight,
-  SlidersHorizontal,
 } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
@@ -161,9 +159,18 @@ export default function Catalog({ vehicles }: { vehicles: Vehicle[] }) {
 
       {visible.length > 0 && (
         <>
-          <h2 className="mb-2 text-balance text-xl font-light tracking-[-0.02em] md:text-3xl">
-            Destacados
-          </h2>
+          <div className="mb-2 flex items-baseline justify-between gap-4">
+            <h2 className="text-balance text-xl font-light tracking-[-0.02em] md:text-3xl">
+              Destacados
+            </h2>
+            <Link
+              href="/autos"
+              data-testid="see-all-inventory"
+              className="shrink-0 text-xs text-muted underline-offset-4 transition-colors duration-150 hover:text-fg hover:underline"
+            >
+              Ver todo el inventario →
+            </Link>
+          </div>
           <ul
             tabIndex={0}
             aria-label="Vehículos destacados, desplazá horizontalmente"
@@ -202,40 +209,13 @@ export default function Catalog({ vehicles }: { vehicles: Vehicle[] }) {
         </div>
       )}
 
-      {/* Count on the left, advanced search in the middle, full inventory on the right. */}
-      <div className="mt-3 grid items-center gap-3 sm:mt-10 sm:grid-cols-[1fr_auto_1fr] sm:gap-4">
-        <p
-          data-testid="result-count"
-          aria-live="polite"
-          className="hidden text-center text-xs tabular-nums text-subtle sm:block sm:text-left"
-        >
-          {visible.length} {visible.length === 1 ? "vehículo" : "vehículos"}
-        </p>
-        <Link
-          href="/autos"
-          data-testid="advanced-search-link"
-          className="group inline-flex items-center justify-center gap-2 justify-self-center rounded-full border border-line px-6 py-2.5 text-xs font-semibold uppercase tracking-wider text-fg transition-[border-color,transform] duration-150 hover:border-fg/40 active:scale-95 sm:py-3"
-        >
-          <SlidersHorizontal
-            className="h-4 w-4"
-            strokeWidth={1.75}
-            aria-hidden
-          />
-          Búsqueda avanzada
-          <ArrowRight
-            className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1"
-            strokeWidth={1.75}
-            aria-hidden
-          />
-        </Link>
-        <Link
-          href="/autos"
-          data-testid="see-all-inventory"
-          className="text-center text-xs text-muted underline-offset-4 transition-colors duration-150 hover:text-fg hover:underline sm:text-right"
-        >
-          Ver todo el inventario →
-        </Link>
-      </div>
+      <p
+        data-testid="result-count"
+        aria-live="polite"
+        className="mt-10 hidden text-xs tabular-nums text-subtle sm:block"
+      >
+        {visible.length} {visible.length === 1 ? "vehículo" : "vehículos"}
+      </p>
     </section>
   );
 }

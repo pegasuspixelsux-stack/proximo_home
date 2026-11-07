@@ -57,7 +57,7 @@ export function AdvancedFields({
           <option value="Clásico">Clásico</option>
           <option value="Moto">Moto</option>
           <option value="Camioneta">Camioneta</option>
-          <option value="Camión">Camión pesado</option>
+          <option value="Camión">Camión</option>
         </select>
       </Field>
       <Field label="Transmisión">
