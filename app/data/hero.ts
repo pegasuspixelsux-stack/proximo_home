@@ -28,7 +28,7 @@ export const DEFAULT_SLIDES: HeroSlide[] = [
     highlight: "El auto que buscás.",
     heading: "La tranquilidad que te falta.",
     supportText:
-      "Unidades seleccionadas y verificadas con atención personalizada en nuestro salón de ventas. Coordiná tu prueba de manejo hoy.",
+      "Unidades seleccionadas y verificadas con atención personalizada en nuestro salón de ventas.",
     rating: "4.9",
     reviewCount: "+200",
     reviewLabel: "reseñas en Google",

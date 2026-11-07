@@ -32,6 +32,10 @@ export default function Hero({ slides }: { slides: HeroSlide[] }) {
   const [paused, setPaused] = useState(false);
   const count = slides.length;
   const slide = slides[Math.min(index, count - 1)];
+  // The test-drive sentence is no longer shown, even where saved slides still contain it.
+  const supportText = slide.supportText
+    ?.replace(/\s*Coordiná tu prueba de manejo hoy\.?/i, "")
+    .trim();
 
   useEffect(() => {
     const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -59,7 +63,7 @@ export default function Hero({ slides }: { slides: HeroSlide[] }) {
       onMouseLeave={() => setPaused(false)}
       onFocus={() => setPaused(true)}
       onBlur={() => setPaused(false)}
-      className="hero-on-photo relative mx-auto mt-[10px] flex aspect-[2/1] w-[calc(100%-1.5rem)] sm:aspect-auto lg:w-[calc(100%-3rem)] max-w-[1392px] flex-col rounded-xl sm:min-h-[max(336px,calc((100svh_-_290px)_*_0.56))] lg:h-[calc((100svh_-_290px)_*_0.924)] lg:min-h-[443px] overflow-hidden bg-bg text-fg selection:bg-fg selection:text-bg"
+      className="hero-on-photo relative mx-auto mt-[10px] lg:mt-5 flex aspect-[2/1] w-[calc(100%-1.5rem)] sm:aspect-auto lg:w-[calc(100%-3rem)] max-w-[1392px] flex-col rounded-xl sm:min-h-[max(336px,calc((100svh_-_290px)_*_0.56))] lg:h-[calc((100svh_-_290px)_*_0.924)] lg:min-h-[443px] overflow-hidden bg-bg text-fg selection:bg-fg selection:text-bg"
     >
       <h1 className="sr-only">Tu Próximo Auto – Autos usados en Buenos Aires</h1>
       <div className="absolute inset-0 z-0">
@@ -120,12 +124,12 @@ export default function Hero({ slides }: { slides: HeroSlide[] }) {
               )}
               <Heading text={slide.heading} />
             </p>
-            {slide.supportText && (
+            {supportText && (
               <p
                 style={rise(0.28)}
                 className="hero-rise mt-1.5 hidden w-1/2 text-xs sm:block leading-relaxed sm:mt-4 sm:w-0 sm:min-w-full sm:text-base lg:mt-5 lg:text-xl text-muted"
               >
-                {slide.supportText}
+                {supportText}
               </p>
             )}
             {slide.rating && (

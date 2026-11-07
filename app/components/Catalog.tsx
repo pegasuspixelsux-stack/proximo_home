@@ -131,48 +131,6 @@ export default function Catalog({ vehicles }: { vehicles: Vehicle[] }) {
               </li>
             ))}
           </ul>
-          {pageCount > 1 && (
-            <nav
-              aria-label="Paginación"
-              data-testid="pagination"
-              className="mt-12 hidden items-center justify-center gap-2 lg:flex"
-            >
-              <button
-                type="button"
-                aria-label="Página anterior"
-                disabled={current === 1}
-                onClick={() => goTo(current - 1)}
-                className="flex h-9 w-9 items-center justify-center rounded-full border border-line text-muted transition-[color,transform] duration-150 hover:text-fg active:scale-95 disabled:pointer-events-none disabled:opacity-40"
-              >
-                <ChevronLeft className="h-4 w-4" strokeWidth={1.75} />
-              </button>
-              {Array.from({ length: pageCount }, (_, i) => i + 1).map((n) => (
-                <button
-                  key={n}
-                  type="button"
-                  aria-label={`Página ${n}`}
-                  aria-current={n === current ? "page" : undefined}
-                  onClick={() => goTo(n)}
-                  className={`h-9 min-w-9 rounded-full px-3 text-xs font-medium tabular-nums transition-[color,background-color,transform] duration-150 active:scale-95 ${
-                    n === current
-                      ? "bg-inverse text-on-inverse"
-                      : "border border-line text-muted hover:text-fg"
-                  }`}
-                >
-                  {n}
-                </button>
-              ))}
-              <button
-                type="button"
-                aria-label="Página siguiente"
-                disabled={current === pageCount}
-                onClick={() => goTo(current + 1)}
-                className="flex h-9 w-9 items-center justify-center rounded-full border border-line text-muted transition-[color,transform] duration-150 hover:text-fg active:scale-95 disabled:pointer-events-none disabled:opacity-40"
-              >
-                <ChevronRight className="h-4 w-4" strokeWidth={1.75} />
-              </button>
-            </nav>
-          )}
         </>
       )}
 
@@ -197,7 +155,8 @@ export default function Catalog({ vehicles }: { vehicles: Vehicle[] }) {
         </div>
       )}
 
-      <div className="mt-10 hidden items-center justify-between gap-4 lg:flex">
+      {/* Desktop: count on the left, pagination in the middle, full inventory on the right. */}
+      <div className="mt-10 hidden grid-cols-[1fr_auto_1fr] items-center gap-4 lg:grid">
         <p
           data-testid="result-count"
           aria-live="polite"
@@ -205,9 +164,53 @@ export default function Catalog({ vehicles }: { vehicles: Vehicle[] }) {
         >
           {visible.length} {visible.length === 1 ? "vehículo" : "vehículos"}
         </p>
+        {pageCount > 1 ? (
+          <nav
+            aria-label="Paginación"
+            data-testid="pagination"
+            className="flex items-center justify-center gap-2"
+          >
+            <button
+              type="button"
+              aria-label="Página anterior"
+              disabled={current === 1}
+              onClick={() => goTo(current - 1)}
+              className="flex h-9 w-9 items-center justify-center rounded-full border border-line text-muted transition-[color,transform] duration-150 hover:text-fg active:scale-95 disabled:pointer-events-none disabled:opacity-40"
+            >
+              <ChevronLeft className="h-4 w-4" strokeWidth={1.75} />
+            </button>
+            {Array.from({ length: pageCount }, (_, i) => i + 1).map((n) => (
+              <button
+                key={n}
+                type="button"
+                aria-label={`Página ${n}`}
+                aria-current={n === current ? "page" : undefined}
+                onClick={() => goTo(n)}
+                className={`h-9 min-w-9 rounded-full px-3 text-xs font-medium tabular-nums transition-[color,background-color,transform] duration-150 active:scale-95 ${
+                  n === current
+                    ? "bg-inverse text-on-inverse"
+                    : "border border-line text-muted hover:text-fg"
+                }`}
+              >
+                {n}
+              </button>
+            ))}
+            <button
+              type="button"
+              aria-label="Página siguiente"
+              disabled={current === pageCount}
+              onClick={() => goTo(current + 1)}
+              className="flex h-9 w-9 items-center justify-center rounded-full border border-line text-muted transition-[color,transform] duration-150 hover:text-fg active:scale-95 disabled:pointer-events-none disabled:opacity-40"
+            >
+              <ChevronRight className="h-4 w-4" strokeWidth={1.75} />
+            </button>
+          </nav>
+        ) : (
+          <span />
+        )}
         <Link
           href="/autos"
-          className="text-xs text-muted underline-offset-4 transition-colors duration-150 hover:text-fg hover:underline"
+          className="justify-self-end text-xs text-muted underline-offset-4 transition-colors duration-150 hover:text-fg hover:underline"
         >
           Ver todo el inventario →
         </Link>
