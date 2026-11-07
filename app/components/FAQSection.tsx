@@ -73,7 +73,7 @@ export default function FAQSection() {
       id="preguntas-frecuentes"
       data-testid="faq-section"
       aria-labelledby="faq-heading"
-      className="scroll-mt-4 md:px-3 md:py-12 lg:px-6 lg:py-16"
+      className="scroll-mt-4 md:px-3 md:py-12 lg:px-6"
     >
       <button
         type="button"

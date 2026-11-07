@@ -7,6 +7,33 @@ import type { HeroSlide } from "../data/hero";
 
 const INTERVAL_MS = 6000;
 
+/**
+ * Hero photos skip Next's image optimizer (about 1 s per request, even when warm).
+ * The built-in photos have pre-sized WebP copies in /public (-640, -1080) that the CDN
+ * serves directly; ImageKit uploads are resized by ImageKit itself.
+ */
+function heroLoader({
+  src,
+  width,
+  quality,
+}: {
+  src: string;
+  width: number;
+  quality?: number;
+}) {
+  if (src.startsWith("/hero_image/") && src.endsWith(".webp")) {
+    const base = src.slice(0, -".webp".length);
+    if (width <= 640) return `${base}-640.webp`;
+    if (width <= 1200) return `${base}-1080.webp`;
+    return src;
+  }
+  if (src.startsWith("https://ik.imagekit.io/")) {
+    const sep = src.includes("?") ? "&" : "?";
+    return `${src}${sep}tr=w-${width},q-${quality ?? 75},f-auto`;
+  }
+  return `/_next/image?url=${encodeURIComponent(src)}&w=${width}&q=${quality ?? 75}`;
+}
+
 /** On mobile the last three words of a longer heading drop to their own row. */
 function Heading({ text }: { text: string }) {
   const words = text.split(" ");
@@ -30,12 +57,19 @@ export default function Hero({ slides }: { slides: HeroSlide[] }) {
   const [prevIndex, setPrevIndex] = useState<number | null>(null);
   const lastIndex = useRef(0);
   const [paused, setPaused] = useState(false);
+  const [preload, setPreload] = useState(false);
   const count = slides.length;
   const slide = slides[Math.min(index, count - 1)];
   // The test-drive sentence is no longer shown, even where saved slides still contain it.
   const supportText = slide.supportText
     ?.replace(/\s*Coordiná tu prueba de manejo hoy\.?/i, "")
     .trim();
+
+  // Start loading the other slides after the first one is on screen.
+  useEffect(() => {
+    const t = setTimeout(() => setPreload(true), 1200);
+    return () => clearTimeout(t);
+  }, []);
 
   useEffect(() => {
     const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -67,6 +101,25 @@ export default function Hero({ slides }: { slides: HeroSlide[] }) {
     >
       <h1 className="sr-only">Tu Próximo Auto – Autos usados en Buenos Aires</h1>
       <div className="absolute inset-0 z-0">
+        {/* Fetch the other slides once the page has settled, so a slide change never waits on the network. */}
+        {preload &&
+          slides.map(
+            (sl, i) =>
+              i !== index &&
+              i !== prevIndex && (
+                <Image
+                  key={`preload-${sl.id}`}
+                  src={sl.image}
+                  alt=""
+                  fill
+                  loading="eager"
+                  sizes="100vw"
+                  loader={heroLoader}
+                  aria-hidden
+                  className="pointer-events-none object-cover opacity-0"
+                />
+              ),
+          )}
         {prevIndex !== null && slides[prevIndex] && (
           <Image
             key={`prev-${slides[prevIndex].id}`}
@@ -74,6 +127,7 @@ export default function Hero({ slides }: { slides: HeroSlide[] }) {
             alt=""
             fill
             sizes="100vw"
+            loader={heroLoader}
             className={`object-cover ${focus(prevIndex)}`}
           />
         )}
@@ -84,6 +138,7 @@ export default function Hero({ slides }: { slides: HeroSlide[] }) {
           fill
           priority={index === 0}
           sizes="100vw"
+          loader={heroLoader}
           className={`object-cover ${focus(index)} ${prevIndex !== null ? "hero-fade" : ""}`}
         />
         <div className="absolute inset-0 bg-gradient-to-r from-black/65 via-black/30 to-transparent" />

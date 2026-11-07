@@ -115,7 +115,7 @@ export default function InventoryBrowser({
 
   return (
     <>
-      <header className="pt-10">
+      <header className="pt-[10px] lg:pt-5">
         <h1 className="text-balance text-3xl font-semibold tracking-[-0.02em] lg:text-5xl">
           Autos usados en venta
         </h1>
@@ -126,7 +126,7 @@ export default function InventoryBrowser({
       </header>
 
       {/* Same search as the home page; "Filtros" opens the advanced search. */}
-      <div ref={topRef} className="mt-8 scroll-mt-20">
+      <div ref={topRef} className="mt-3 scroll-mt-20 md:mt-10 lg:mt-5">
         <div className="max-w-3xl">
           <HeroSearch
             key={searchKey}
@@ -140,7 +140,7 @@ export default function InventoryBrowser({
         </div>
       </div>
 
-      <section className="mt-8" aria-label="Resultados">
+      <section className="mt-3 md:mt-10 lg:mt-5" aria-label="Resultados">
         <div className="mb-6 md:hidden">
           <CategoryScroller
             value={category}

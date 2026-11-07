@@ -118,7 +118,7 @@ export default function FinanceCalculator({
       id="calculadora"
       data-testid="finance-calculator"
       aria-labelledby="calculator-heading"
-      className="scroll-mt-4 md:px-3 md:py-12 lg:px-6 lg:py-16"
+      className="scroll-mt-4 md:px-3 md:py-12 lg:px-6"
     >
       <button
         type="button"

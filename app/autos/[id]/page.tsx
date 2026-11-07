@@ -202,7 +202,7 @@ async function VehicleDetail({ params }: Props) {
         ])}
       />
       <SiteHeader />
-      <main className="mx-auto min-h-screen w-full max-w-[1440px] bg-bg px-3 pb-16 pt-6 text-fg lg:px-6">
+      <main className="mx-auto min-h-screen w-full max-w-[1440px] bg-bg px-3 pb-6 pt-[10px] text-fg md:pb-12 lg:px-6 lg:pt-5">
         <Link
           href="/#inventory"
           className="inline-flex items-center gap-1.5 text-xs font-medium uppercase tracking-widest text-muted transition-colors duration-150 hover:text-fg"
@@ -357,7 +357,7 @@ async function VehicleDetail({ params }: Props) {
           <section aria-labelledby="description-heading">
             <h2
               id="description-heading"
-              className="text-2xl font-light tracking-[-0.02em] lg:text-3xl"
+              className="text-3xl font-semibold tracking-[-0.02em] lg:text-4xl"
             >
               Descripción
             </h2>
@@ -372,7 +372,7 @@ async function VehicleDetail({ params }: Props) {
           <section aria-labelledby="specs-heading">
             <h2
               id="specs-heading"
-              className="text-2xl font-light tracking-[-0.02em] lg:text-3xl"
+              className="text-3xl font-semibold tracking-[-0.02em] lg:text-4xl"
             >
               Ficha técnica
             </h2>
@@ -398,10 +398,10 @@ async function VehicleDetail({ params }: Props) {
         </div>
 
         {vehicle.features && vehicle.features.length > 0 && (
-          <section aria-labelledby="features-heading" className="mt-12">
+          <section aria-labelledby="features-heading" className="mt-12 lg:mt-24">
             <h2
               id="features-heading"
-              className="text-2xl font-light tracking-[-0.02em] lg:text-3xl"
+              className="text-3xl font-semibold tracking-[-0.02em] lg:text-4xl"
             >
               Equipamiento
             </h2>
@@ -423,10 +423,10 @@ async function VehicleDetail({ params }: Props) {
           </section>
         )}
 
-        <section aria-labelledby="related-heading" className="mt-16">
+        <section aria-labelledby="related-heading" className="mt-12 lg:mt-24">
           <h2
             id="related-heading"
-            className="text-2xl font-light tracking-[-0.02em] lg:text-3xl"
+            className="text-3xl font-semibold tracking-[-0.02em] lg:text-4xl"
           >
             Otros avisos
           </h2>

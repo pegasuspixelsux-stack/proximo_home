@@ -63,10 +63,10 @@ export default function Catalog({ vehicles }: { vehicles: Vehicle[] }) {
     <section
       id="inventory"
       data-testid="catalog"
-      className="mx-auto max-w-[1440px] scroll-mt-4 px-3 pb-1 pt-2 md:pb-12 md:pt-10 lg:px-6 lg:pb-16"
+      className="mx-auto max-w-[1440px] scroll-mt-4 px-3 pb-1 pt-2 md:pb-12 md:pt-10 lg:px-6 lg:pb-12 lg:pt-5"
     >
       <h2 className="sr-only">Autos usados en venta</h2>
-      <div className="mb-2 md:mb-10 flex flex-col justify-between gap-4 md:flex-row md:items-center md:gap-6">
+      <div className="mb-2 md:mb-10 lg:mb-5 flex flex-col justify-between gap-4 md:flex-row md:items-center md:gap-6">
         <div className="min-w-0 md:max-w-[50%]">
           <CategoryScroller
             value={category}
@@ -93,7 +93,7 @@ export default function Catalog({ vehicles }: { vehicles: Vehicle[] }) {
       {visible.length > 0 && (
         <div className="lg:hidden">
           <div className="mb-2 flex items-baseline justify-between gap-4">
-            <h2 className="text-balance text-xl font-light tracking-[-0.02em] md:text-3xl">
+            <h2 className="text-balance text-3xl font-semibold tracking-[-0.02em]">
               Destacados
             </h2>
             <Link

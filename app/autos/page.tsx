@@ -32,7 +32,7 @@ export default async function InventoryPage() {
         ])}
       />
       <SiteHeader />
-      <main className="mx-auto w-full max-w-[1440px] bg-bg px-3 pb-24 text-fg lg:px-6">
+      <main className="mx-auto w-full max-w-[1440px] bg-bg px-3 pb-6 text-fg md:pb-12 lg:px-6">
         <InventoryBrowser vehicles={vehicles} />
       </main>
       <div className="mx-auto w-full max-w-[1440px] bg-bg text-fg">

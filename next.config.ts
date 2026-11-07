@@ -8,6 +8,20 @@ const nextConfig: NextConfig = {
   },
   cacheComponents: true,
   partialPrefetching: true,
+  async headers() {
+    return [
+      {
+        // Hero photos are static files: let browsers and the CDN keep them for a day.
+        source: "/hero_image/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=86400, stale-while-revalidate=604800",
+          },
+        ],
+      },
+    ];
+  },
   async redirects() {
     return [
       // Canonical host is www; Vercel already forces HTTPS.

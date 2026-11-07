@@ -71,7 +71,7 @@ export default function FinancingSection({
       id="financiacion"
       data-testid="financing-section"
       aria-labelledby="financing-heading"
-      className="scroll-mt-4 md:px-3 md:py-12 lg:px-6 lg:py-16"
+      className="scroll-mt-4 md:px-3 md:py-12 lg:px-6"
     >
       <button
         type="button"

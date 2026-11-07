@@ -15,7 +15,7 @@ export default function SeoIntro() {
     <section
       aria-labelledby="seo-intro-heading"
       data-testid="seo-intro"
-      className="mx-auto max-w-5xl md:px-3 md:py-12 lg:px-6 lg:py-16"
+      className="md:px-3 md:py-12 lg:px-6"
     >
       <button
         type="button"
@@ -41,7 +41,7 @@ export default function SeoIntro() {
       >
         <h2
           id="seo-intro-heading"
-          className="text-balance text-2xl font-semibold tracking-[-0.02em] lg:text-3xl"
+          className="text-balance text-3xl font-semibold tracking-[-0.02em] lg:text-4xl"
         >
           Comprá tu auto usado en Tigre, Zona Norte y Buenos Aires
         </h2>

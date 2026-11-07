@@ -24,7 +24,7 @@ export default function FinancingCallout({
       aria-labelledby="financing-callout-heading"
       id="financiar"
       data-testid="financing-callout"
-      className={`scroll-mt-4 px-3 py-6 lg:px-6 ${compact ? "max-md:pt-1" : ""}`}
+      className={`scroll-mt-4 px-3 py-6 md:py-12 lg:px-6 ${compact ? "max-md:pt-1" : ""}`}
     >
       {/* Mobile: a square box, image in the top half and text on black below; md+: two columns. */}
       <div
