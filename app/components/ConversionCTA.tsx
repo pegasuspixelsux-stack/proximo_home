@@ -254,7 +254,12 @@ export default function ConversionCTA({
   // Expand when a link or the URL points at this section (collapsed on mobile).
   useEffect(() => {
     const expand = () => {
-      if (window.location.hash === "#contacto") setOpen(true);
+      if (window.location.hash !== "#contacto") return;
+      setOpen(true);
+      // Scroll once the section has expanded.
+      requestAnimationFrame(() =>
+        document.getElementById("contacto")?.scrollIntoView(),
+      );
     };
     expand();
     window.addEventListener("hashchange", expand);

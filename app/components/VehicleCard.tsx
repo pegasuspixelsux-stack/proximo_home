@@ -132,7 +132,7 @@ export default function VehicleCard({
       <div
         className={pick(
           compact,
-          "flex flex-1 flex-col px-3 pb-0 pt-1.5",
+          "flex flex-1 flex-col justify-center px-3 py-2.5",
           "p-5",
           "sm:block sm:p-5",
         )}

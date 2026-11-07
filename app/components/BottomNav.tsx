@@ -31,6 +31,16 @@ export default function BottomNav() {
             <li key={label} className="min-w-0 flex-1 snap-start">
               <Link
                 href={href}
+                onClick={(e) => {
+                  // Same-page section links: set the hash and fire "hashchange" so the
+                  // collapsed section opens (and scrolls) even if the hash didn't change.
+                  const hash = href.includes("#") ? `#${href.split("#")[1]}` : "";
+                  if (hash && pathname === "/" && document.querySelector(hash)) {
+                    e.preventDefault();
+                    window.history.replaceState(null, "", `/${hash}`);
+                    window.dispatchEvent(new HashChangeEvent("hashchange"));
+                  }
+                }}
                 aria-current={active ? "page" : undefined}
                 className={`flex flex-col items-center gap-1 px-2 py-2 text-[10px] font-medium transition-colors duration-150 active:scale-95 ${
                   active ? "text-fg" : "text-muted hover:text-fg"

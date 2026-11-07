@@ -54,7 +54,12 @@ export default function FinancingSection({
   // Expand when a link or the URL points at this section (collapsed on mobile).
   useEffect(() => {
     const expand = () => {
-      if (window.location.hash === "#financiacion") setOpen(true);
+      if (window.location.hash !== "#financiacion") return;
+      setOpen(true);
+      // Scroll once the section has expanded.
+      requestAnimationFrame(() =>
+        document.getElementById("financiacion")?.scrollIntoView(),
+      );
     };
     expand();
     window.addEventListener("hashchange", expand);

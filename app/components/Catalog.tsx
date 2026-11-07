@@ -180,7 +180,7 @@ export default function Catalog({ vehicles }: { vehicles: Vehicle[] }) {
           <ul
             tabIndex={0}
             aria-label="Vehículos destacados, desplazá horizontalmente"
-            className="-mx-3 flex snap-x snap-mandatory gap-3 overflow-x-auto scroll-px-3 px-3 pb-0 [scrollbar-width:thin] lg:-mx-6 lg:scroll-px-6 lg:px-6"
+            className="-mx-3 flex snap-x snap-mandatory gap-3 overflow-x-auto scroll-px-3 px-3 pb-3 [scrollbar-width:thin] lg:-mx-6 lg:scroll-px-6 lg:px-6"
           >
             {visible.map((vehicle) => (
               <li
