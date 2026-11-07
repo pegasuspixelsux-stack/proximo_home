@@ -37,7 +37,11 @@ export default function SeoIntro() {
 
       <div
         id="seo-intro-content"
-        className={open ? "px-3 pb-10 pt-8 md:p-0" : "hidden md:block"}
+        className={
+          open
+            ? "px-5 pb-10 pt-8 md:px-10 md:py-0 lg:px-16"
+            : "hidden md:block md:px-10 lg:px-16"
+        }
       >
         <h2
           id="seo-intro-heading"

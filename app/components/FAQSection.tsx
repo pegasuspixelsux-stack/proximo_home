@@ -95,7 +95,7 @@ export default function FAQSection() {
 
       <div
         id="faq-content"
-        className={sectionOpen ? "px-3 pb-10 pt-8 md:p-0" : "hidden md:block"}
+        className={`${sectionOpen ? "px-3 pb-10 pt-8 md:p-0" : "hidden md:block"} md:max-lg:px-10`}
       >
         <div className="mx-auto max-w-3xl text-center">
           <p className="hidden text-xs font-semibold uppercase tracking-widest text-muted md:block">

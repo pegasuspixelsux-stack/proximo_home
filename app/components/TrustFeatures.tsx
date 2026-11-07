@@ -40,7 +40,7 @@ export default function TrustFeatures() {
         {FEATURES.map(({ icon: Icon, title, description }) => (
           <li
             key={title}
-            className="card-glow flex aspect-[3/2] flex-col sm:aspect-square rounded-2xl border border-line bg-surface p-6 shadow-[var(--card-shadow)] backdrop-blur-md motion-safe:hover:scale-[1.02] lg:p-8"
+            className="card-glow flex aspect-[3/2] flex-col justify-center sm:aspect-square rounded-2xl border border-line bg-surface p-6 shadow-[var(--card-shadow)] backdrop-blur-md motion-safe:hover:scale-[1.02] lg:p-8"
           >
             <span className="flex h-11 w-11 items-center justify-center rounded-xl border border-line text-blue-500">
               <Icon className="h-5 w-5" strokeWidth={1.75} aria-hidden />

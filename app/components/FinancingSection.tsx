@@ -115,7 +115,7 @@ export default function FinancingSection({
           {OPTIONS.map(({ icon: Icon, title, description, badge }) => (
             <li
               key={title}
-              className="card-glow flex flex-col lg:aspect-[11/8] rounded-2xl border border-line bg-surface p-6 lg:p-5 shadow-[var(--card-shadow)] backdrop-blur-md motion-safe:hover:scale-[1.02]"
+              className="card-glow flex flex-col md:max-lg:justify-center lg:aspect-[11/8] rounded-2xl border border-line bg-surface p-6 lg:p-5 shadow-[var(--card-shadow)] backdrop-blur-md motion-safe:hover:scale-[1.02]"
             >
               <span className="flex h-11 w-11 items-center justify-center rounded-xl border border-line text-blue-500">
                 <Icon className="h-5 w-5" strokeWidth={1.75} aria-hidden />
@@ -123,7 +123,7 @@ export default function FinancingSection({
               <h3 className="mt-5 text-lg font-semibold tracking-[-0.01em]">
                 {title}
               </h3>
-              <p className="mt-2 flex-1 text-sm leading-relaxed text-muted">
+              <p className="mt-2 flex-1 text-sm leading-relaxed text-muted md:max-lg:flex-none">
                 {description}
               </p>
               <span className="mt-5 w-fit rounded-full border border-line px-3 py-1 text-[11px] font-medium text-fg">

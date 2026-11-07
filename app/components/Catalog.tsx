@@ -91,7 +91,7 @@ export default function Catalog({ vehicles }: { vehicles: Vehicle[] }) {
       </div>
 
       {visible.length > 0 && (
-        <div className="lg:hidden">
+        <div className="sm:hidden">
           <div className="mb-2 flex items-baseline justify-between gap-4">
             <h2 className="text-balance text-3xl font-semibold tracking-[-0.02em]">
               Destacados
@@ -121,10 +121,10 @@ export default function Catalog({ vehicles }: { vehicles: Vehicle[] }) {
         </div>
       )}
 
-      {/* Desktop: 12 cards per page in 4 columns x 3 rows, with pagination. */}
+      {/* Tablet and desktop: 12 cards per page (3 columns on tablet, 4 on desktop), with pagination. */}
       {visible.length > 0 && (
         <>
-          <ul className="hidden grid-cols-4 gap-6 lg:grid">
+          <ul className="hidden grid-cols-3 gap-6 sm:grid lg:grid-cols-4">
             {pageItems.map((vehicle) => (
               <li key={vehicle.id} className="flex">
                 <VehicleCard vehicle={vehicle} />
@@ -156,7 +156,7 @@ export default function Catalog({ vehicles }: { vehicles: Vehicle[] }) {
       )}
 
       {/* Desktop: count on the left, pagination in the middle, full inventory on the right. */}
-      <div className="mt-10 hidden grid-cols-[1fr_auto_1fr] items-center gap-4 lg:grid">
+      <div className="mt-10 hidden grid-cols-[1fr_auto_1fr] items-center gap-4 sm:grid">
         <p
           data-testid="result-count"
           aria-live="polite"
