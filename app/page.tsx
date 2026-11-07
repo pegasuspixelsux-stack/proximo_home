@@ -37,6 +37,7 @@ export default async function Home() {
       <main className="mx-auto min-h-screen w-full max-w-[1440px] bg-bg text-fg selection:bg-fg selection:text-bg">
         <Catalog vehicles={vehicles} />
         <FinancingCallout
+          mobileCompact
           whatsappNumber={site.whatsappNumber}
           imageSrc="/banner_image/mother_kids.webp"
         />

@@ -13,6 +13,8 @@ import {
   type SearchCriteria,
 } from "@/lib/vehicle-search";
 import { useArsRate } from "../components/CurrencyProvider";
+import CategoryScroller from "../components/CategoryScroller";
+import GridToggle, { useGridCols } from "../components/GridToggle";
 import HeroSearch from "../components/HeroSearch";
 import VehicleCard from "../components/VehicleCard";
 import { priceInUsd, type Vehicle } from "../data/vehicles";
@@ -38,6 +40,9 @@ export default function InventoryBrowser({
   const [sort, setSort] = useState<Sort>("recent");
   const [pill, setPill] = useState<PillId>("all");
   const [page, setPage] = useState(1);
+  // Mobile category pills ("" = Todos), same as the home page.
+  const [category, setCategory] = useState("");
+  const [gridCols, setGridCols] = useGridCols();
   const [initial, setInitial] = useState<Partial<SearchCriteria>>();
   const pillsRef = useRef<HTMLDivElement>(null);
   const topRef = useRef<HTMLDivElement>(null);
@@ -50,10 +55,14 @@ export default function InventoryBrowser({
     const fromUrl = { ...EMPTY_CRITERIA };
     for (const key of Object.keys(fromUrl) as (keyof SearchCriteria)[])
       fromUrl[key] = (params.get(key) ?? "").trim();
-    if (!hasCriteria(fromUrl)) return;
+    // The body type is shown by the category pills instead of the filter panel.
+    const urlCategory = fromUrl.bodyType;
+    fromUrl.bodyType = "";
+    if (!hasCriteria(fromUrl) && !urlCategory) return;
     // Deferred so the first (server-matching) render stays untouched.
     queueMicrotask(() => {
       setInitial(fromUrl);
+      setCategory(urlCategory);
       setCriteria(fromUrl);
       setSearchKey((k) => k + 1);
     });
@@ -67,7 +76,10 @@ export default function InventoryBrowser({
   const results = useMemo(() => {
     const pillTest = (FILTER_PILLS.find((p) => p.id === pill) ?? FILTER_PILLS[0]).test;
     const list = vehicles.filter(
-      (v) => pillTest(v) && matchesCriteria(v, criteria, arsRate),
+      (v) =>
+        pillTest(v) &&
+        (!category || v.bodyType === category) &&
+        matchesCriteria(v, criteria, arsRate),
     );
     const by: Record<Sort, (a: Vehicle, b: Vehicle) => number> = {
       recent: (a, b) => b.createdAt.localeCompare(a.createdAt),
@@ -76,15 +88,16 @@ export default function InventoryBrowser({
       "km-asc": (a, b) => a.mileage - b.mileage,
     };
     return list.sort(by[sort]);
-  }, [vehicles, criteria, sort, pill, arsRate]);
+  }, [vehicles, criteria, sort, pill, category, arsRate]);
 
-  const filtering = pill !== "all" || hasCriteria(criteria);
+  const filtering = pill !== "all" || category !== "" || hasCriteria(criteria);
   const pageCount = Math.max(1, Math.ceil(results.length / PAGE_SIZE));
   const current = Math.min(page, pageCount);
   const items = results.slice((current - 1) * PAGE_SIZE, current * PAGE_SIZE);
 
   function clearFilters() {
     setPill("all");
+    setCategory("");
     setCriteria(EMPTY_CRITERIA);
     setInitial(undefined);
     setSearchKey((k) => k + 1);
@@ -128,8 +141,17 @@ export default function InventoryBrowser({
       </div>
 
       <section className="mt-8" aria-label="Resultados">
+        <div className="mb-6 md:hidden">
+          <CategoryScroller
+            value={category}
+            onChange={(next) => {
+              setCategory(next);
+              setPage(1);
+            }}
+          />
+        </div>
         <LayoutGroup id="inventory-filters">
-          <div className="mb-6 flex min-w-0 items-center gap-2">
+          <div className="mb-6 hidden min-w-0 md:flex items-center gap-2">
             <button
               type="button"
               aria-label="Desplazar filtros a la izquierda"
@@ -198,7 +220,9 @@ export default function InventoryBrowser({
             Mostrando {items.length} de {results.length}{" "}
             {results.length === 1 ? "vehículo" : "vehículos"}
           </p>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center justify-between gap-3 sm:justify-end">
+            <GridToggle cols={gridCols} onChange={setGridCols} />
+            <div className="flex items-center gap-2">
             <label htmlFor={sortId} className="text-xs text-muted">
               Ordenar por
             </label>
@@ -218,6 +242,7 @@ export default function InventoryBrowser({
                 </option>
               ))}
             </select>
+            </div>
           </div>
         </div>
 
@@ -243,10 +268,14 @@ export default function InventoryBrowser({
           </div>
         ) : (
           // Same cards and grid as the home page catalog.
-          <ul className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4">
+          <ul className={`mt-6 grid gap-3 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4 ${gridCols === 2 ? "grid-cols-2" : "grid-cols-1"}`}>
             {items.map((v) => (
               <li key={v.id} className="flex">
-                <VehicleCard vehicle={v} animateIn={false} />
+                <VehicleCard
+                  vehicle={v}
+                  animateIn={false}
+                  compact={gridCols === 2 ? "mobile" : false}
+                />
               </li>
             ))}
           </ul>

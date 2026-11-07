@@ -12,9 +12,12 @@ const WHATSAPP_MESSAGE =
 export default function FinancingCallout({
   whatsappNumber,
   imageSrc,
+  mobileCompact = false,
 }: {
   whatsappNumber: string;
   imageSrc?: string;
+  /** Mobile only: a 2:1 box without the contact link (used on the home page). */
+  mobileCompact?: boolean;
 }) {
   return (
     <section
@@ -24,15 +27,17 @@ export default function FinancingCallout({
       className="scroll-mt-4 px-3 py-6 lg:px-6"
     >
       {/* Mobile: a square box, image in the top half and text on black below; md+: two columns. */}
-      <div className="relative grid aspect-square overflow-hidden rounded-3xl bg-black text-white md:aspect-auto md:grid-cols-2">
-        <div className="relative z-10 flex flex-col justify-center gap-4 p-6 pb-16 max-md:absolute max-md:inset-x-0 max-md:bottom-0 max-md:h-1/2 max-md:gap-2 max-md:p-5 max-md:pb-14 md:gap-6 md:p-12 lg:p-16">
+      <div className={`relative grid ${mobileCompact ? "aspect-[2/1]" : "aspect-square"} overflow-hidden rounded-xl bg-black text-white md:aspect-auto md:grid-cols-2`}>
+        <div className={`relative z-10 flex flex-col justify-center gap-4 p-6 pb-16 max-md:absolute max-md:inset-x-0 max-md:bottom-0 max-md:h-1/2 max-md:gap-1 max-md:p-4 ${mobileCompact ? "max-md:justify-end max-md:pb-3" : "max-md:pb-14"} md:gap-6 md:p-12 lg:p-16`}>
           <h2
             id="financing-callout-heading"
-            className="text-balance text-3xl font-semibold tracking-[-0.02em] max-md:text-2xl lg:text-5xl"
+            className="text-balance text-3xl font-semibold tracking-[-0.02em] max-md:text-xl lg:text-5xl"
           >
             Financiá tu próximo auto
           </h2>
-          <p className="max-w-md text-pretty leading-relaxed text-white/70 max-md:line-clamp-2 max-md:text-sm">
+          <p
+            className={`max-w-md text-pretty leading-relaxed text-white/70 max-md:line-clamp-2 max-md:text-xs ${mobileCompact ? "max-md:hidden" : ""}`}
+          >
             Elegí un anticipo, repartí el saldo en cuotas y manejá el auto que
             querés hoy. Te asesoramos para encontrar la opción que mejor se
             adapte a tu presupuesto.
@@ -41,7 +46,9 @@ export default function FinancingCallout({
 
         <div className="absolute inset-0 md:relative md:min-h-full">
           {/* Mobile: the image only fills the top half. */}
-          <div className="absolute inset-x-0 top-0 h-1/2 md:inset-0 md:h-full">
+          <div
+            className={`absolute inset-x-0 top-0 md:inset-0 md:h-full ${mobileCompact ? "h-[80%]" : "h-1/2"}`}
+          >
             {imageSrc ? (
               <Image
                 src={imageSrc}
@@ -62,9 +69,11 @@ export default function FinancingCallout({
           <div
             aria-hidden
             data-testid="financing-callout-overlay"
-            className="absolute inset-x-0 top-0 h-1/2 bg-gradient-to-b from-transparent via-black/20 to-black md:inset-0 md:h-auto md:bg-gradient-to-r md:from-black md:via-black/45 md:to-black/10"
+            className={`absolute inset-x-0 top-0 bg-gradient-to-b from-transparent via-black/20 to-black ${mobileCompact ? "h-[80%]" : "h-1/2"} md:inset-0 md:h-auto md:bg-gradient-to-r md:from-black md:via-black/45 md:to-black/10`}
           />
-          <div className="absolute inset-x-0 bottom-0 z-10 flex p-6 md:p-8">
+          <div
+            className={`absolute inset-x-0 bottom-0 z-10 flex p-6 md:p-8 ${mobileCompact ? "max-md:hidden" : ""}`}
+          >
             <WhatsAppLeadButton
               targetPhone={whatsappNumber}
               message={WHATSAPP_MESSAGE}
