@@ -76,7 +76,7 @@ export default function Catalog({ vehicles }: { vehicles: Vehicle[] }) {
     <section
       id="inventory"
       data-testid="catalog"
-      className="mx-auto max-w-[1440px] scroll-mt-4 px-3 pb-4 pt-2 md:pb-12 md:pt-12 lg:px-6 lg:pb-16 lg:pt-16"
+      className="mx-auto max-w-[1440px] scroll-mt-4 px-3 pb-1 pt-2 md:pb-12 md:pt-12 lg:px-6 lg:pb-16 lg:pt-16"
     >
       <h2 className="sr-only">Autos usados en venta</h2>
       <div className="mb-2 md:mb-10 flex flex-col justify-between gap-4 md:flex-row md:items-center md:gap-6">
@@ -174,7 +174,7 @@ export default function Catalog({ vehicles }: { vehicles: Vehicle[] }) {
           <ul
             tabIndex={0}
             aria-label="Vehículos destacados, desplazá horizontalmente"
-            className="-mx-3 flex snap-x snap-mandatory gap-3 overflow-x-auto scroll-px-3 px-3 pb-2 [scrollbar-width:thin] lg:-mx-6 lg:scroll-px-6 lg:px-6"
+            className="-mx-3 flex snap-x snap-mandatory gap-3 overflow-x-auto scroll-px-3 px-3 pb-0 [scrollbar-width:thin] lg:-mx-6 lg:scroll-px-6 lg:px-6"
           >
             {visible.map((vehicle) => (
               <li
