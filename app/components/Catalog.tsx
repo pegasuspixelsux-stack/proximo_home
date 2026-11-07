@@ -28,6 +28,8 @@ export default function Catalog({ vehicles }: { vehicles: Vehicle[] }) {
   const [criteria, setCriteria] = useState<SearchCriteria>(EMPTY_CRITERIA);
   // Bumping this remounts the search box, which empties its inputs.
   const [searchKey, setSearchKey] = useState(0);
+  // Mobile category pills ("" = Todos).
+  const [category, setCategory] = useState("");
   const arsRate = useArsRate();
   const pillsRef = useRef<HTMLDivElement>(null);
 
@@ -60,14 +62,18 @@ export default function Catalog({ vehicles }: { vehicles: Vehicle[] }) {
   const visible = useMemo(() => {
     const active = FILTER_PILLS.find((f) => f.id === filter) ?? FILTER_PILLS[0];
     return vehicles.filter(
-      (v) => active.test(v) && matchesCriteria(v, criteria, arsRate),
+      (v) =>
+        active.test(v) &&
+        (!category || v.bodyType === category) &&
+        matchesCriteria(v, criteria, arsRate),
     );
-  }, [vehicles, filter, criteria, arsRate]);
+  }, [vehicles, filter, category, criteria, arsRate]);
 
-  const filtering = filter !== "all" || hasCriteria(criteria);
+  const filtering = filter !== "all" || category !== "" || hasCriteria(criteria);
 
   function clearFilters() {
     selectPill("all");
+    setCategory("");
     setCriteria(EMPTY_CRITERIA);
     setSearchKey((k) => k + 1);
   }
@@ -143,7 +149,7 @@ export default function Catalog({ vehicles }: { vehicles: Vehicle[] }) {
         </LayoutGroup>
         <div className="relative flex w-full flex-wrap items-start justify-end gap-2 md:flex-nowrap md:justify-start md:w-[32rem] md:max-w-[50%] lg:w-[42rem]">
           <div className="w-full min-w-0 md:hidden">
-            <CategoryScroller />
+            <CategoryScroller value={category} onChange={setCategory} />
           </div>
           <div className="hidden min-w-0 flex-1 md:block">
             <HeroSearch
