@@ -3,6 +3,7 @@
 const CATEGORIES = [
   { label: "Todos", bodyType: "" },
   { label: "Autos", bodyType: "Auto" },
+  { label: "SUV", bodyType: "SUV" },
   { label: "Camionetas", bodyType: "Camioneta" },
   { label: "Motos", bodyType: "Moto" },
   { label: "Camiones", bodyType: "Camión" },
