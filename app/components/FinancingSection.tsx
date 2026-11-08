@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import type { LucideIcon } from "lucide-react";
+import type { ReactNode } from "react";
 import TrustFeatures from "./TrustFeatures";
 import WhatsAppLeadButton from "./WhatsAppLeadButton";
 
@@ -46,8 +47,11 @@ const OPTIONS: {
 
 export default function FinancingSection({
   whatsappNumber,
+  banner,
 }: {
   whatsappNumber: string;
+  /** Optional box rendered at the top of the section content (e.g. the financing callout). */
+  banner?: ReactNode;
 }) {
   const [open, setOpen] = useState(false);
 
@@ -95,6 +99,7 @@ export default function FinancingSection({
         id="financing-content"
         className={open ? "px-3 pb-10 pt-8 md:p-0" : "hidden md:block"}
       >
+        {banner && <div className="-mx-3 mb-8 md:mx-0 md:mb-10">{banner}</div>}
         <div className="mx-auto max-w-3xl text-center">
           <p className="hidden text-xs font-semibold uppercase tracking-widest text-muted md:block">
             Opciones de pago

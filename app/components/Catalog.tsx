@@ -16,6 +16,7 @@ import HeroSearch from "./HeroSearch";
 import VehicleCard from "./VehicleCard";
 
 const PAGE_SIZE = 12; // 4 columns x 3 rows on desktop
+const MOBILE_PAGE_SIZE = 6; // 2 columns x 3 rows on mobile
 
 export default function Catalog({ vehicles }: { vehicles: Vehicle[] }) {
   const [criteria, setCriteria] = useState<SearchCriteria>(EMPTY_CRITERIA);
@@ -96,12 +97,18 @@ export default function Catalog({ vehicles }: { vehicles: Vehicle[] }) {
             <h2 className="text-balance text-3xl font-semibold tracking-[-0.02em]">
               Destacados
             </h2>
+            <Link
+              href="/autos"
+              className="shrink-0 text-xs text-muted underline-offset-4 transition-colors duration-150 hover:text-fg hover:underline"
+            >
+              Ver todo el inventario →
+            </Link>
           </div>
           <ul
             aria-label="Vehículos destacados"
             className="-mx-[10px] grid grid-cols-2 gap-[2px]"
           >
-            {visible.slice(0, PAGE_SIZE).map((vehicle) => (
+            {visible.slice(0, MOBILE_PAGE_SIZE).map((vehicle) => (
               <li key={vehicle.id} className="flex">
                 <VehicleCard vehicle={vehicle} compact hideLocation />
               </li>
@@ -109,8 +116,8 @@ export default function Catalog({ vehicles }: { vehicles: Vehicle[] }) {
           </ul>
           <div className="mt-3 flex items-center justify-between gap-4">
             <p className="text-xs tabular-nums text-subtle">
-              {Math.min(visible.length, PAGE_SIZE)}{" "}
-              {Math.min(visible.length, PAGE_SIZE) === 1
+              {Math.min(visible.length, MOBILE_PAGE_SIZE)}{" "}
+              {Math.min(visible.length, MOBILE_PAGE_SIZE) === 1
                 ? "vehículo"
                 : "vehículos"}
             </p>

@@ -36,13 +36,17 @@ export default async function Home() {
       <Hero slides={slides} />
       <main className="mx-auto min-h-screen w-full max-w-[1440px] bg-bg text-fg selection:bg-fg selection:text-bg">
         <Catalog vehicles={vehicles} />
-        <FinancingCallout
-          compact
+        <FinancingSection
           whatsappNumber={site.whatsappNumber}
-          imageSrc="/banner_image/mother_kids.webp"
+          banner={
+            <FinancingCallout
+              compact
+              whatsappNumber={site.whatsappNumber}
+              imageSrc="/banner_image/mother_kids.webp"
+            />
+          }
         />
         <SeoIntro />
-        <FinancingSection whatsappNumber={site.whatsappNumber} />
         <FinanceCalculator defaultCurrency={site.calculatorCurrency} />
         <FAQSection />
         <ConversionCTA whatsappNumber={site.whatsappNumber} />

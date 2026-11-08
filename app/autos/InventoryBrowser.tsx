@@ -115,10 +115,10 @@ export default function InventoryBrowser({
   return (
     <>
       <header className="pt-[10px] lg:pt-5">
-        <h1 className="text-balance text-3xl font-semibold tracking-[-0.02em] lg:text-5xl">
+        <h1 className="sr-only">
           Autos usados en venta
         </h1>
-        <p className="mt-3 max-w-2xl text-muted">
+        <p className="mt-1 max-w-2xl text-center text-muted sm:text-left">
           Explorá nuestro inventario de autos usados.
         </p>
       </header>
@@ -126,8 +126,8 @@ export default function InventoryBrowser({
       {/* Search lives in the top nav; this is just the scroll anchor. */}
       <div ref={topRef} className="scroll-mt-20" />
 
-      <section className="mt-3 md:mt-10 lg:mt-5" aria-label="Resultados">
-        <div className="mb-6 md:hidden">
+      <section className="mt-2 md:mt-4 lg:mt-3" aria-label="Resultados">
+        <div className="mb-2 md:hidden">
           <CategoryScroller
             value={category}
             onChange={(next) => {
@@ -137,7 +137,7 @@ export default function InventoryBrowser({
           />
         </div>
         <LayoutGroup id="inventory-filters">
-          <div className="mb-6 hidden min-w-0 md:flex items-center gap-2">
+          <div className="mb-2 hidden min-w-0 md:flex items-center gap-2">
             <button
               type="button"
               aria-label="Desplazar filtros a la izquierda"
@@ -246,7 +246,7 @@ export default function InventoryBrowser({
           </div>
         ) : (
           // Same cards and grid as the home page catalog.
-          <ul className={`mt-6 grid sm:mx-0 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4 ${gridCols === 2 ? "-mx-[10px] grid-cols-2 gap-[2px]" : "grid-cols-1 gap-3"}`}>
+          <ul className={`mt-3 grid sm:mx-0 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4 ${gridCols === 2 ? "-mx-[10px] grid-cols-2 gap-[2px]" : "grid-cols-1 gap-3"}`}>
             {items.map((v) => (
               <li key={v.id} className="flex">
                 <VehicleCard

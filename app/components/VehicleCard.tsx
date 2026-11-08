@@ -2,7 +2,7 @@
 
 import { placeLabel } from "@/lib/place";
 import { motion, useReducedMotion } from "framer-motion";
-import { ArrowRight, Building2, MapPin, UserRound } from "lucide-react";
+import { ArrowUpRight, Building2, MapPin, UserRound } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
@@ -185,7 +185,7 @@ export default function VehicleCard({
             data-testid={`open-${vehicle.id}`}
             className={`relative z-10 flex shrink-0 ${compact === true ? "h-7 w-7" : "h-8 w-8"} items-center justify-center rounded-full border border-line text-muted transition-[color,transform,border-color] duration-150 hover:border-fg/40 hover:text-fg group-hover:translate-x-0.5 active:scale-95`}
           >
-            <ArrowRight className="h-4 w-4" strokeWidth={1.75} aria-hidden />
+            <ArrowUpRight className="h-4 w-4" strokeWidth={1.75} aria-hidden />
           </Link>
         </div>
       </div>
