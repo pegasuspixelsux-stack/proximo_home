@@ -15,7 +15,6 @@ import {
 import { useArsRate } from "../components/CurrencyProvider";
 import CategoryScroller from "../components/CategoryScroller";
 import GridToggle, { useGridCols } from "../components/GridToggle";
-import HeroSearch from "../components/HeroSearch";
 import VehicleCard from "../components/VehicleCard";
 import { priceInUsd, type Vehicle } from "../data/vehicles";
 
@@ -120,25 +119,12 @@ export default function InventoryBrowser({
           Autos usados en venta
         </h1>
         <p className="mt-3 max-w-2xl text-muted">
-          Explorá nuestro inventario de autos usados verificados en Tigre, Zona
-          Norte y Buenos Aires, y filtrá según tus preferencias.
+          Explorá nuestro inventario de autos usados.
         </p>
       </header>
 
-      {/* Same search as the home page; "Filtros" opens the advanced search. */}
-      <div ref={topRef} className="mt-3 scroll-mt-20 md:mt-10 lg:mt-5">
-        <div className="max-w-3xl">
-          <HeroSearch
-            key={searchKey}
-            compact
-            initial={initial}
-            onSearch={(next) => {
-              setCriteria(next);
-              setPage(1);
-            }}
-          />
-        </div>
-      </div>
+      {/* Search lives in the top nav; this is just the scroll anchor. */}
+      <div ref={topRef} className="scroll-mt-20" />
 
       <section className="mt-3 md:mt-10 lg:mt-5" aria-label="Resultados">
         <div className="mb-6 md:hidden">
@@ -212,16 +198,7 @@ export default function InventoryBrowser({
         </LayoutGroup>
 
         <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-center">
-          <p
-            data-testid="results-count"
-            aria-live="polite"
-            className="text-sm tabular-nums text-muted"
-          >
-            Mostrando {items.length} de {results.length}{" "}
-            {results.length === 1 ? "vehículo" : "vehículos"}
-          </p>
-          <div className="flex items-center justify-between gap-3 sm:justify-end">
-            <GridToggle cols={gridCols} onChange={setGridCols} />
+          <div className="flex w-full items-center justify-between gap-3 sm:justify-end">
             <div className="flex items-center gap-2">
             <label htmlFor={sortId} className="text-xs text-muted">
               Ordenar por
@@ -243,6 +220,7 @@ export default function InventoryBrowser({
               ))}
             </select>
             </div>
+            <GridToggle cols={gridCols} onChange={setGridCols} />
           </div>
         </div>
 
@@ -268,18 +246,28 @@ export default function InventoryBrowser({
           </div>
         ) : (
           // Same cards and grid as the home page catalog.
-          <ul className={`mt-6 grid gap-3 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4 ${gridCols === 2 ? "grid-cols-2" : "grid-cols-1"}`}>
+          <ul className={`mt-6 grid sm:mx-0 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4 ${gridCols === 2 ? "-mx-[10px] grid-cols-2 gap-[2px]" : "grid-cols-1 gap-3"}`}>
             {items.map((v) => (
               <li key={v.id} className="flex">
                 <VehicleCard
                   vehicle={v}
                   animateIn={false}
                   compact={gridCols === 2 ? "mobile" : false}
+                  hideLocation={gridCols === 2}
                 />
               </li>
             ))}
           </ul>
         )}
+
+        <p
+          data-testid="results-count"
+          aria-live="polite"
+          className="mt-4 text-left text-sm tabular-nums text-muted"
+        >
+          Mostrando {items.length} de {results.length}{" "}
+          {results.length === 1 ? "vehículo" : "vehículos"}
+        </p>
 
         {pageCount > 1 && (
           <nav

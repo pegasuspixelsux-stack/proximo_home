@@ -97,7 +97,7 @@ export default function Hero({ slides }: { slides: HeroSlide[] }) {
       onMouseLeave={() => setPaused(false)}
       onFocus={() => setPaused(true)}
       onBlur={() => setPaused(false)}
-      className="hero-on-photo relative mx-auto mt-[10px] lg:mt-5 flex aspect-[2/1] w-[calc(100%-1.5rem)] sm:aspect-[3/1] lg:aspect-auto lg:w-[calc(100%-3rem)] max-w-[1392px] flex-col rounded-xl lg:h-[calc((100svh_-_290px)_*_0.924)] lg:min-h-[443px] overflow-hidden bg-bg text-fg selection:bg-fg selection:text-bg"
+      className="hero-on-photo relative mx-auto mt-[10px] lg:mt-5 flex aspect-[2/1] w-[calc(100%-4px)] sm:aspect-[3/1] lg:aspect-auto lg:w-[calc(100%-3rem)] max-w-[1392px] flex-col rounded-xl lg:h-[calc((100svh_-_290px)_*_0.924)] lg:min-h-[443px] overflow-hidden bg-bg text-fg selection:bg-fg selection:text-bg"
     >
       <h1 className="sr-only">
         Tu Próximo Auto – Autos usados en Buenos Aires
@@ -145,7 +145,7 @@ export default function Hero({ slides }: { slides: HeroSlide[] }) {
         />
         <div className="absolute inset-0 bg-gradient-to-r from-black/65 via-black/30 to-transparent" />
       </div>
-      <div className="relative z-10 mx-auto flex w-full max-w-[1440px] flex-1 flex-col justify-center px-5 py-3 sm:px-8 sm:py-4 lg:px-10 lg:py-6">
+      <div className="relative z-10 mx-auto flex w-full max-w-[1440px] flex-1 flex-col justify-center px-4 py-3 sm:px-8 sm:py-4 lg:px-10 lg:py-6">
         <div className="w-full text-left sm:w-[65%] lg:w-[45%]">
           <div
             key={slide.id}

@@ -32,14 +32,14 @@ export default function NewListings({ vehicles }: { vehicles: Vehicle[] }) {
       <ul
         tabIndex={0}
         aria-label="Últimos autos ingresados, desplazá horizontalmente"
-        className="mt-6 flex snap-x snap-mandatory gap-5 overflow-x-auto scroll-px-3 px-3 pb-8 pt-4 [scrollbar-width:thin] lg:scroll-px-6 lg:px-6"
+        className="mt-6 flex snap-x snap-mandatory gap-5 overflow-x-auto scroll-px-0 px-0 pb-8 pt-4 [scrollbar-width:thin] lg:scroll-px-6 lg:px-6"
       >
         {vehicles.map((vehicle) => (
           <li
             key={vehicle.id}
             className="flex w-[189px] shrink-0 snap-start sm:w-[214px]"
           >
-            <VehicleCard vehicle={vehicle} compact />
+            <VehicleCard vehicle={vehicle} compact hideLocation />
           </li>
         ))}
       </ul>

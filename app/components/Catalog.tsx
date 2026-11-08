@@ -96,6 +96,24 @@ export default function Catalog({ vehicles }: { vehicles: Vehicle[] }) {
             <h2 className="text-balance text-3xl font-semibold tracking-[-0.02em]">
               Destacados
             </h2>
+          </div>
+          <ul
+            aria-label="Vehículos destacados"
+            className="-mx-[10px] grid grid-cols-2 gap-[2px]"
+          >
+            {visible.slice(0, PAGE_SIZE).map((vehicle) => (
+              <li key={vehicle.id} className="flex">
+                <VehicleCard vehicle={vehicle} compact hideLocation />
+              </li>
+            ))}
+          </ul>
+          <div className="mt-3 flex items-center justify-between gap-4">
+            <p className="text-xs tabular-nums text-subtle">
+              {Math.min(visible.length, PAGE_SIZE)}{" "}
+              {Math.min(visible.length, PAGE_SIZE) === 1
+                ? "vehículo"
+                : "vehículos"}
+            </p>
             <Link
               href="/autos"
               data-testid="see-all-inventory"
@@ -104,20 +122,6 @@ export default function Catalog({ vehicles }: { vehicles: Vehicle[] }) {
               Ver todo el inventario →
             </Link>
           </div>
-          <ul
-            tabIndex={0}
-            aria-label="Vehículos destacados, desplazá horizontalmente"
-            className="-mx-3 flex snap-x snap-mandatory gap-3 overflow-x-auto scroll-px-3 px-3 pb-3 [scrollbar-width:thin] lg:-mx-6 lg:scroll-px-6 lg:px-6"
-          >
-            {visible.slice(0, PAGE_SIZE).map((vehicle) => (
-              <li
-                key={vehicle.id}
-                className="flex w-[189px] shrink-0 snap-start sm:w-[230px] lg:w-[260px]"
-              >
-                <VehicleCard vehicle={vehicle} compact />
-              </li>
-            ))}
-          </ul>
         </div>
       )}
 
@@ -127,7 +131,7 @@ export default function Catalog({ vehicles }: { vehicles: Vehicle[] }) {
           <ul className="hidden grid-cols-3 gap-6 sm:grid lg:grid-cols-4">
             {pageItems.map((vehicle) => (
               <li key={vehicle.id} className="flex">
-                <VehicleCard vehicle={vehicle} />
+                <VehicleCard vehicle={vehicle} hideLocation />
               </li>
             ))}
           </ul>

@@ -34,8 +34,11 @@ export default function VehicleCard({
   vehicle,
   compact = false,
   animateIn = true,
+  hideLocation = false,
 }: {
   vehicle: Vehicle;
+  /** Omit the location line (used on the homepage grids). */
+  hideLocation?: boolean;
   /** `true` always compact; `"mobile"` compact below the sm breakpoint only. */
   compact?: boolean | "mobile";
   /** Fade the card in on mount. Off, it is fully visible in the server HTML. */
@@ -61,10 +64,10 @@ export default function VehicleCard({
       whileHover={reduce ? undefined : { y: -4 }}
       whileTap={{ scale: 0.99 }}
       transition={{ type: "spring", duration: 0.5, bounce: 0.1 }}
-      className={`card-glow group relative w-full min-w-0 cursor-pointer overflow-hidden rounded-xl border border-line bg-surface shadow-[var(--card-shadow)] backdrop-blur-xl focus-within:ring-2 focus-within:ring-fg/60 ${compact === true ? "flex h-full flex-col" : compact ? "flex h-full flex-col sm:block sm:h-auto" : ""}`}
+      className={`card-glow group relative w-full min-w-0 cursor-pointer overflow-hidden rounded-xl border border-line bg-surface shadow-[var(--card-shadow)] backdrop-blur-xl focus-within:ring-2 focus-within:ring-fg/60 flex flex-col ${compact === true ? "aspect-square" : compact === "mobile" ? "max-sm:aspect-square sm:aspect-[4/5]" : "aspect-[4/5]"}`}
     >
       <div
-        className={`relative w-full overflow-hidden bg-neutral-900 ${pick(compact, "h-36 max-sm:h-[120px]", "h-52 max-sm:h-[250px]", "h-[173px] sm:h-52")}`}
+        className="relative min-h-0 w-full flex-[3] overflow-hidden bg-neutral-900"
       >
         {!vehicle.image ? (
           <PhotoPlaceholder />
@@ -130,15 +133,15 @@ export default function VehicleCard({
       </div>
 
       <div
-        className={pick(
+        className={`flex min-h-0 flex-[2] flex-col justify-center ${pick(
           compact,
-          "flex flex-1 flex-col justify-center px-3 py-2.5",
+          `px-3 ${hideLocation ? "py-1" : "py-1.5"}`,
           "p-5",
-          "sm:block sm:p-5",
-        )}
+          "sm:p-5",
+        )}`}
       >
         <h3
-          className={`font-medium tracking-tight text-fg ${pick(compact, "text-base", "text-xl", "sm:text-xl")}`}
+          className={`font-medium tracking-tight text-fg ${hideLocation ? "leading-tight" : ""} ${pick(compact, "text-base", "text-xl", "sm:text-xl")}`}
         >
           <Link
             href={`/autos/${vehicle.id}`}
@@ -148,26 +151,28 @@ export default function VehicleCard({
           </Link>
         </h3>
         <p
-          className={`mt-1 font-medium uppercase tracking-widest text-muted ${pick(compact, "text-[10px]", "text-xs", "sm:text-xs")}`}
+          className={`${hideLocation ? "mt-0" : "mt-1"} font-medium uppercase tracking-widest text-muted ${pick(compact, "text-[10px]", "text-xs", "sm:text-xs")}`}
         >
           {vehicle.year} · {FUEL_LABELS[vehicle.fuelType]} ·{" "}
           {km.format(mileageKm(vehicle.mileage))} km
         </p>
-        <p
-          className={`mt-1 text-subtle ${pick(compact, "text-[10px]", "text-xs", "sm:mb-0 sm:text-xs")}`}
-        >
-          <span className="inline-flex items-center gap-1">
-            <MapPin
-              className="h-3 w-3 shrink-0"
-              strokeWidth={1.75}
-              aria-hidden
-            />
-            {placeLabel(vehicle.location)}
-          </span>
-        </p>
+        {!hideLocation && (
+          <p
+            className={`mt-1 text-subtle ${pick(compact, "text-[10px]", "text-xs", "sm:mb-0 sm:text-xs")}`}
+          >
+            <span className="inline-flex items-center gap-1">
+              <MapPin
+                className="h-3 w-3 shrink-0"
+                strokeWidth={1.75}
+                aria-hidden
+              />
+              {placeLabel(vehicle.location)}
+            </span>
+          </p>
+        )}
 
         <div
-          className={`flex items-center justify-between border-t border-line ${pick(compact, "mt-2 pt-1.5", "mt-4 pt-4", "sm:mt-4 sm:pt-4")}`}
+          className={`flex items-center justify-between ${hideLocation ? "" : "border-t border-line"} ${hideLocation ? pick(compact, "mt-0", "mt-1", "sm:mt-1") : pick(compact, "mt-2 pt-1.5", "mt-4 pt-4", "sm:mt-4 sm:pt-4")}`}
         >
           <p
             className={`font-light tabular-nums tracking-tight text-fg ${pick(compact, "text-base", "text-xl", "sm:text-xl")}`}
