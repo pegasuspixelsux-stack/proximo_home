@@ -26,6 +26,8 @@ const nextConfig: NextConfig = {
     return [
       // The cover page used to live at /portada; it is now the home page.
       { source: "/portada", destination: "/", permanent: false },
+      // The old home page (featured cars) was removed; the inventory replaces it.
+      { source: "/inicio", destination: "/autos", permanent: false },
       // Canonical host is www; Vercel already forces HTTPS.
       {
         source: "/:path*",
