@@ -2,6 +2,7 @@
 
 import { ChevronDown } from "lucide-react";
 import { useEffect, useId, useState } from "react";
+import { centerSection } from "@/lib/center-section";
 import { calculatePlan, DOWN_PAYMENT_RATE } from "@/lib/finance";
 import { formatPrice, type Currency } from "../data/site";
 
@@ -95,9 +96,7 @@ export default function FinanceCalculator({
     const expand = () => {
       if (window.location.hash !== "#calculadora") return;
       setOpen(true);
-      requestAnimationFrame(() =>
-        document.getElementById("calculadora")?.scrollIntoView(),
-      );
+      centerSection("calculadora");
     };
     expand();
     window.addEventListener("hashchange", expand);

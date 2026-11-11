@@ -3,6 +3,7 @@
 import { CalendarCheck, ChevronDown, MessageCircle, X } from "lucide-react";
 import { useEffect, useState, type FormEvent, type ReactNode } from "react";
 import { cleanPhone } from "../data/site";
+import { centerSection } from "@/lib/center-section";
 import WhatsAppLeadButton from "./WhatsAppLeadButton";
 
 const GENERIC_MESSAGE = "Hola Tu Próximo Auto! Quiero hacer una consulta.";
@@ -257,9 +258,7 @@ export default function ConversionCTA({
       if (window.location.hash !== "#contacto") return;
       setOpen(true);
       // Scroll once the section has expanded.
-      requestAnimationFrame(() =>
-        document.getElementById("contacto")?.scrollIntoView(),
-      );
+      centerSection("contacto");
     };
     expand();
     window.addEventListener("hashchange", expand);

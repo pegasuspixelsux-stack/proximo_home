@@ -3,6 +3,7 @@
 import { ChevronDown } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { centerSection } from "@/lib/center-section";
 
 /**
  * Plain-text intro for search engines and readers: zones served and how buying
@@ -16,9 +17,7 @@ export default function SeoIntro() {
     const expand = () => {
       if (window.location.hash !== "#comprar") return;
       setOpen(true);
-      requestAnimationFrame(() =>
-        document.getElementById("comprar")?.scrollIntoView(),
-      );
+      centerSection("comprar");
     };
     expand();
     window.addEventListener("hashchange", expand);

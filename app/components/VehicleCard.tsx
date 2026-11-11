@@ -64,10 +64,16 @@ export default function VehicleCard({
       whileHover={reduce ? undefined : { y: -4 }}
       whileTap={{ scale: 0.99 }}
       transition={{ type: "spring", duration: 0.5, bounce: 0.1 }}
-      className={`card-glow group relative w-full min-w-0 cursor-pointer overflow-hidden rounded-xl border border-line bg-surface shadow-[var(--card-shadow)] backdrop-blur-xl focus-within:ring-2 focus-within:ring-fg/60 flex flex-col ${compact === true ? "aspect-square" : compact === "mobile" ? "max-sm:aspect-square sm:aspect-[4/5]" : "aspect-[4/5]"}`}
+      className={`card-glow group relative w-full min-w-0 cursor-pointer overflow-hidden rounded-xl border border-line bg-surface shadow-[var(--card-shadow)] backdrop-blur-xl focus-within:ring-2 focus-within:ring-fg/60 flex flex-col ${compact === true ? "aspect-square" : compact === "mobile" ? "max-sm:h-48 sm:h-[26rem]" : "h-[26rem]"}`}
     >
       <div
-        className="relative min-h-0 w-full flex-[3] overflow-hidden bg-neutral-900"
+        className={`relative w-full overflow-hidden bg-neutral-900 ${
+          compact === true
+            ? "min-h-0 flex-[3]"
+            : compact === "mobile"
+              ? "h-28 shrink-0 sm:h-60"
+              : "h-60 shrink-0"
+        }`}
       >
         {!vehicle.image ? (
           <PhotoPlaceholder />
@@ -133,15 +139,17 @@ export default function VehicleCard({
       </div>
 
       <div
-        className={`flex min-h-0 flex-[2] flex-col justify-center ${pick(
+        className={`flex min-h-0 flex-col justify-center overflow-hidden ${
+          compact === true ? "flex-[2]" : "flex-1"
+        } ${pick(
           compact,
           `px-3 ${hideLocation ? "py-1" : "py-1.5"}`,
-          "p-5",
-          "sm:p-5",
+          "px-5 py-4",
+          "sm:px-5 sm:py-4",
         )}`}
       >
         <h3
-          className={`font-medium tracking-tight text-fg ${hideLocation ? "leading-tight" : ""} ${pick(compact, "text-base", "text-xl", "sm:text-xl")}`}
+          className={`truncate font-medium tracking-tight text-fg ${hideLocation ? "leading-tight" : ""} ${pick(compact, "text-base", "text-xl", "sm:text-xl")}`}
         >
           <Link
             href={`/autos/${vehicle.id}`}
