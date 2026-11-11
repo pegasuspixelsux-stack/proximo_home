@@ -40,7 +40,7 @@ export default function CoverPage() {
           <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/15 to-black/40" />
           {/* Everything above the photo rides up with the iPhone keyboard. */}
           <KeyboardLift className="absolute inset-0 z-10 flex items-center justify-center">
-          <div className="relative -top-[30%] z-10 mx-auto flex w-full max-w-[1440px] flex-col items-start px-4 text-left sm:px-8 lg:px-10">
+          <div className="relative -top-[20%] z-10 mx-auto flex w-full max-w-[1440px] flex-col items-start px-4 text-left sm:px-8 lg:px-10">
             <h1 className="text-balance text-5xl font-semibold leading-[1.02] tracking-[-0.03em] sm:text-7xl lg:text-8xl xl:text-9xl">
               Encontrá tu próximo auto.
             </h1>
