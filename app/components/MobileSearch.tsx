@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { AdvancedFields } from "./HeroSearch";
 
-/** Mobile-only: a search icon in the top nav that opens a modal with the search bar and filters. */
+/** Mobile and tablet: a search icon in the top nav that opens a modal with the search bar and filters. */
 export default function MobileSearch() {
   const [open, setOpen] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -26,7 +26,7 @@ export default function MobileSearch() {
   }, [open]);
 
   return (
-    <div className="sm:hidden">
+    <div className="lg:hidden">
       <button
         type="button"
         aria-label="Buscar autos"
@@ -60,7 +60,7 @@ export default function MobileSearch() {
               action="/autos"
               method="get"
               onSubmit={() => setOpen(false)}
-              className="relative flex max-h-full w-full max-w-md flex-col rounded-2xl border border-line bg-bg shadow-2xl"
+              className="relative flex max-h-full w-full max-w-md md:max-w-xl flex-col rounded-2xl border border-line bg-bg shadow-2xl"
             >
               <div className="flex items-center justify-between px-4 pb-2 pt-4">
                 <span className="text-xs font-medium uppercase tracking-widest text-muted">
@@ -87,7 +87,7 @@ export default function MobileSearch() {
                     className="w-full bg-transparent text-base text-fg outline-none placeholder:text-subtle"
                   />
                 </div>
-                <div className="mt-3 grid grid-cols-2 gap-3 text-left">
+                <div className="mt-3 grid grid-cols-2 gap-3 text-left md:grid-cols-3">
                   <AdvancedFields />
                 </div>
               </div>

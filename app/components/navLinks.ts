@@ -7,6 +7,7 @@ export interface NavLink {
 
 /** Left side of the top nav. */
 export const NAV_LINKS: NavLink[] = [
+  { label: "Portada", href: "/portada" },
   { label: "Compra tu auto", href: "/#inventory" },
   { label: "Vende tu auto", href: "/#financiacion" },
 ];
