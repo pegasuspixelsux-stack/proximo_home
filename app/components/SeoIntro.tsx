@@ -2,7 +2,7 @@
 
 import { ChevronDown } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 /**
  * Plain-text intro for search engines and readers: zones served and how buying
@@ -11,11 +11,26 @@ import { useState } from "react";
 export default function SeoIntro() {
   const [open, setOpen] = useState(false);
 
+  // Expand when a link or the URL points at this section (collapsed on mobile).
+  useEffect(() => {
+    const expand = () => {
+      if (window.location.hash !== "#comprar") return;
+      setOpen(true);
+      requestAnimationFrame(() =>
+        document.getElementById("comprar")?.scrollIntoView(),
+      );
+    };
+    expand();
+    window.addEventListener("hashchange", expand);
+    return () => window.removeEventListener("hashchange", expand);
+  }, []);
+
   return (
     <section
+      id="comprar"
       aria-labelledby="seo-intro-heading"
       data-testid="seo-intro"
-      className="md:px-3 md:py-12 lg:px-6"
+      className="scroll-mt-24 md:px-3 md:py-12 lg:px-6"
     >
       <button
         type="button"

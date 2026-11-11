@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useRef, useState, type PointerEvent } from "react";
+import SlideLink from "./SlideLink";
+import { useEffect, useRef, useState, type PointerEvent } from "react";
 
 interface DrumLink {
   label: string;
@@ -21,6 +22,16 @@ export default function LinkDrum({ links }: { links: DrumLink[] }) {
   const [{ active, prev }, setPos] = useState({ active: 0, prev: 0 });
   const drag = useRef({ y: 0, down: false, moved: false });
   const lastWheel = useRef(0);
+
+  // "Explorar salón" (the first link) is always the centered one: on first load and
+  // when the browser restores the cover from the back/forward cache.
+  useEffect(() => {
+    const reset = (e: PageTransitionEvent) => {
+      if (e.persisted) setPos({ active: 0, prev: 0 });
+    };
+    window.addEventListener("pageshow", reset);
+    return () => window.removeEventListener("pageshow", reset);
+  }, []);
 
   const go = (next: number) => setPos((p) => ({ active: next, prev: p.active }));
   const step = (dir: 1 | -1) =>
@@ -96,28 +107,34 @@ export default function LinkDrum({ links }: { links: DrumLink[] }) {
           top: "50%",
           marginTop: -ROW / 2,
           transform: `translateY(${o * ROW}px) rotateX(${-o * 35}deg) scale(${1 - abs * 0.12})`,
-          opacity: isActive ? 1 : Math.max(0.3, 0.75 - (abs - 1) * 0.25),
+          opacity: isActive ? 1 : abs > 1 ? 0 : 0.75,
+          // Only the neighbours of the centered link are shown and reachable.
+          pointerEvents: abs > 1 ? "none" : "auto",
           transition: jumped
             ? "none"
             : "transform 600ms cubic-bezier(0.23,1,0.32,1), opacity 600ms ease-out",
         } as const;
         const cls =
           "absolute inset-x-0 flex items-center justify-center whitespace-nowrap font-semibold [text-shadow:0_1px_12px_rgba(0,0,0,0.6)] motion-reduce:!transition-none";
+        // Links into the inventory slide the cover away; the others navigate normally.
+        const Anchor = link.href.startsWith("/autos") ? SlideLink : Link;
         return isActive ? (
-          <Link
+          <Anchor
             key={link.label}
             href={link.href}
             style={style}
             className={`${cls} text-2xl text-white underline-offset-4 hover:underline sm:text-3xl`}
           >
             {link.label}
-          </Link>
+          </Anchor>
         ) : (
           <button
             key={link.label}
             type="button"
             onClick={() => go(i)}
             aria-label={link.label}
+            tabIndex={abs > 1 ? -1 : 0}
+            aria-hidden={abs > 1 || undefined}
             style={style}
             className={`${cls} text-xl text-white sm:text-2xl`}
           >

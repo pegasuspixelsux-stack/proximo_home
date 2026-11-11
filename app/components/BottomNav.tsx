@@ -7,14 +7,14 @@ import { usePathname } from "next/navigation";
 const ITEMS = [
   { label: "Inicio", href: "/", icon: Home },
   { label: "Autos", href: "/autos", icon: Car },
-  { label: "Financiar", href: "/#financiacion", icon: CreditCard },
-  { label: "Contacto", href: "/#contacto", icon: MessageCircle },
+  { label: "Financiar", href: "/inicio#financiacion", icon: CreditCard },
+  { label: "Contacto", href: "/inicio#contacto", icon: MessageCircle },
 ];
 
 /** Mobile-only sticky bottom bar linking to the main pages. Hidden in the dashboard, login and cover page. */
 export default function BottomNav() {
   const pathname = usePathname();
-  if (pathname.startsWith("/dashboard") || pathname.startsWith("/login") || pathname === "/portada")
+  if (pathname.startsWith("/dashboard") || pathname.startsWith("/login") || pathname === "/")
     return null;
 
   return (
@@ -35,9 +35,9 @@ export default function BottomNav() {
                   // Same-page section links: set the hash and fire "hashchange" so the
                   // collapsed section opens (and scrolls) even if the hash didn't change.
                   const hash = href.includes("#") ? `#${href.split("#")[1]}` : "";
-                  if (hash && pathname === "/" && document.querySelector(hash)) {
+                  if (hash && pathname === "/inicio" && document.querySelector(hash)) {
                     e.preventDefault();
-                    window.history.replaceState(null, "", `/${hash}`);
+                    window.history.replaceState(null, "", `/inicio${hash}`);
                     window.dispatchEvent(new HashChangeEvent("hashchange"));
                   }
                 }}

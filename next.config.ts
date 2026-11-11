@@ -24,6 +24,8 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
+      // The cover page used to live at /portada; it is now the home page.
+      { source: "/portada", destination: "/", permanent: false },
       // Canonical host is www; Vercel already forces HTTPS.
       {
         source: "/:path*",

@@ -164,3 +164,35 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .hero-rise, .hero-fade { animation: none; }
 }
+
+/* Cover page -> inventory: one continuous slide. The cover snapshot leaves at the top
+   while the inventory enters from directly below, with the same duration and easing. */
+:root {
+  --slide-dur: 1s;
+  --slide-ease: cubic-bezier(0.65, 0, 0.35, 1);
+}
+@keyframes slide-page-in {
+  from { transform: translateY(100dvh); }
+  to { transform: none; }
+}
+@keyframes slide-overlay-out {
+  to { transform: translateY(-100dvh); }
+}
+#slide-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  overflow: hidden;
+  background: #000;
+  pointer-events: none;
+}
+#slide-overlay.slide-overlay-out {
+  animation: slide-overlay-out var(--slide-dur) var(--slide-ease) forwards;
+}
+html[data-slide-in] .slide-page {
+  animation: slide-page-in var(--slide-dur) var(--slide-ease) backwards;
+}
+@media (prefers-reduced-motion: reduce) {
+  #slide-overlay { display: none; }
+  html[data-slide-in] .slide-page { animation: none; }
+}

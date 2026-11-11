@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import JsonLd, { breadcrumbs } from "@/lib/json-ld";
 import { absoluteUrl } from "@/lib/seo";
+import ConversionCTA from "../components/ConversionCTA";
 import FAQSection from "../components/FAQSection";
 import FinanceCalculator from "../components/FinanceCalculator";
 import FinancingSection from "../components/FinancingSection";
@@ -40,6 +41,7 @@ export default async function InventoryPage() {
         <FinancingSection whatsappNumber={whatsappNumber} />
         <FinanceCalculator defaultCurrency={calculatorCurrency} />
         <FAQSection />
+        <ConversionCTA whatsappNumber={whatsappNumber} />
         <Footer />
       </div>
     </>

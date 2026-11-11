@@ -65,7 +65,7 @@ export default function SoportePage() {
       <LegalSection title="Más ayuda">
         <p>
           Mirá todas las{" "}
-          <Link className="underline underline-offset-4" href="/#preguntas-frecuentes">preguntas frecuentes</Link>,
+          <Link className="underline underline-offset-4" href="/inicio#preguntas-frecuentes">preguntas frecuentes</Link>,
           explorá los{" "}
           <Link className="underline underline-offset-4" href="/autos">autos usados en venta</Link> o leé los{" "}
           <Link className="underline underline-offset-4" href="/terminos">términos y condiciones</Link>.
