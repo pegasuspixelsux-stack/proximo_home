@@ -192,8 +192,9 @@ body {
    (white text) over the hero and turns solid once the hero has scrolled away. */
 html { scroll-behavior: smooth; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
-html:not([data-past-hero]) header[data-cover] { color: #fff; }
-html:not([data-past-hero]) header[data-cover] :is(a, button, svg) { color: #fff !important; }
+html:not([data-past-hero]) header[data-cover] { color: #111; border-bottom-color: transparent !important; box-shadow: none !important; background: transparent !important; }
+html:not([data-past-hero]) header[data-cover] :is(a, button, svg) { color: #111 !important; }
+html:not([data-past-hero]) header[data-cover] [data-logo-text] { color: #111 !important; }
 html[data-past-hero] header[data-cover] {
   background: color-mix(in srgb, var(--bg) 80%, transparent);
   border-bottom-color: var(--line);

@@ -48,8 +48,26 @@ export default async function HomePage() {
           sizes="100vw"
           className="object-cover object-[72%_center] lg:object-center"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/35 via-black/20 to-black/55" />
-        <div className="relative z-10 mx-auto flex h-full w-full max-w-[1440px] flex-col items-start justify-end px-3 pb-[calc(max(0.75rem,env(safe-area-inset-bottom))+4.625rem)] pt-[calc(4.5rem+env(safe-area-inset-top))] text-left sm:px-8 sm:pt-32 lg:px-10 lg:pb-8">
+        <div className="absolute inset-0 bg-gradient-to-b from-black/5 via-black/15 to-black/55" />
+        {/* White fade under the transparent nav; the nav text is dark while it is over this (globals.css). */}
+        <div
+          className="pointer-events-none absolute inset-x-0 top-0 h-[min(34rem,62%)] sm:h-[min(38rem,58%)]"
+          style={{
+            // Eased stops (no hard slope change), so there is no visible line where the fade ends.
+            background:
+              "linear-gradient(to bottom, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.93) 6%, rgba(255,255,255,0.88) 14%, rgba(255,255,255,0.8) 24%, rgba(255,255,255,0.7) 34%, rgba(255,255,255,0.58) 44%, rgba(255,255,255,0.45) 54%, rgba(255,255,255,0.32) 64%, rgba(255,255,255,0.2) 74%, rgba(255,255,255,0.1) 84%, rgba(255,255,255,0.03) 93%, rgba(255,255,255,0) 100%)",
+          }}
+        />
+        {/* Fade into the next section: theme background colour, so it works in light and dark. */}
+        <div
+          // light-surface: same --bg as the section below, so there is no seam where the hero ends.
+          className="light-surface pointer-events-none absolute inset-x-0 -bottom-px h-72 sm:h-80"
+          style={{
+            background:
+              "linear-gradient(to bottom, color-mix(in srgb, var(--bg) 0%, transparent) 0%, color-mix(in srgb, var(--bg) 3%, transparent) 18%, color-mix(in srgb, var(--bg) 8%, transparent) 32%, color-mix(in srgb, var(--bg) 16%, transparent) 46%, color-mix(in srgb, var(--bg) 30%, transparent) 60%, color-mix(in srgb, var(--bg) 50%, transparent) 72%, color-mix(in srgb, var(--bg) 72%, transparent) 83%, color-mix(in srgb, var(--bg) 90%, transparent) 93%, color-mix(in srgb, var(--bg) 100%, transparent) 100%)",
+          }}
+        />
+        <div className="relative z-10 mx-auto flex h-full w-full max-w-[1440px] flex-col items-start justify-end px-3 pb-[calc(max(0.75rem,env(safe-area-inset-bottom))+4.625rem)] pt-[calc(4.5rem+env(safe-area-inset-top))] text-left sm:px-8 sm:pt-32 lg:px-10 lg:pb-16">
           <div className="w-full">
           <h1 className="text-balance text-[calc((100vw-1.5rem)/7.3)] font-semibold leading-[1.05] tracking-[-0.03em] sm:text-5xl lg:text-6xl xl:text-7xl">
             Encontrá tu
