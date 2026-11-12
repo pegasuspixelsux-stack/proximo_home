@@ -413,7 +413,7 @@ async function VehicleDetail({ params }: Props) {
                 key={v.id}
                 className="flex w-[189px] shrink-0 snap-start sm:w-[214px]"
               >
-                <VehicleCard vehicle={v} compact />
+                <VehicleCard vehicle={v} compact tall />
               </li>
             ))}
           </ul>
