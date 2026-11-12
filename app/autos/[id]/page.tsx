@@ -22,10 +22,13 @@ import {
 import JsonLd, { breadcrumbs } from "@/lib/json-ld";
 import { vehicleSchema } from "@/lib/schema";
 import { absoluteUrl } from "@/lib/seo";
+import AboutSection from "../../components/AboutSection";
+import ConversionCTA from "../../components/ConversionCTA";
 import FAQSection from "../../components/FAQSection";
 import FinanceCalculator from "../../components/FinanceCalculator";
-import FinancingCallout from "../../components/FinancingCallout";
+import FinancingSection from "../../components/FinancingSection";
 import Footer from "../../components/Footer";
+import SeoIntro from "../../components/SeoIntro";
 import SiteHeader from "../../components/SiteHeader";
 import ShareVehicle from "../../components/ShareVehicle";
 import WhatsAppLeadButton from "../../components/WhatsAppLeadButton";
@@ -428,11 +431,11 @@ async function VehicleDetail({ params }: Props) {
             id="related-heading"
             className="text-3xl font-semibold tracking-[-0.02em] lg:text-4xl"
           >
-            Otros avisos
+            Con más unidades
           </h2>
           <ul
             tabIndex={0}
-            aria-label="Otros avisos, desplazá horizontalmente"
+            aria-label="Con más unidades, desplazá horizontalmente"
             data-testid="related-scroller"
             className="-mx-3 mt-6 flex snap-x snap-mandatory gap-5 overflow-x-auto scroll-px-3 px-3 pb-8 pt-4 [scrollbar-width:thin] lg:-mx-6 lg:scroll-px-6 lg:px-6"
           >
@@ -448,12 +451,13 @@ async function VehicleDetail({ params }: Props) {
         </section>
       </main>
       <div className="mx-auto w-full max-w-[1440px] bg-bg text-fg">
-        <FinancingCallout
-          whatsappNumber={whatsappNumber}
-          imageSrc="/banner_image/mother_kids.webp"
-        />
+        {/* The same collapsible sections as the home page, in the same order. */}
+        <SeoIntro />
+        <FinancingSection whatsappNumber={whatsappNumber} />
         <FinanceCalculator defaultCurrency={calculatorCurrency} />
         <FAQSection />
+        <AboutSection />
+        <ConversionCTA whatsappNumber={whatsappNumber} />
         <Footer />
       </div>
     </>

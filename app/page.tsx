@@ -12,21 +12,9 @@ import Footer from "./components/Footer";
 import SeoIntro from "./components/SeoIntro";
 import SiteHeader from "./components/SiteHeader";
 import HeroScrollState from "./components/cover/HeroScrollState";
-import LinkDrum from "./components/cover/LinkDrum";
 import { getSiteSettings } from "./data/site-store";
 import { getVehicles } from "./data/vehicle-store";
 import InventoryBrowser from "./autos/InventoryBrowser";
-
-// One-page site: every link scrolls to a section below the hero.
-const QUICK_LINKS = [
-  { label: "Explorar salón", href: "/#inventario" },
-  { label: "Comprá tu auto", href: "/#comprar" },
-  { label: "Financiación", href: "/#financiacion" },
-  { label: "Calculadora", href: "/#calculadora" },
-  { label: "Preguntas frecuentes", href: "/#preguntas-frecuentes" },
-  { label: "Quiénes somos", href: "/#quienes-somos" },
-  { label: "Contacto", href: "/#contacto" },
-];
 
 export const metadata: Metadata = {
   title: { absolute: "Autos usados en Tigre y Buenos Aires | Tu Próximo Auto" },
@@ -52,7 +40,7 @@ export default async function HomePage() {
       <SiteHeader transparent />
       <section
         data-testid="cover"
-        className="relative flex h-dvh w-full justify-center overflow-hidden bg-black text-white"
+        className="relative flex h-dvh w-full justify-center overflow-hidden bg-black text-white lg:h-[70vh]"
       >
         <Image
           src="/hero_image/eq_hero.webp"
@@ -63,33 +51,29 @@ export default async function HomePage() {
           className="object-cover object-[68%_center] lg:object-center"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/15 to-black/40" />
-        <div className="relative z-10 mx-auto flex h-full w-full max-w-[1440px] flex-col items-start justify-end px-4 pb-[calc(6rem+env(safe-area-inset-bottom))] pt-[calc(4.5rem+env(safe-area-inset-top))] text-left sm:px-8 sm:pt-32 lg:px-10 lg:pb-[9dvh]">
+        <div className="relative z-10 mx-auto flex h-full w-full max-w-[1440px] flex-col items-start justify-end px-4 pb-[calc(6rem+env(safe-area-inset-bottom))] pt-[calc(4.5rem+env(safe-area-inset-top))] text-left sm:px-8 sm:pt-32 lg:px-10 lg:pb-8">
           <div className="w-full">
-          <h1 className="text-balance text-5xl font-semibold leading-[1.02] tracking-[-0.03em] sm:text-7xl lg:text-8xl xl:text-9xl">
-            Encontrá tu próximo auto.
+          <h1 className="text-balance text-4xl font-semibold leading-[1.05] tracking-[-0.03em] sm:text-5xl lg:text-6xl xl:text-7xl">
+            Encontrá tu
+            <br />
+            próximo auto.
           </h1>
-          <p className="mt-4 max-w-xl text-balance text-base text-white/80 sm:text-lg">
+          <p className="mt-3 max-w-xl text-balance text-sm text-white/80 sm:text-base">
             Autos usados seleccionados y verificados en Tigre y Buenos Aires.
           </p>
-          <div className="mt-8 flex w-full max-w-xl flex-col items-center">
-            <div className="hidden w-full sm:block">
-              <LinkDrum links={QUICK_LINKS} />
-            </div>
+          <div className="mt-8 flex w-full max-w-xl flex-col items-start">
             <a
               href="#inventario"
-              className="relative flex w-full items-center justify-center rounded-full bg-white py-3 text-2xl font-semibold text-black shadow-[0_10px_30px_-6px_rgba(0,0,0,0.45)] transition-[transform,opacity] duration-150 hover:opacity-90 active:scale-[0.98] sm:text-3xl"
+              className="relative flex w-[30%] min-w-[10.8rem] items-center justify-center rounded-full bg-white py-2.5 pl-4 pr-12 text-sm font-semibold text-black shadow-[0_10px_30px_-6px_rgba(0,0,0,0.45)] transition-[transform,opacity] duration-150 hover:opacity-90 active:scale-[0.98] sm:text-base"
             >
               Explorar
-              <span className="absolute right-2 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-black text-white">
+              <span className="absolute right-2 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-black text-white">
                 <ArrowRight className="h-4 w-4" strokeWidth={1.75} />
               </span>
             </a>
           </div>
           </div>
         </div>
-        <p className="absolute inset-x-0 bottom-3 z-10 hidden text-center lg:block text-xs font-medium tracking-wide text-white/70">
-          Dealio v 3.0
-        </p>
       </section>
       <div data-site-home className="light-surface">
       <main

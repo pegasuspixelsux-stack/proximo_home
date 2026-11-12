@@ -95,6 +95,41 @@ export default function InventoryBrowser({
     topRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
+  const searchBox = (className: string, testId: string) => (
+    <form
+      role="search"
+      onSubmit={(e) => e.preventDefault()}
+      className={`flex items-center gap-3 rounded-full border border-line bg-surface py-2 pl-4 pr-2 focus-within:border-fg/40 ${className}`}
+    >
+      <Search aria-hidden className="h-4 w-4 shrink-0 text-muted" strokeWidth={1.5} />
+      <input
+        type="search"
+        value={criteria.q}
+        onChange={(e) => {
+          setCriteria((c) => ({ ...c, q: e.target.value }));
+          setPage(1);
+        }}
+        aria-label="Buscar en el inventario"
+        data-testid={testId}
+        placeholder="Buscá por marca, modelo o palabra clave"
+        className="w-full min-w-0 bg-transparent text-base text-fg outline-none placeholder:text-subtle sm:text-sm [&::-webkit-search-cancel-button]:hidden"
+      />
+      {criteria.q && (
+        <button
+          type="button"
+          aria-label="Borrar búsqueda"
+          onClick={() => {
+            setCriteria((c) => ({ ...c, q: "" }));
+            setPage(1);
+          }}
+          className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-muted transition-[color,transform] duration-150 hover:text-fg active:scale-95"
+        >
+          <X className="h-4 w-4" strokeWidth={1.75} aria-hidden />
+        </button>
+      )}
+    </form>
+  );
+
   return (
     <>
       <header className="pt-[10px] lg:pt-5">
@@ -104,44 +139,13 @@ export default function InventoryBrowser({
         <p className="mt-1 max-w-2xl text-center text-muted sm:text-left">
           Explorá nuestro inventario de autos usados.
         </p>
-        <form
-          role="search"
-          onSubmit={(e) => e.preventDefault()}
-          className="mt-3 flex items-center gap-3 rounded-full border border-line bg-surface py-2 pl-4 pr-2 focus-within:border-fg/40"
-        >
-          <Search aria-hidden className="h-4 w-4 shrink-0 text-muted" strokeWidth={1.5} />
-          <input
-            type="search"
-            value={criteria.q}
-            onChange={(e) => {
-              setCriteria((c) => ({ ...c, q: e.target.value }));
-              setPage(1);
-            }}
-            aria-label="Buscar en el inventario"
-            data-testid="inventory-search"
-            placeholder="Buscá por marca, modelo o palabra clave"
-            className="w-full bg-transparent text-base text-fg outline-none placeholder:text-subtle sm:text-sm [&::-webkit-search-cancel-button]:hidden"
-          />
-          {criteria.q && (
-            <button
-              type="button"
-              aria-label="Borrar búsqueda"
-              onClick={() => {
-                setCriteria((c) => ({ ...c, q: "" }));
-                setPage(1);
-              }}
-              className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-muted transition-[color,transform] duration-150 hover:text-fg active:scale-95"
-            >
-              <X className="h-4 w-4" strokeWidth={1.75} aria-hidden />
-            </button>
-          )}
-        </form>
       </header>
 
       {/* Search lives in the top nav; this is just the scroll anchor. */}
       <div ref={topRef} className="scroll-mt-20" />
 
       <section className="mt-2 md:mt-4 lg:mt-3" aria-label="Resultados">
+        {searchBox("mb-2 md:hidden", "inventory-search-mobile")}
         <div className="mb-2 md:hidden">
           <CategoryScroller
             value={category}
@@ -209,6 +213,7 @@ export default function InventoryBrowser({
             >
               <ChevronRight className="h-4 w-4" strokeWidth={1.75} />
             </button>
+            {searchBox("w-1/2 shrink-0", "inventory-search")}
           </div>
         </LayoutGroup>
 

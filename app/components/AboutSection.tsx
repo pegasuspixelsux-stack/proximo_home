@@ -29,7 +29,7 @@ export default function AboutSection() {
       id="quienes-somos"
       aria-labelledby="about-heading"
       data-testid="about-section"
-      className="scroll-mt-24 md:px-3 md:py-12 lg:px-6"
+      className="scroll-mt-4 md:px-3 md:py-12 lg:px-6"
     >
       <button
         type="button"
@@ -51,13 +51,9 @@ export default function AboutSection() {
 
       <div
         id="about-content"
-        className={
-          open
-            ? "px-5 pb-10 pt-8 md:px-10 md:py-0 lg:px-16"
-            : "hidden md:block md:px-10 lg:px-16"
-        }
+        className={open ? "px-3 pb-10 pt-8 md:p-0" : "hidden md:block"}
       >
-        <div className="grid items-center gap-8 md:grid-cols-2 md:gap-12">
+        <div className="mx-auto grid max-w-[1000px] items-center gap-8 md:grid-cols-2 md:gap-12">
           <div>
             <h2
               id="about-heading"
