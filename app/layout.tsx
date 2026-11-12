@@ -49,10 +49,10 @@ export default async function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <head>
-        {/* Applies the saved (or system) theme before first paint to avoid a flash. */}
+        {/* Applies the saved theme (dark by default, not the system setting) before first paint to avoid a flash. */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `try{var t=localStorage.getItem("theme");if(t!=="light"&&t!=="dark"){t=matchMedia("(prefers-color-scheme: light)").matches?"light":"dark"}document.documentElement.dataset.theme=t;var m=document.createElement("meta");m.name="theme-color";m.content=t==="light"?"#fbfbfd":"#000000";document.head.appendChild(m)}catch(e){}`,
+            __html: `try{var t=localStorage.getItem("theme");if(t!=="light"&&t!=="dark"){t="dark"}document.documentElement.dataset.theme=t;var m=document.createElement("meta");m.name="theme-color";m.content=t==="light"?"#fbfbfd":"#000000";document.head.appendChild(m)}catch(e){}`,
           }}
         />
       </head>
