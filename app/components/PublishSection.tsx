@@ -26,7 +26,7 @@ type Mode = "private" | "dealer";
 
 const TABS: { id: Mode; label: string }[] = [
   { id: "private", label: "Vendedor Particular" },
-  { id: "dealer", label: "Concesionarias" },
+  { id: "dealer", label: "Inmobiliarias" },
 ];
 
 interface Step {
@@ -39,12 +39,12 @@ const STEPS: Step[] = [
   {
     icon: ClipboardList,
     title: "Formulario",
-    text: "Completá los datos de tu vehículo: marca, modelo, año, kilometraje, precio y equipamiento.",
+    text: "Completá los datos de tu casa: nombre, zona, dormitorios, baños, precio, características y comodidades.",
   },
   {
     icon: Camera,
     title: "Fotos",
-    text: "Subí fotos en alta resolución del exterior y del interior para destacar tu aviso.",
+    text: "Subí fotos en alta resolución del exterior, los ambientes y la piscina para destacar tu aviso.",
   },
   {
     icon: CreditCard,
@@ -68,17 +68,17 @@ const FEATURES: Feature[] = [
   {
     icon: Database,
     title: "Carga e integración masiva",
-    text: "Importá todo tu inventario de una vez, por planilla o integración vía API, y mantenelo sincronizado.",
+    text: "Importá todas tus propiedades de una vez, por planilla o integración vía API, y mantenelo sincronizado.",
   },
   {
     icon: Star,
     title: "Ubicación Prime y Destacados",
-    text: "Posicionamiento prioritario en las búsquedas y espacios destacados para tus unidades.",
+    text: "Posicionamiento prioritario en las búsquedas y espacios destacados para tus propiedades.",
   },
   {
     icon: Store,
     title: "Perfil institucional y reseñas",
-    text: "Una página propia con tu marca, reseñas de clientes, mapa de ubicación y el catálogo completo de tu showroom.",
+    text: "Una página propia con tu marca, reseñas de clientes, mapa de ubicación y el catálogo completo de tus propiedades.",
   },
 ];
 
@@ -110,7 +110,7 @@ export default function PublishSection() {
         className="flex w-full items-center justify-between gap-4 border-y border-line px-3 py-4 text-left lg:hidden"
       >
         <span className="block text-xs font-medium uppercase tracking-widest text-fg">
-          Publicá tu auto &amp; concesionarias
+          Publicá tu casa &amp; inmobiliarias
         </span>
         <ChevronDown
           aria-hidden
@@ -132,7 +132,7 @@ export default function PublishSection() {
               id="publish-heading"
               className="mt-2 text-balance text-3xl font-light tracking-[-0.02em] lg:text-4xl"
             >
-              Publicá tu Auto &amp; Concesionarias
+              Publicá tu Casa &amp; Inmobiliarias
             </h2>
           </div>
 
@@ -248,7 +248,7 @@ function PrivatePanel() {
           data-testid="publish-cta"
           className={`${PRIMARY_BTN} w-full md:w-auto`}
         >
-          Publicar mi vehículo
+          Publicar mi casa
           <ArrowRight className="h-4 w-4" strokeWidth={1.75} aria-hidden />
         </a>
       </div>
@@ -261,15 +261,15 @@ function DealerPanel() {
     <>
       <div className="rounded-xl border border-line bg-surface p-6 shadow-[var(--card-shadow)] lg:p-10">
         <h3 className="max-w-3xl text-balance text-2xl font-light tracking-[-0.02em] lg:text-4xl">
-          ¿Querés publicar todo tu inventario en Tu Próximo Auto?
+          ¿Querés publicar todas tus propiedades en Tu Próxima Casa?
         </h3>
         <p className="mt-4 max-w-2xl text-muted">
-          Sumá tu concesionaria y llegá a compradores de todo el país con un
+          Sumá tu inmobiliaria y llegá a interesados de todo el mundo con un
           perfil propio y herramientas pensadas para vender más.
         </p>
         <div className="mt-8 flex flex-col gap-3 sm:flex-row">
           <a href="#" data-testid="dealer-plan-cta" className={PRIMARY_BTN}>
-            Solicitar Plan Concesionaria
+            Solicitar Plan Inmobiliaria
             <ArrowRight className="h-4 w-4" strokeWidth={1.75} aria-hidden />
           </a>
           <a

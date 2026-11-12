@@ -23,7 +23,7 @@ export default function Catalog({ vehicles }: { vehicles: Vehicle[] }) {
   // Bumping this remounts the search box, which empties its inputs.
   const [searchKey, setSearchKey] = useState(0);
   const [page, setPage] = useState(1);
-  // Category pills ("" = Todos), same on mobile and desktop.
+  // Zone pills ("" = Todas), same on mobile and desktop.
   const [category, setCategory] = useState("");
   const arsRate = useArsRate();
 
@@ -31,7 +31,7 @@ export default function Catalog({ vehicles }: { vehicles: Vehicle[] }) {
     () =>
       vehicles.filter(
         (v) =>
-          (!category || v.bodyType === category) &&
+          (!category || v.zone === category) &&
           matchesCriteria(v, criteria, arsRate),
       ),
     [vehicles, category, criteria, arsRate],
@@ -66,7 +66,7 @@ export default function Catalog({ vehicles }: { vehicles: Vehicle[] }) {
       data-testid="catalog"
       className="mx-auto max-w-[1440px] scroll-mt-4 px-3 pb-1 pt-2 md:pb-12 md:pt-10 lg:px-6 lg:pb-12 lg:pt-5"
     >
-      <h2 className="sr-only">Autos usados en venta</h2>
+      <h2 className="sr-only">Casas de vacaciones en Punta del Este</h2>
       <div className="mb-2 md:mb-10 lg:mb-5 flex flex-col justify-between gap-4 md:flex-row md:items-center md:gap-6">
         <div className="min-w-0 md:max-w-[50%]">
           <CategoryScroller
@@ -101,11 +101,11 @@ export default function Catalog({ vehicles }: { vehicles: Vehicle[] }) {
               href="/#inventario"
               className="shrink-0 text-xs text-muted underline-offset-4 transition-colors duration-150 hover:text-fg hover:underline"
             >
-              Ver todo el inventario →
+              Ver todas las casas →
             </Link>
           </div>
           <ul
-            aria-label="Vehículos destacados"
+            aria-label="Casas destacadas"
             className="-mx-[10px] grid grid-cols-2 gap-[2px]"
           >
             {visible.slice(0, MOBILE_PAGE_SIZE).map((vehicle) => (
@@ -118,15 +118,15 @@ export default function Catalog({ vehicles }: { vehicles: Vehicle[] }) {
             <p className="text-xs tabular-nums text-subtle">
               {Math.min(visible.length, MOBILE_PAGE_SIZE)}{" "}
               {Math.min(visible.length, MOBILE_PAGE_SIZE) === 1
-                ? "vehículo"
-                : "vehículos"}
+                ? "casa"
+                : "casas"}
             </p>
             <Link
               href="/#inventario"
               data-testid="see-all-inventory"
               className="shrink-0 text-xs text-muted underline-offset-4 transition-colors duration-150 hover:text-fg hover:underline"
             >
-              Ver todo el inventario →
+              Ver todas las casas →
             </Link>
           </div>
         </div>
@@ -151,7 +151,7 @@ export default function Catalog({ vehicles }: { vehicles: Vehicle[] }) {
           className="flex flex-col items-center gap-4 py-16 text-center"
         >
           <p className="text-sm text-muted">
-            No se encontraron vehículos que coincidan con tu búsqueda.
+            No se encontraron casas que coincidan con tu búsqueda.
           </p>
           {filtering && (
             <button
@@ -173,7 +173,7 @@ export default function Catalog({ vehicles }: { vehicles: Vehicle[] }) {
           aria-live="polite"
           className="text-xs tabular-nums text-subtle"
         >
-          {visible.length} {visible.length === 1 ? "vehículo" : "vehículos"}
+          {visible.length} {visible.length === 1 ? "casa" : "casas"}
         </p>
         {pageCount > 1 ? (
           <nav
@@ -223,7 +223,7 @@ export default function Catalog({ vehicles }: { vehicles: Vehicle[] }) {
           href="/#inventario"
           className="justify-self-end text-xs text-muted underline-offset-4 transition-colors duration-150 hover:text-fg hover:underline"
         >
-          Ver todo el inventario →
+          Ver todas las casas →
         </Link>
       </div>
     </section>

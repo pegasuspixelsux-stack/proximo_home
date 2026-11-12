@@ -29,7 +29,7 @@ export default function MobileSearch() {
     <div className="lg:hidden">
       <button
         type="button"
-        aria-label="Buscar autos"
+        aria-label="Buscar casas"
         aria-haspopup="dialog"
         aria-expanded={open}
         data-testid="mobile-search-toggle"
@@ -44,7 +44,7 @@ export default function MobileSearch() {
           <div
             role="dialog"
             aria-modal="true"
-            aria-label="Buscar autos"
+            aria-label="Buscar casas"
             className="fixed inset-0 z-50 flex items-start justify-center p-3"
           >
             <button
@@ -82,8 +82,8 @@ export default function MobileSearch() {
                     ref={inputRef}
                     type="search"
                     name="q"
-                    aria-label="Buscar marca o modelo"
-                    placeholder="Buscar marca o modelo"
+                    aria-label="Buscar casa, zona o palabra clave"
+                    placeholder="Buscar casa, zona o palabra clave"
                     className="w-full bg-transparent text-base text-fg outline-none placeholder:text-subtle"
                   />
                 </div>
@@ -96,7 +96,7 @@ export default function MobileSearch() {
                   type="submit"
                   className="w-full rounded-full bg-inverse py-3 text-sm font-medium text-on-inverse transition-[transform,opacity] duration-150 hover:opacity-85 active:scale-[0.98]"
                 >
-                  Buscar autos
+                  Buscar casas
                 </button>
               </div>
             </form>

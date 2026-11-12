@@ -1,5 +1,15 @@
-export type FuelType = "Electric" | "Gasoline" | "Hybrid" | "Diesel";
-export type BodyType = "Auto" | "SUV" | "Deportivo" | "Clásico" | "Moto" | "Camioneta" | "Camión";
+/** NOTE: the `Vehicle` type is a vacation home now (name kept to avoid churn in the Firestore collection and imports). */
+
+/** Punta del Este zones: the site's only location filter. */
+export const ZONES = [
+  "Península",
+  "Playa Brava",
+  "Playa Mansa",
+  "La Barra",
+  "Manantiales",
+  "José Ignacio",
+] as const;
+export type Zone = (typeof ZONES)[number];
 
 export type SellerType = "private" | "dealer";
 
@@ -36,27 +46,27 @@ export interface Vehicle {
   id: string;
   /** Human-friendly reference number (e.g. "0012"), unique per listing. */
   reference?: string;
-  make: string;
-  model: string;
-  year: number;
+  /** Name of the home, e.g. "Casa Los Pinos". */
+  name: string;
   price: number;
   /** Currency `price` was listed in; missing means USD. */
   priceCurrency?: "USD" | "ARS";
-  /** In miles; the UI converts to km. */
-  mileage: number;
-  transmission: string;
-  fuelType: FuelType;
-  bodyType: BodyType;
+  /** Punta del Este zone; drives the zone filter. */
+  zone: Zone;
+  /** Street / neighborhood detail shown under the name (optional). */
+  location: string;
+  bedrooms: number;
+  bathrooms: number;
+  /** Maximum number of guests. */
+  guests: number;
   /** Featured photo: used on cards and as the first slide on the detail page. */
   image: string;
   /** Every photo of the listing (includes `image`); older listings only have `image`. */
   images?: string[];
-  color?: string;
-  /** Extra technical-sheet rows, label → value. */
+  /** Extra detail rows, label → value (e.g. "Superficie" → "320 m²"). */
   specs?: Record<string, string>;
-  location: string;
   sellerType: SellerType;
-  /** Set when sellerType === "dealer". */
+  /** Set when sellerType === "dealer" (an agency). */
   dealership?: Dealership;
   /** WhatsApp number (digits only) for private sellers. */
   sellerPhone?: string;
@@ -65,19 +75,12 @@ export interface Vehicle {
   badge?: string;
   /** Free-text description shown on the detail page. */
   description?: string;
-  /** Equipment ids from COMMON_CAR_FEATURES. */
+  /** Feature ids from HOME_FEATURES (e.g. sea view, fireplace). */
   features?: string[];
+  /** Amenity ids from HOME_AMENITIES (e.g. pool, wifi). */
+  amenities?: string[];
   /** Show on the homepage catalog (capped at HOMEPAGE_LIMIT, newest first). Shown unless set to false. */
   homepage?: boolean;
 }
 
 export const HOMEPAGE_LIMIT = 48;
-
-const KM_PER_MILE = 1.60934;
-
-/**
- * Mileage in km for display. It is stored in miles, so a plain conversion turns
- * 127.000 km into 126.999; rounding to the nearest 10 km hides that artifact.
- */
-export const mileageKm = (miles: number) =>
-  Math.round((miles * KM_PER_MILE) / 10) * 10;

@@ -42,14 +42,14 @@ export default function DealershipBar({
             id="featured-dealers-heading"
             className="text-balance text-3xl font-light tracking-[-0.02em] lg:text-4xl"
           >
-            Concesionarias Destacadas
+            Inmobiliarias Destacadas
           </h2>
           <p className="mt-2 text-sm text-muted">
-            Inventario de nuestros vendedores verificados.
+            Propiedades de nuestras inmobiliarias verificadas.
           </p>
         </div>
         <Link
-          href="/concesionarias"
+          href="/inmobiliarias"
           className="shrink-0 text-xs text-muted underline-offset-4 transition-colors duration-150 hover:text-fg hover:underline"
         >
           Ver todas →
@@ -58,7 +58,7 @@ export default function DealershipBar({
 
       <ul
         tabIndex={0}
-        aria-label="Concesionarias destacadas, desplazá horizontalmente"
+        aria-label="Inmobiliarias destacadas, desplazá horizontalmente"
         className="-mx-3 mt-6 flex snap-x gap-6 overflow-x-auto px-3 py-3 [scrollbar-width:none] lg:-mx-6 lg:gap-8 lg:px-6 [&::-webkit-scrollbar]:hidden"
       >
         {dealerships.map((dealer) => (
@@ -68,9 +68,9 @@ export default function DealershipBar({
               transition={{ type: "spring", duration: 0.3, bounce: 0.15 }}
             >
               <Link
-                href={`/concesionarias/${dealer.slug}`}
+                href={`/inmobiliarias/${dealer.slug}`}
                 data-testid={`dealer-chip-${dealer.slug}`}
-                aria-label={`${dealer.name}, ${dealer.vehicleCount} vehículos`}
+                aria-label={`${dealer.name}, ${dealer.vehicleCount} casas`}
                 className="group flex w-32 flex-col md:w-36 items-center text-center outline-none"
               >
                 <span className="relative flex h-24 w-24 items-center justify-center overflow-hidden rounded-full border border-line bg-surface text-xl font-semibold tracking-tight text-fg shadow-[var(--card-shadow)] backdrop-blur-sm transition-[border-color,box-shadow] duration-200 group-hover:border-fg/40 group-focus-visible:ring-2 group-focus-visible:ring-fg/60 md:h-28 md:w-28 md:text-2xl [:root:not([data-theme=light])_&]:group-hover:border-brand/60 [:root:not([data-theme=light])_&]:group-hover:shadow-[0_0_28px_-4px_rgba(255,234,0,0.45)]">
@@ -91,7 +91,7 @@ export default function DealershipBar({
                 </span>
                 <span className="mt-0.5 text-[10px] tabular-nums text-subtle">
                   {dealer.vehicleCount}{" "}
-                  {dealer.vehicleCount === 1 ? "vehículo" : "vehículos"}
+                  {dealer.vehicleCount === 1 ? "casa" : "casas"}
                 </span>
               </Link>
             </motion.div>

@@ -25,9 +25,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!dealer) return {};
   const place = placeLabel(dealer.city ? `${dealer.city}, ${dealer.province ?? ""}` : dealer.location);
   return {
-    title: `Autos usados en ${place}`,
-    description: `Mirá el inventario de autos usados de Tu Próximo Auto en ${place}. Consultá precios, financiación y coordiná una visita por WhatsApp.`,
-    alternates: { canonical: `/concesionarias/${dealer.slug}` },
+    title: `Casas de vacaciones en ${place}`,
+    description: `Mirá las casas de vacaciones de ${dealer.name} en ${place}. Consultá precios y coordiná una visita por WhatsApp.`,
+    alternates: { canonical: `/inmobiliarias/${dealer.slug}` },
   };
 }
 
@@ -36,14 +36,14 @@ export default async function DealerPage({ params }: Props) {
   if (!dealer) notFound();
 
   const vehicles = await vehiclesByDealer(dealer.id);
-  const whatsappMessage = `Hola ${dealer.name}, vi su concesionaria en Tu Próximo Auto y quiero hacer una consulta.`;
+  const whatsappMessage = `Hola ${dealer.name}, vi su inmobiliaria en Tu Próxima Casa y quiero hacer una consulta.`;
 
   return (
     <>
       <JsonLd
         data={breadcrumbs([
           { name: "Inicio", url: absoluteUrl("/") },
-          { name: "Nuestra concesionaria", url: absoluteUrl(`/concesionarias/${dealer.slug}`) },
+          { name: "Nuestra inmobiliaria", url: absoluteUrl(`/inmobiliarias/${dealer.slug}`) },
         ])}
       />
       <SiteHeader />
@@ -53,11 +53,11 @@ export default async function DealerPage({ params }: Props) {
           className="mt-8 rounded-xl border border-line bg-surface p-6 shadow-[var(--card-shadow)] lg:p-10"
         >
           <p className="text-xs font-medium uppercase tracking-widest text-muted">
-            Concesionaria
+            Inmobiliaria
           </p>
           <div className="mt-2 flex flex-wrap items-center gap-3">
             <h1 className="text-balance text-3xl font-light tracking-[-0.02em] lg:text-5xl">
-              Tu Próximo Auto
+              {dealer.name}
             </h1>
             {dealer.verified && (
               <span className="inline-flex items-center gap-1.5 rounded-full border border-line px-3 py-1 text-[10px] font-semibold uppercase tracking-wider text-muted">
@@ -86,10 +86,10 @@ export default async function DealerPage({ params }: Props) {
               </div>
             )}
             <div data-testid="dealer-count">
-              <dt className="sr-only">Inventario</dt>
+              <dt className="sr-only">Propiedades</dt>
               <dd>
                 {vehicles.length}{" "}
-                {vehicles.length === 1 ? "vehículo publicado" : "vehículos publicados"}
+                {vehicles.length === 1 ? "casa publicada" : "casas publicadas"}
               </dd>
             </div>
           </dl>
@@ -111,11 +111,11 @@ export default async function DealerPage({ params }: Props) {
             id="dealer-inventory"
             className="text-3xl font-light tracking-[-0.02em] lg:text-4xl"
           >
-            Inventario
+            Casas
           </h2>
           {vehicles.length === 0 ? (
             <p className="py-16 text-center text-sm text-muted">
-              Esta concesionaria todavía no tiene vehículos publicados.
+              Esta inmobiliaria todavía no tiene casas publicadas.
             </p>
           ) : (
             <div className="mt-10 grid grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-4">

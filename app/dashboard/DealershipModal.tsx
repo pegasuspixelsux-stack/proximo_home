@@ -53,7 +53,7 @@ function nextId(dealerships: Dealership[]) {
 
 /** Unique slug: appends -2, -3, ... when another dealership already uses it. */
 function uniqueSlug(name: string, dealerships: Dealership[], selfId?: string) {
-  const base = slugify(name) || "concesionaria";
+  const base = slugify(name) || "inmobiliaria";
   const taken = new Set(
     dealerships.filter((d) => d.id !== selfId).map((d) => d.slug),
   );
@@ -111,7 +111,7 @@ export default function DealershipModal({
     const email = str("email");
     const phone = str("phone").replace(/\D/g, "");
 
-    if (name.length < 2) return setError("Ingresá el nombre de la concesionaria.");
+    if (name.length < 2) return setError("Ingresá el nombre de la inmobiliaria.");
     if (!city || !province) return setError("Ingresá la ciudad y la provincia.");
     if (!EMAIL_RE.test(email)) return setError("Ingresá un email válido.");
     if (phone.length < 8 || phone.length > 15)
@@ -123,7 +123,7 @@ export default function DealershipModal({
         d.id !== dealership?.id &&
         d.name.trim().toLowerCase() === name.toLowerCase(),
     );
-    if (duplicate) return setError("Ya existe una concesionaria con ese nombre.");
+    if (duplicate) return setError("Ya existe una inmobiliaria con ese nombre.");
 
     const location = [address, city, province].filter(Boolean).join(", ");
     const next: Dealership = {
@@ -149,7 +149,7 @@ export default function DealershipModal({
     try {
       const batch = writeBatch(db);
       batch.set(doc(db, "dealerships", next.id), next);
-      // Vehicles embed a copy of their dealership; keep those copies in sync.
+      // Homes embed a copy of their agency; keep those copies in sync.
       if (dealership) {
         for (const v of vehicles) {
           if (v.dealership?.id === next.id)
@@ -164,7 +164,7 @@ export default function DealershipModal({
       onSaved(
         dealership
           ? `Se guardaron los cambios de ${name}.`
-          : `Se creó la concesionaria ${name}.`,
+          : `Se creó la inmobiliaria ${name}.`,
       );
     } catch {
       setError(
@@ -188,7 +188,7 @@ export default function DealershipModal({
       >
         <div className="flex items-center justify-between border-b border-line px-5 py-4">
           <h2 id={titleId} className="text-lg font-medium tracking-tight">
-            {dealership ? "Editar concesionaria" : "Nueva concesionaria"}
+            {dealership ? "Editar inmobiliaria" : "Nueva inmobiliaria"}
           </h2>
           <button
             type="button"
@@ -269,7 +269,7 @@ export default function DealershipModal({
               <input
                 name="address"
                 defaultValue={dealership?.address}
-                placeholder="Av. Libertador 1234"
+                placeholder="Av. Gorlero 1234"
                 className={FIELD}
               />
             </Labeled>
@@ -282,7 +282,7 @@ export default function DealershipModal({
                 className={FIELD}
               />
             </Labeled>
-            <Labeled label="Provincia">
+            <Labeled label="Departamento">
               <input
                 name="province"
                 required

@@ -5,7 +5,7 @@ import VehiclesSection from "../VehiclesSection";
 // admin page can't be an instant navigation.
 export const instant = false;
 
-export default async function VehiculosPage() {
+export default async function CasasPage() {
   const [vehicles, dealerships] = await Promise.all([
     getAllVehicles(),
     getDealerships(),
@@ -14,16 +14,16 @@ export default async function VehiculosPage() {
     <main className="mx-auto w-full max-w-[1400px] px-4 py-8 lg:px-8 lg:py-10">
       <header>
         <h1 className="text-3xl font-semibold tracking-[-0.02em] lg:text-4xl">
-          Listado de Vehículos
+          Listado de Casas
         </h1>
         <p className="mt-2 text-sm text-muted">
-          Todos los vehículos publicados en el sitio
+          Todas las casas publicadas en el sitio
         </p>
       </header>
       <VehiclesSection
         vehicles={vehicles}
         dealerships={dealerships}
-        title="Todos los Vehículos"
+        title="Todas las Casas"
       />
     </main>
   );

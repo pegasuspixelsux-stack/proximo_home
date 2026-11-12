@@ -1,40 +1,31 @@
 import {
+  ZONES,
   priceInUsd,
   vehicleReference,
   type Vehicle,
+  type Zone,
 } from "@/app/data/vehicles";
-
-const KM_PER_MILE = 1.60934;
+import { HOME_AMENITY_LABEL, HOME_FEATURE_LABEL } from "@/app/data/home-features";
 
 /** Everything the home-page search box and its advanced panel can ask for. */
 export interface SearchCriteria {
   q: string;
-  make: string;
-  bodyType: string;
-  transmission: string;
-  fuel: string;
-  yearMin: string;
-  yearMax: string;
+  zone: string;
+  bedroomsMin: string;
+  guestsMin: string;
   priceMin: string;
   priceMax: string;
-  kmMax: string;
   seller: string;
-  location: string;
 }
 
 export const EMPTY_CRITERIA: SearchCriteria = {
   q: "",
-  make: "",
-  bodyType: "",
-  transmission: "",
-  fuel: "",
-  yearMin: "",
-  yearMax: "",
+  zone: "",
+  bedroomsMin: "",
+  guestsMin: "",
   priceMin: "",
   priceMax: "",
-  kmMax: "",
   seller: "",
-  location: "",
 };
 
 /** Reads the search form's fields (missing ones stay empty). */
@@ -48,43 +39,27 @@ export function readCriteria(form: FormData): SearchCriteria {
 export const hasCriteria = (c: SearchCriteria) =>
   Object.values(c).some((v) => v !== "");
 
-/** Lowercase and accent-free, so "diesel" finds "Diésel". */
-const norm = (s: string) =>
+/** Lowercase and accent-free, so "jose ignacio" finds "José Ignacio". */
+export const norm = (s: string) =>
   s
     .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[̀-ͯ]/g, "")
     .toLowerCase();
 
-const FUEL_WORDS: Record<Vehicle["fuelType"], string> = {
-  Gasoline: "Nafta",
-  Diesel: "Diésel",
-  Hybrid: "Híbrido",
-  Electric: "Eléctrico",
-};
-
-/**
- * Free-text search: every word typed must appear (as a substring, any case)
- * somewhere in the listing's make, model, year, version, badge, color, fuel,
- * transmission, body type, description, location, dealership or reference.
- */
+/** Free-text search: every word typed must appear somewhere in the listing. */
 export function matchesText(v: Vehicle, query: string) {
   const words = norm(query).split(/\s+/).filter(Boolean);
   if (!words.length) return true;
   const haystack = norm(
     [
-      v.make,
-      v.model,
-      v.year,
-      v.specs?.["Versión"],
-      // Every technical-sheet value too, so "gnc" or "sin garantía" are findable.
-      ...Object.values(v.specs ?? {}),
-      v.badge,
-      v.color,
-      FUEL_WORDS[v.fuelType],
-      v.transmission,
-      v.bodyType,
-      v.description,
+      v.name,
+      v.zone,
       v.location,
+      v.badge,
+      v.description,
+      ...Object.values(v.specs ?? {}),
+      ...(v.features ?? []).map((id) => HOME_FEATURE_LABEL[id]),
+      ...(v.amenities ?? []).map((id) => HOME_AMENITY_LABEL[id]),
       v.dealership?.name,
       vehicleReference(v),
     ]
@@ -96,42 +71,26 @@ export function matchesText(v: Vehicle, query: string) {
 
 const num = (s: string) => (s === "" ? null : Number(s));
 
-/**
- * The single predicate behind the home page: text search and every advanced
- * filter must all pass. Prices compare in US$ (ARS listings are converted).
- */
+/** The single predicate behind the home page: text search and every filter must pass. */
 export function matchesCriteria(v: Vehicle, c: SearchCriteria, arsRate: number) {
   if (!matchesText(v, c.q)) return false;
-  if (c.make && !norm(v.make).includes(norm(c.make))) return false;
-  if (c.bodyType && v.bodyType !== c.bodyType) return false;
-  if (c.transmission && v.transmission !== c.transmission) return false;
-  if (c.fuel && v.fuelType !== c.fuel) return false;
+  if (c.zone && v.zone !== c.zone) return false;
   if (c.seller && v.sellerType !== c.seller) return false;
-  if (c.location && !norm(v.location).includes(norm(c.location))) return false;
 
-  const yearMin = num(c.yearMin);
-  const yearMax = num(c.yearMax);
-  if (yearMin != null && v.year < yearMin) return false;
-  if (yearMax != null && v.year > yearMax) return false;
+  const beds = num(c.bedroomsMin);
+  if (beds != null && v.bedrooms < beds) return false;
+  const guests = num(c.guestsMin);
+  if (guests != null && v.guests < guests) return false;
 
   const usd = priceInUsd(v, arsRate);
   const priceMin = num(c.priceMin);
   const priceMax = num(c.priceMax);
   if (priceMin != null && usd < priceMin) return false;
   if (priceMax != null && usd > priceMax) return false;
-
-  const kmMax = num(c.kmMax);
-  if (kmMax != null && v.mileage * KM_PER_MILE > kmMax) return false;
   return true;
 }
 
-export type PillId =
-  | "all"
-  | "gasoline"
-  | "gnc"
-  | "diesel"
-  | "hybrid"
-  | "electric";
+export type PillId = "all" | Zone;
 
 export interface FilterPill {
   id: PillId;
@@ -139,24 +98,14 @@ export interface FilterPill {
   test: (v: Vehicle) => boolean;
 }
 
-/** GNC is not a fuel type of its own: those cars are Nafta and mention GNC in their text. */
-const hasGnc = (v: Vehicle) =>
-  /\bgnc\b/i.test(
-    [v.description, v.badge, ...Object.values(v.specs ?? {})].filter(Boolean).join(" "),
-  );
-
-/**
- * Quick-filter pills shared by the home catalog and /autos. The fuel pills
- * mirror the allowed fuel types (Nafta, Diésel, Híbrido, Eléctrico); cars with
- * GNC are stored as Nafta, so they fall under "Nafta".
- */
+/** Quick-filter pills shared by the home catalog and /casas: one per zone. */
 export const FILTER_PILLS: FilterPill[] = [
-  { id: "all", label: "Todos", test: () => true },
-  { id: "electric", label: "Eléctricos", test: (v) => v.fuelType === "Electric" },
-  { id: "hybrid", label: "Híbridos", test: (v) => v.fuelType === "Hybrid" },
-  { id: "gasoline", label: "Nafta", test: (v) => v.fuelType === "Gasoline" },
-  { id: "gnc", label: "GNC", test: hasGnc },
-  { id: "diesel", label: "Diésel", test: (v) => v.fuelType === "Diesel" },
+  { id: "all", label: "Todas", test: () => true },
+  ...ZONES.map((z) => ({
+    id: z as PillId,
+    label: z,
+    test: (v: Vehicle) => v.zone === z,
+  })),
 ];
 
 export const isPillId = (value: string): value is PillId =>

@@ -5,7 +5,7 @@ import { ArrowLeft } from "lucide-react";
 import LoginForm from "./LoginForm";
 
 export const metadata: Metadata = {
-  title: "Iniciar sesión | Tu Próximo Auto - Argentina",
+  title: "Iniciar sesión | Tu Próxima Casa - Uruguay",
   robots: { index: false, follow: false },
 };
 
@@ -27,7 +27,7 @@ export default function LoginPage() {
 
       {/* Left column: the photo shows through. */}
       <div className="relative hidden items-end p-8 md:flex">
-        <p className="font-mono text-xs text-[#86868B]">Tu Próximo Auto v1.0</p>
+        <p className="font-mono text-xs text-[#86868B]">Tu Próxima Casa v1.0</p>
       </div>
 
       {/* Right column: dark backdrop with the form. */}
@@ -45,13 +45,13 @@ export default function LoginPage() {
             Iniciar Sesión
           </h1>
           <p className="mt-2 text-sm text-[#86868B]">
-            Accedé al panel de control interno de Tu Próximo Auto
+            Accedé al panel de control interno de Tu Próxima Casa
           </p>
           <LoginForm />
         </div>
 
         <p className="text-center font-mono text-xs text-[#86868B] md:hidden">
-          Tu Próximo Auto v1.0
+          Tu Próxima Casa v1.0
         </p>
       </section>
     </main>

@@ -1,32 +1,23 @@
-import { COMMON_CAR_FEATURES } from "@/app/data/car-features";
+import { HOME_AMENITIES, HOME_FEATURES } from "@/app/data/home-features";
 import {
+  ZONES,
   vehicleReference,
-  type BodyType,
   type Dealership,
-  type FuelType,
   type SellerType,
   type Vehicle,
+  type Zone,
 } from "@/app/data/vehicles";
 
-// Bulk inventory import: a plain one-sheet Excel/Sheets table whose columns map
-// onto the Vehicle model. Photos are not part of it: imported vehicles are
-// created without photos and stay hidden from the public site until photos are
-// uploaded from the edit modal.
+// Bulk import: a plain one-sheet Excel/Sheets table whose columns map onto the
+// home model (the `Vehicle` type). Photos are not part of it: imported homes
+// are created without photos and stay hidden from the public site until photos
+// are uploaded from the edit modal.
 
-export const TEMPLATE_FILE_NAME = "Plantilla_Carga_Inventario_Vehiculos.xlsx";
+export const TEMPLATE_FILE_NAME = "Plantilla_Carga_Casas.xlsx";
 
-const KM_PER_MILE = 1.60934;
-const BODY_TYPES: BodyType[] = ["Auto", "SUV", "Deportivo", "Clásico", "Moto", "Camioneta", "Camión"];
-const TRANSMISSIONS = ["Automática", "Manual"];
-const FUELS: Record<string, FuelType> = {
-  Nafta: "Gasoline",
-  Diésel: "Diesel",
-  Híbrido: "Hybrid",
-  Eléctrico: "Electric",
-};
 const CURRENCIES = ["USD", "ARS"] as const;
 const SELLERS: Record<string, SellerType> = {
-  Concesionaria: "dealer",
+  Inmobiliaria: "dealer",
   Particular: "private",
 };
 type Column = {
@@ -40,104 +31,58 @@ type Column = {
 
 export const COLUMNS: Column[] = [
   { key: "reference", header: "Referencia", width: 14 },
-  { key: "bodyType", header: "Tipo_Vehiculo", width: 16, options: BODY_TYPES },
-  { key: "make", header: "Marca", width: 16 },
-  { key: "model", header: "Modelo", width: 18 },
-  { key: "version", header: "Version", width: 20 },
-  { key: "year", header: "Año", width: 8 },
-  { key: "km", header: "Kilometraje", width: 14 },
-  { key: "transmission", header: "Transmision", width: 14, options: TRANSMISSIONS },
-  { key: "fuel", header: "Combustible", width: 14, options: Object.keys(FUELS) },
-  { key: "color", header: "Color", width: 14 },
+  { key: "name", header: "Nombre", width: 26 },
+  { key: "zone", header: "Zona", width: 16, options: [...ZONES] },
+  { key: "location", header: "Ubicacion", width: 24 },
+  { key: "bedrooms", header: "Dormitorios", width: 13 },
+  { key: "bathrooms", header: "Banos", width: 10 },
+  { key: "guests", header: "Huespedes", width: 12 },
   { key: "price", header: "Precio", width: 14 },
   { key: "currency", header: "Moneda", width: 10, options: [...CURRENCIES] },
-  { key: "warranty", header: "Garantia", width: 18 },
-  { key: "special", header: "Condicion_Especial", width: 22 },
+  { key: "area", header: "Superficie", width: 14 },
   { key: "seller", header: "Tipo_Vendedor", width: 16, options: Object.keys(SELLERS) },
-  { key: "dealership", header: "Concesionaria", width: 22 },
-  { key: "location", header: "Ubicacion", width: 22 },
-  { key: "sellerPhone", header: "Telefono_Vendedor", width: 18 },
+  { key: "dealership", header: "Inmobiliaria", width: 22 },
+  { key: "sellerPhone", header: "Telefono_Propietario", width: 20 },
   { key: "badge", header: "Etiqueta", width: 14 },
-  { key: "features", header: "Equipamiento", width: 30, wrap: true },
+  { key: "features", header: "Caracteristicas", width: 34, wrap: true },
+  { key: "amenities", header: "Amenities", width: 34, wrap: true },
   { key: "description", header: "Descripcion", width: 48, wrap: true },
 ];
 
 const SAMPLES: Record<string, string | number>[] = [
   {
     reference: "0101",
-    bodyType: "SUV",
-    make: "Toyota",
-    model: "Corolla Cross",
-    version: "XEI 2.0 CVT",
-    year: 2022,
-    km: 38000,
-    transmission: "Automática",
-    fuel: "Nafta",
-    color: "Gris",
-    price: 28500,
+    name: "Casa Los Pinos",
+    zone: "La Barra",
+    location: "Barrio Los Médanos",
+    bedrooms: 4,
+    bathrooms: 3,
+    guests: 8,
+    price: 780000,
     currency: "USD",
-    warranty: "6 meses",
-    special: "Único dueño",
-    seller: "Concesionaria",
-    dealership: "Autohaus Punta",
-    badge: "Certificado",
-    features: "Aire acondicionado / Climatizador; Cámara de reversa; Frenos ABS",
-    description: "Service oficial completo, excelente estado general.",
+    area: "320 m²",
+    seller: "Inmobiliaria",
+    dealership: "Costa Este Propiedades",
+    badge: "Nueva",
+    features: "Vista al mar; Parrillero; Jardín",
+    amenities: "Piscina; Wi-Fi; Aire acondicionado",
+    description: "Casa de diseño a pocos minutos de la playa, rodeada de pinos.",
   },
   {
     reference: "0102",
-    bodyType: "Auto",
-    make: "Volkswagen",
-    model: "Golf",
-    version: "Highline 1.4 TSI",
-    year: 2019,
-    km: 62000,
-    transmission: "Manual",
-    fuel: "Nafta",
-    color: "Blanco",
-    price: 24500000,
-    currency: "ARS",
-    seller: "Particular",
-    location: "Tigre, Buenos Aires",
-    sellerPhone: "5491155550101",
-    features: "Bluetooth; Sensores de estacionamiento",
-    description: "Papeles al día, listo para transferir.",
-  },
-  {
-    reference: "0103",
-    bodyType: "Auto",
-    make: "Tesla",
-    model: "Model 3",
-    version: "Long Range",
-    year: 2023,
-    km: 15000,
-    transmission: "Automática",
-    fuel: "Eléctrico",
-    color: "Negro",
-    price: 41000,
+    name: "Villa Manantiales",
+    zone: "Manantiales",
+    location: "Ruta 10 km 160",
+    bedrooms: 5,
+    bathrooms: 5,
+    guests: 10,
+    price: 1250000,
     currency: "USD",
-    warranty: "12 meses",
-    seller: "Concesionaria",
-    dealership: "Montevideo Motors",
-    description: "Batería con 98% de salud, cargador incluido.",
-  },
-  {
-    reference: "0104",
-    bodyType: "Moto",
-    make: "Honda",
-    model: "CB 500F",
-    year: 2021,
-    km: 9000,
-    transmission: "Manual",
-    fuel: "Nafta",
-    color: "Rojo",
-    price: 9800,
-    currency: "USD",
-    special: "Con accesorios",
     seller: "Particular",
-    location: "San Isidro, Buenos Aires",
-    sellerPhone: "5491155550104",
-    description: "Con baúl y protectores.",
+    sellerPhone: "59899000102",
+    features: "Terraza; Chimenea; Garage",
+    amenities: "Piscina climatizada; Gimnasio; Seguridad 24 h",
+    description: "Villa con amplios espacios de living y quincho.",
   },
 ];
 
@@ -151,7 +96,7 @@ async function loadExcel(): Promise<typeof import("exceljs")> {
 export async function downloadTemplate() {
   const { Workbook } = await loadExcel();
   const wb = new Workbook();
-  const ws = wb.addWorksheet("Inventario");
+  const ws = wb.addWorksheet("Casas");
   ws.columns = COLUMNS.map((c) => ({
     header: c.header,
     key: c.key,
@@ -249,7 +194,7 @@ export type VehicleFields = Omit<
 
 export type ImportRow = {
   data: VehicleFields;
-  /** The vehicle this row updates, matched by Referencia; absent for new vehicles. */
+  /** The home this row updates, matched by Referencia; absent for new homes. */
   existing?: Vehicle;
 };
 
@@ -258,10 +203,10 @@ export type ImportResult = {
   errors: string[];
 };
 
-/** Technical-sheet rows the spreadsheet owns; other rows are kept on update. */
-const MANAGED_SPECS = ["Versión", "Garantía", "Condición especial"];
+/** Detail rows the spreadsheet owns; other rows are kept on update. */
+const MANAGED_SPECS = ["Superficie"];
 
-/** Reads an uploaded .xlsx and validates every row against the vehicle model. */
+/** Reads an uploaded .xlsx and validates every row against the home model. */
 export async function parseInventoryFile(
   file: File,
   existing: Vehicle[],
@@ -293,15 +238,18 @@ export async function parseInventoryFile(
 
   const errors: string[] = [];
   const rows: ImportRow[] = [];
-  // Referencia is the unique key: a known one updates that vehicle, a new one creates it.
+  // Referencia is the unique key: a known one updates that home, a new one creates it.
   const byReference = new Map(existing.map((v) => [vehicleReference(v), v]));
   const seen = new Set<string>();
-  const featureByLabel = new Map(
-    COMMON_CAR_FEATURES.flatMap((f) => [
-      [norm(f.label), f.id] as const,
-      [norm(f.id), f.id] as const,
-    ]),
-  );
+  const idByLabel = (list: { id: string; label: string }[]) =>
+    new Map(
+      list.flatMap((f) => [
+        [norm(f.label), f.id] as const,
+        [norm(f.id), f.id] as const,
+      ]),
+    );
+  const featureByLabel = idByLabel(HOME_FEATURES);
+  const amenityByLabel = idByLabel(HOME_AMENITIES);
 
   ws.eachRow((row, rowNumber) => {
     if (rowNumber === 1) return;
@@ -325,27 +273,20 @@ export async function parseInventoryFile(
       else seen.add(reference);
     }
 
-    const bodyType = pick(need("bodyType", "Tipo_Vehiculo"), BODY_TYPES);
-    if (get("bodyType") && !bodyType)
-      problems.push(`Tipo_Vehiculo debe ser: ${BODY_TYPES.join(", ")}`);
+    const name = need("name", "Nombre");
 
-    const make = need("make", "Marca");
-    const model = need("model", "Modelo");
+    const zone: Zone | undefined = pick(need("zone", "Zona"), ZONES);
+    if (get("zone") && !zone) problems.push(`Zona debe ser: ${ZONES.join(", ")}`);
 
-    const year = toNumber(need("year", "Año"));
-    if (get("year") && !(Number.isInteger(year) && year >= 1900 && year <= 2100))
-      problems.push("Año inválido");
-
-    const km = toNumber(need("km", "Kilometraje"));
-    if (get("km") && !(km >= 0)) problems.push("Kilometraje inválido");
-
-    const transmission = pick(need("transmission", "Transmision"), TRANSMISSIONS);
-    if (get("transmission") && !transmission)
-      problems.push(`Transmision debe ser: ${TRANSMISSIONS.join(", ")}`);
-
-    const fuelName = pick(need("fuel", "Combustible"), Object.keys(FUELS));
-    if (get("fuel") && !fuelName)
-      problems.push(`Combustible debe ser: ${Object.keys(FUELS).join(", ")}`);
+    const count = (key: string, label: string, min: number) => {
+      const n = toNumber(need(key, label));
+      if (get(key) && !(Number.isInteger(n) && n >= min && n <= 100))
+        problems.push(`${label} inválido`);
+      return n;
+    };
+    const bedrooms = count("bedrooms", "Dormitorios", 0);
+    const bathrooms = count("bathrooms", "Banos", 0);
+    const guests = count("guests", "Huespedes", 1);
 
     const price = toNumber(need("price", "Precio"));
     if (get("price") && !(price >= 0)) problems.push("Precio inválido");
@@ -356,31 +297,37 @@ export async function parseInventoryFile(
 
     const sellerName = pick(need("seller", "Tipo_Vendedor"), Object.keys(SELLERS));
     if (get("seller") && !sellerName)
-      problems.push("Tipo_Vendedor debe ser Concesionaria o Particular");
+      problems.push("Tipo_Vendedor debe ser Inmobiliaria o Particular");
     const sellerType = sellerName ? SELLERS[sellerName] : undefined;
 
     let dealership: Dealership | undefined;
-    let location = get("location");
     let sellerPhone = "";
     if (sellerType === "dealer") {
-      const name = need("dealership", "Concesionaria");
-      dealership = dealerships.find((d) => norm(d.name) === norm(name));
-      if (name && !dealership)
-        problems.push(`la concesionaria "${name}" no existe en el panel`);
-      location = dealership?.location ?? location;
+      const dName = need("dealership", "Inmobiliaria");
+      dealership = dealerships.find((d) => norm(d.name) === norm(dName));
+      if (dName && !dealership)
+        problems.push(`la inmobiliaria "${dName}" no existe en el panel`);
     } else if (sellerType === "private") {
-      location = need("location", "Ubicacion");
       sellerPhone = get("sellerPhone").replace(/\D/g, "");
       if (!/^\d{8,15}$/.test(sellerPhone))
-        problems.push("Telefono_Vendedor debe tener 8 a 15 dígitos con código de país");
+        problems.push("Telefono_Propietario debe tener 8 a 15 dígitos con código de país");
     }
 
-    const features: string[] = [];
-    for (const label of get("features").split(/[;\n]+/).map((s) => s.trim()).filter(Boolean)) {
-      const id = featureByLabel.get(norm(label));
-      if (id) features.push(id);
-      else problems.push(`Equipamiento desconocido: "${label}"`);
-    }
+    const readIds = (
+      key: string,
+      label: string,
+      lookup: Map<string, string>,
+    ) => {
+      const ids: string[] = [];
+      for (const item of get(key).split(/[;\n]+/).map((s) => s.trim()).filter(Boolean)) {
+        const id = lookup.get(norm(item));
+        if (id) ids.push(id);
+        else problems.push(`${label} desconocido: "${item}"`);
+      }
+      return ids;
+    };
+    const features = readIds("features", "Característica", featureByLabel);
+    const amenities = readIds("amenities", "Amenity", amenityByLabel);
 
     if (problems.length) {
       errors.push(`Fila ${rowNumber}: ${problems.join("; ")}.`);
@@ -393,32 +340,28 @@ export async function parseInventoryFile(
         ([k]) => !MANAGED_SPECS.includes(k),
       ),
     );
-    if (get("version")) specs["Versión"] = get("version");
-    if (get("warranty")) specs["Garantía"] = get("warranty");
-    if (get("special")) specs["Condición especial"] = get("special");
+    if (get("area")) specs["Superficie"] = get("area");
 
     rows.push({
       existing: known,
       data: {
-      reference,
-      make,
-      model,
-      year,
-      price,
-      priceCurrency: currency,
-      mileage: Math.round(km / KM_PER_MILE),
-      transmission: transmission!,
-      fuelType: FUELS[fuelName!],
-      bodyType: bodyType!,
-      color: get("color"),
-      specs,
-      features,
-      description: get("description"),
-      location,
-      sellerType: sellerType!,
-      ...(dealership && { dealership }),
-      ...(sellerType === "private" && { sellerPhone }),
-      ...(get("badge") && { badge: get("badge") }),
+        reference,
+        name,
+        zone: zone!,
+        location: get("location"),
+        bedrooms,
+        bathrooms,
+        guests,
+        price,
+        priceCurrency: currency,
+        specs,
+        features,
+        amenities,
+        description: get("description"),
+        sellerType: sellerType!,
+        ...(dealership && { dealership }),
+        ...(sellerType === "private" && { sellerPhone }),
+        ...(get("badge") && { badge: get("badge") }),
       },
     });
   });

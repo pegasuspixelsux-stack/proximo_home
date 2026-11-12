@@ -40,7 +40,7 @@ export default function SeoIntro() {
         className="flex w-full items-center justify-between gap-4 border-y border-line px-3 py-4 text-left md:hidden"
       >
         <span className="text-xs font-medium uppercase tracking-widest text-fg">
-          Comprá tu auto
+          Casas de vacaciones
         </span>
         <ChevronDown
           aria-hidden
@@ -61,27 +61,24 @@ export default function SeoIntro() {
           id="seo-intro-heading"
           className="text-balance text-3xl font-semibold tracking-[-0.02em] lg:text-4xl"
         >
-          Comprá tu auto usado en Tigre, Zona Norte y Buenos Aires
+          Casas de vacaciones en Punta del Este
         </h2>
         <div className="mt-4 grid gap-4 md:grid-cols-2 md:gap-10">
           <p className="leading-relaxed text-muted">
-            En Tu Próximo Auto Argentina encontrás autos usados en venta,
-            seleccionados y verificados, con atención en nuestro salón de ventas
-            de Tigre. Recibimos a clientes de Tigre, Nordelta, Don Torcuato,
-            General Pacheco, San Fernando y Pilar, y de toda la Zona Norte, el
-            Gran Buenos Aires, la Provincia de Buenos Aires y CABA.
+            En Tu Próxima Casa Uruguay encontrás casas de vacaciones
+            seleccionadas en las mejores zonas de Punta del Este: Península,
+            Playa Brava, Playa Mansa, La Barra, Manantiales y José Ignacio.
+            Cada propiedad muestra sus fotos, características y comodidades
+            para que elijas con tranquilidad.
           </p>
           <p className="leading-relaxed text-muted">
-            Cada unidad cuenta con VTV vigente y documentación al día, y nos
-            ocupamos de la gestoría y la transferencia. Podés financiar con
-            tarjeta de crédito, entregar tu usado como parte de pago (permuta) y
-            probar el auto antes de decidir, coordinando una cita previa por
-            WhatsApp.
+            Filtrá por zona, cantidad de dormitorios o huéspedes, y coordiná una
+            visita a la casa que más te guste escribiéndonos por WhatsApp.
           </p>
         </div>
         <p className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-sm font-medium">
           <Link href="/#inventario" className="underline underline-offset-4">
-            Ver todos los autos usados en venta
+            Ver todas las casas
           </Link>
         </p>
       </div>

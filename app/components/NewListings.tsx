@@ -24,14 +24,14 @@ export default function NewListings({ vehicles }: { vehicles: Vehicle[] }) {
             data-testid="see-all-inventory"
             className="shrink-0 text-xs text-muted underline-offset-4 transition-colors duration-150 hover:text-fg hover:underline"
           >
-            Ver todo el inventario →
+            Ver todas las casas →
           </a>
         </div>
       </div>
 
       <ul
         tabIndex={0}
-        aria-label="Últimos autos ingresados, desplazá horizontalmente"
+        aria-label="Últimas casas ingresadas, desplazá horizontalmente"
         className="mt-6 flex snap-x snap-mandatory gap-5 overflow-x-auto scroll-px-0 px-0 pb-8 pt-4 [scrollbar-width:thin] lg:scroll-px-6 lg:px-6"
       >
         {vehicles.map((vehicle) => (

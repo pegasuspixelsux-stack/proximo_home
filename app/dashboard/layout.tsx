@@ -8,7 +8,7 @@ import DashboardShell from "./DashboardShell";
 export const instant = false;
 
 export const metadata: Metadata = {
-  title: "Panel de Control | Tu Próximo Auto - Argentina",
+  title: "Panel de Control | Tu Próxima Casa - Punta del Este",
   robots: { index: false, follow: false },
 };
 

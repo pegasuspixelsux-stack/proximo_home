@@ -6,19 +6,19 @@ import { cleanPhone } from "../data/site";
 import { centerSection } from "@/lib/center-section";
 import WhatsAppLeadButton from "./WhatsAppLeadButton";
 
-const GENERIC_MESSAGE = "Hola Tu Próximo Auto! Quiero hacer una consulta.";
+const GENERIC_MESSAGE = "Hola Tu Próxima Casa! Quiero hacer una consulta.";
 
 const CARS = [
-  "Toyota Hilux SRV 2022",
-  "Volkswagen Amarok V6 2021",
-  "Peugeot 2008 GT 2023",
-  "Ford Mustang Fastback 2018",
+  "Península",
+  "Playa Brava",
+  "Playa Mansa",
+  "La Barra",
+  "Manantiales",
+  "José Ignacio",
 ];
 const PAYMENTS = [
   "Contado / Transferencia Directa",
-  "Financiación con Tarjeta (Hasta 40%)",
-  "Entrego mi usado (Permuta)",
-  "Contado + Financiación",
+  "Consulto por opciones de pago",
 ];
 const URGENCIES = [
   "Hoy / Mañana (Urgente)",
@@ -104,8 +104,8 @@ function AppointmentModal({
     const get = (key: string) => String(data.get(key) ?? "").trim();
     const code = String(Math.floor(Math.random() * 1000)).padStart(3, "0");
     const text = [
-      "Hola Tu Próximo Auto! Quiero agendar cita:",
-      `- Vehículo: ${get("car")}`,
+      "Hola Tu Próxima Casa! Quiero agendar una visita:",
+      `- Zona: ${get("car")}`,
       `- Pago: ${get("payment")}`,
       `- Urgencia: ${get("urgency")}`,
       `- Cita: ${get("date")} a las ${get("time")}`,
@@ -164,7 +164,7 @@ function AppointmentModal({
         </div>
 
         <form onSubmit={handleSubmit} className="mt-5 flex flex-col gap-4">
-          <Field label="Vehículo">
+          <Field label="Zona de interés">
             <select
               name="car"
               required
@@ -303,12 +303,11 @@ export default function ConversionCTA({
             id="cta-heading"
             className="text-balance text-3xl font-semibold tracking-[-0.02em] md:mt-2 lg:text-4xl"
           >
-            ¿Listo para manejar tu próximo auto?
+            ¿Listo para conocer tu próxima casa?
           </h2>
           <p className="mt-3 text-sm font-medium text-muted sm:text-base">
-            Coordiná tu visita a nuestro salón de ventas en Zona Norte (Tigre)
-            para ver la unidad, realizar una prueba de manejo o cerrar la
-            compra.
+            Coordiná tu visita en Punta del Este para conocer la casa y
+            resolver todas tus dudas con nuestro equipo.
           </p>
         </div>
 
@@ -339,7 +338,7 @@ export default function ConversionCTA({
               Reserva de Turno &amp; Qualify
             </h3>
             <p className="mt-2 flex-1 text-sm leading-relaxed text-zinc-400">
-              Seleccioná la unidad, día, hora y método de pago para reservar tu
+              Seleccioná la zona, día, hora y método de pago para reservar tu
               lugar.
             </p>
             <button

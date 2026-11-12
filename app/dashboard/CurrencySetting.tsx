@@ -53,7 +53,7 @@ export default function CurrencySetting({
         Moneda y cotización
       </h3>
       <p className="mt-1 text-xs text-muted">
-        Cada vehículo se publica en la moneda en que se cargó (dólares o pesos).
+        Cada casa se publica en la moneda en que se cargó (dólares o pesos).
         La cotización solo se usa para comparar precios en pesos y en dólares
         al filtrar y ordenar el listado. La moneda de la calculadora define en
         qué moneda calcula la financiación del inicio.

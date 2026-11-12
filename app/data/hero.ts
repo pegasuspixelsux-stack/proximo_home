@@ -14,8 +14,8 @@ export interface HeroSlide {
 }
 
 export const HERO_IMAGES = [
-  { value: "/hero_image/audi_hero.webp", label: "Audi" },
-  { value: "/hero_image/buyers.webp", label: "Compradores" },
+  { value: "/hero_image/audi_hero.webp", label: "Imagen 1 (temporal)" },
+  { value: "/hero_image/buyers.webp", label: "Imagen 2 (temporal)" },
 ];
 
 export const MAX_HERO_SLIDES = 6;
@@ -24,11 +24,11 @@ export const DEFAULT_SLIDES: HeroSlide[] = [
   {
     id: "slide-1",
     image: "/hero_image/audi_hero.webp",
-    eyebrow: "Autos usados certificados",
-    highlight: "El auto que buscás.",
-    heading: "La tranquilidad que te falta.",
+    eyebrow: "Casas de vacaciones en Punta del Este",
+    highlight: "La casa que buscás.",
+    heading: "El verano que te falta.",
     supportText:
-      "Unidades seleccionadas y verificadas con atención personalizada en nuestro salón de ventas.",
+      "Casas seleccionadas y verificadas en las mejores zonas de la costa, con atención personalizada.",
     rating: "4.9",
     reviewCount: "+200",
     reviewLabel: "reseñas en Google",
@@ -36,11 +36,11 @@ export const DEFAULT_SLIDES: HeroSlide[] = [
   {
     id: "slide-2",
     image: "/hero_image/buyers.webp",
-    eyebrow: "Financiación a tu medida",
-    highlight: "Estrená hoy.",
-    heading: "Pagá a tu ritmo.",
+    eyebrow: "Península · La Barra · José Ignacio",
+    highlight: "Elegí tu zona.",
+    heading: "Disfrutá la costa.",
     supportText:
-      "Calculá tu cuota y financiá con los principales bancos. Te acompañamos en todo el proceso.",
+      "Playa Brava, Playa Mansa, Manantiales y más. Te acompañamos en todo el proceso.",
     rating: "4.9",
     reviewCount: "+200",
     reviewLabel: "reseñas en Google",

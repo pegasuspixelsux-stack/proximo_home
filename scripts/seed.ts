@@ -1,4 +1,4 @@
-// Uploads the mock vehicles and dealerships to Firestore.
+// Uploads the sample vacation homes and agencies to Firestore.
 // Usage: npm run seed   (needs SEED_EMAIL / SEED_PASSWORD in .env.local)
 import { initializeApp } from "firebase/app";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
@@ -36,6 +36,6 @@ SAMPLE_VEHICLES.forEach((v, i) =>
 await batch.commit();
 
 console.log(
-  `Cargados ${SAMPLE_VEHICLES.length} vehículos y ${DEALERSHIPS.length} concesionarias.`,
+  `Cargados ${SAMPLE_VEHICLES.length} casas y ${DEALERSHIPS.length} inmobiliarias.`,
 );
 process.exit(0);

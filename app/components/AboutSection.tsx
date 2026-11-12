@@ -62,21 +62,20 @@ export default function AboutSection() {
               Quiénes somos
             </h2>
             <p className="mt-4 leading-relaxed text-muted">
-              Somos una automotora de Tigre, Zona Norte, dedicada a la venta de
-              autos usados seleccionados y verificados. Cada unidad se revisa
-              antes de publicarse, con documentación al día y VTV vigente.
+              Somos una inmobiliaria de Punta del Este, dedicada a las casas de
+              vacaciones seleccionadas y verificadas. Cada propiedad se revisa
+              antes de publicarse, con fotos reales y datos al día.
             </p>
             <p className="mt-4 leading-relaxed text-muted">
-              Te acompañamos en todo el proceso: asesoramiento, financiación con
-              tarjeta, toma de tu usado como parte de pago, gestoría y
-              transferencia. Visitanos en nuestro salón, probá la unidad y
-              llevátela con tranquilidad.
+              Te acompañamos en todo el proceso: asesoramiento, coordinación de
+              visitas y contacto directo con los propietarios. Conocé la casa
+              en persona y elegí con tranquilidad.
             </p>
           </div>
           <div className="relative aspect-[4/3] overflow-hidden rounded-xl border border-line bg-neutral-900">
             <Image
               src="/hero_image/buyers-1080.webp"
-              alt="Clientes recibiendo las llaves de su auto en el salón de ventas"
+              alt="Clientes recibiendo las llaves de su casa"
               fill
               sizes="(min-width: 768px) 50vw, 100vw"
               className="object-cover"

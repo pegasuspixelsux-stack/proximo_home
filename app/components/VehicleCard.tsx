@@ -1,22 +1,21 @@
 "use client";
 
-import { placeLabel } from "@/lib/place";
 import { motion, useReducedMotion } from "framer-motion";
-import { ArrowUpRight, Building2, MapPin, UserRound } from "lucide-react";
+import {
+  ArrowUpRight,
+  Bath,
+  BedDouble,
+  Building2,
+  MapPin,
+  UserRound,
+  Users,
+} from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { mileageKm, type Vehicle } from "../data/vehicles";
+import { type Vehicle } from "../data/vehicles";
 import { usePrice } from "./CurrencyProvider";
 import PhotoPlaceholder from "./PhotoPlaceholder";
-
-const km = new Intl.NumberFormat("es-UY");
-const FUEL_LABELS: Record<Vehicle["fuelType"], string> = {
-  Electric: "Eléctrico",
-  Gasoline: "Nafta",
-  Hybrid: "Híbrido",
-  Diesel: "Diésel",
-};
 
 /** Class for compact (true), full (false), or compact-on-mobile ("mobile"). */
 function pick(
@@ -52,7 +51,7 @@ export default function VehicleCard({
     vehicle.sellerType === "dealer" &&
     !!vehicle.dealership?.logo &&
     !logoFailed;
-  const title = `${vehicle.year} ${vehicle.make} ${vehicle.model}`;
+  const title = vehicle.name;
 
   return (
     <motion.article
@@ -152,17 +151,29 @@ export default function VehicleCard({
           className={`truncate font-medium tracking-tight text-fg ${hideLocation ? "leading-tight" : ""} ${pick(compact, "text-base", "text-lg", "sm:text-lg")} ${compact === "mobile" ? "max-sm:text-sm" : ""}`}
         >
           <Link
-            href={`/autos/${vehicle.id}`}
+            href={`/casas/${vehicle.id}`}
             className="outline-none after:absolute after:inset-0"
           >
-            {vehicle.make} {vehicle.model}
+            {vehicle.name}
           </Link>
         </h3>
         <p
           className={`${hideLocation ? "mt-0" : "mt-0"} font-medium uppercase tracking-widest text-muted ${pick(compact, "text-[10px]", "text-xs", "sm:text-xs")} ${compact === "mobile" ? "max-sm:text-[9px]" : ""}`}
         >
-          {vehicle.year} · {FUEL_LABELS[vehicle.fuelType]} ·{" "}
-          {km.format(mileageKm(vehicle.mileage))} km
+          <span className="inline-flex items-center gap-1">
+            <BedDouble className="h-3 w-3" strokeWidth={1.75} aria-hidden />
+            {vehicle.bedrooms}
+          </span>
+          {" · "}
+          <span className="inline-flex items-center gap-1">
+            <Bath className="h-3 w-3" strokeWidth={1.75} aria-hidden />
+            {vehicle.bathrooms}
+          </span>
+          {" · "}
+          <span className="inline-flex items-center gap-1">
+            <Users className="h-3 w-3" strokeWidth={1.75} aria-hidden />
+            {vehicle.guests}
+          </span>
         </p>
         {!hideLocation && (
           <p
@@ -174,7 +185,7 @@ export default function VehicleCard({
                 strokeWidth={1.75}
                 aria-hidden
               />
-              {placeLabel(vehicle.location)}
+              {vehicle.zone}{vehicle.location ? ` · ${vehicle.location}` : ""}
             </span>
           </p>
         )}
@@ -188,8 +199,8 @@ export default function VehicleCard({
             {price(vehicle)}
           </p>
           <Link
-            href={`/autos/${vehicle.id}`}
-            aria-label={`Ver la ficha del ${title}`}
+            href={`/casas/${vehicle.id}`}
+            aria-label={`Ver la casa ${title}`}
             data-testid={`open-${vehicle.id}`}
             className={`relative z-10 flex shrink-0 ${compact === true ? "h-7 w-7" : compact === "mobile" ? "h-7 w-7 max-sm:h-6 max-sm:w-6" : "h-7 w-7"} items-center justify-center rounded-full border border-line text-muted transition-[color,transform,border-color] duration-150 hover:border-fg/40 hover:text-fg group-hover:translate-x-0.5 active:scale-95`}
           >

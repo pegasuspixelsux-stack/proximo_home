@@ -20,7 +20,7 @@ export default function NotFound() {
           Puede que el aviso ya no esté disponible o que el enlace haya cambiado.
         </p>
         <Link href="/#inventario" className="text-sm font-medium underline underline-offset-4">
-          Ver todos los autos usados en venta
+          Ver todas las casas
         </Link>
       </main>
       <div className="mx-auto w-full max-w-[1440px]">

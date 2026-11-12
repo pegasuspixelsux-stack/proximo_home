@@ -20,17 +20,17 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Autos usados en Tigre y Buenos Aires | Tu Próximo Auto",
+    default: "Casas de veraneo en Punta del Este | Tu Próxima Casa",
     template: `%s | ${SITE_NAME}`,
   },
   description: SITE_DESCRIPTION,
-  applicationName: `${SITE_NAME} - Argentina`,
-  alternates: { languages: { "es-AR": "/" } },
+  applicationName: `${SITE_NAME} - Punta del Este`,
+  alternates: { languages: { "es-UY": "/" } },
   openGraph: {
-    siteName: `${SITE_NAME} - Argentina`,
-    title: "Autos usados en Tigre y Buenos Aires | Tu Próximo Auto",
+    siteName: `${SITE_NAME} - Punta del Este`,
+    title: "Casas de veraneo en Punta del Este | Tu Próxima Casa",
     description: SITE_DESCRIPTION,
-    locale: "es_AR",
+    locale: "es_UY",
     type: "website",
   },
   twitter: { card: "summary_large_image" },
@@ -56,7 +56,7 @@ export default async function RootLayout({
   const { arsRate } = await getSiteSettings();
   return (
     <html
-      lang="es-AR"
+      lang="es-UY"
       suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >

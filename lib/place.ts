@@ -1,22 +1,13 @@
-const PROVINCE = /^(bs\.?\s?as\.?|buenos aires|pba|prov(incia)?\.? de buenos aires|gba|gran buenos aires)$/i;
-const CAPITAL = /^(caba|capital federal|c\.?a\.?b\.?a\.?|ciudad aut[oó]noma de buenos aires|ciudad de buenos aires)$/i;
-const COUNTRY = /^(ar|arg|argentina|uy|uruguay)$/i;
-const STREET = /^(av|avda|av\.|avenida|calle|ruta|camino|pasaje|pje|diagonal|bv|bulevar)\b/i;
+const COUNTRY = /^(uy|uru|uruguay)$/i;
 
-/** Localities of Gran Buenos Aires the dealership serves; a bare name gets ", Buenos Aires". */
-const GBA = [
-  "tigre", "nordelta", "don torcuato", "general pacheco", "pacheco",
-  "san fernando", "pilar", "san isidro", "vicente lópez", "vicente lopez",
-  "olivos", "martínez", "martinez", "escobar", "la plata",
-];
-
-export const FALLBACK_PLACE = "Buenos Aires";
-export const CAPITAL_LABEL = "Ciudad de Buenos Aires";
+export const FALLBACK_PLACE = "Punta del Este";
+/** Kept for callers that still import it; the region label for the whole site. */
+export const CAPITAL_LABEL = "Punta del Este, Maldonado";
 
 /**
- * Cleans a free-text `location` ("Av Ialia 123, Tigre, BsAs") into the form used
- * for display, titles, meta and JSON-LD: "Ciudad, Buenos Aires". Street parts and
- * numbers are dropped, abbreviations expanded, and the result is never empty.
+ * Cleans a free-text `location` ("Parada 5, Playa Brava, UY") into the form used
+ * for display, titles, meta and JSON-LD: the last two meaningful parts
+ * ("Parada 5, Playa Brava"). The country is dropped and the result is never empty.
  */
 export function placeLabel(location: string | null | undefined): string {
   const parts = (location ?? "")
@@ -24,26 +15,13 @@ export function placeLabel(location: string | null | undefined): string {
     .map((p) => p.trim())
     .filter(Boolean);
   while (parts.length > 1 && COUNTRY.test(parts[parts.length - 1])) parts.pop();
-  if (parts.length === 0) return FALLBACK_PLACE;
-
-  const last = parts[parts.length - 1];
-  if (CAPITAL.test(last)) {
-    const barrio = parts[parts.length - 2];
-    const ok = barrio && !/\d/.test(barrio) && !STREET.test(barrio) && !PROVINCE.test(barrio);
-    return ok ? `${barrio}, ${CAPITAL_LABEL}` : CAPITAL_LABEL;
-  }
-  const hasProvince = PROVINCE.test(last);
-  const city = hasProvince ? parts[parts.length - 2] : last;
-  if (!city || /\d/.test(city) || STREET.test(city) || COUNTRY.test(city)) {
+  if (parts.length === 0 || (parts.length === 1 && COUNTRY.test(parts[0]))) {
     return FALLBACK_PLACE;
   }
-  if (CAPITAL.test(city)) return CAPITAL_LABEL;
-  if (PROVINCE.test(city)) return FALLBACK_PLACE;
-  if (hasProvince || GBA.includes(city.toLowerCase())) return `${city}, Buenos Aires`;
-  return city;
+  return parts.slice(-2).join(", ");
 }
 
-/** Whether the raw value already is "Ciudad, Buenos Aires"-style without a street. */
+/** Whether the raw value already is a clean label. */
 export function isCleanPlace(location: string | null | undefined): boolean {
   const raw = (location ?? "").trim();
   return raw !== "" && raw === placeLabel(raw);

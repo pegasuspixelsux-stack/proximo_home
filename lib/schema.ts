@@ -1,25 +1,19 @@
 import { FAQS } from "@/app/data/faqs";
-import { mileageKm, type Vehicle } from "@/app/data/vehicles";
+import { HOME_AMENITY_LABEL, HOME_FEATURE_LABEL } from "@/app/data/home-features";
+import type { Vehicle } from "@/app/data/vehicles";
 import { absoluteUrl, BUSINESS, SITE_NAME } from "@/lib/seo";
 
-const FUEL: Record<Vehicle["fuelType"], string> = {
-  Electric: "Eléctrico",
-  Gasoline: "Nafta",
-  Hybrid: "Híbrido",
-  Diesel: "Diésel",
-};
-
-/** Organization + AutoDealer. Unknown facts (street, hours, geo) are left out, see lib/seo.ts. */
+/** Organization + RealEstateAgent. Unknown facts (street, hours, geo) are left out, see lib/seo.ts. */
 export function organizationSchema(whatsappNumber: string) {
   return {
     "@context": "https://schema.org",
-    "@type": ["Organization", "AutoDealer"],
+    "@type": ["Organization", "RealEstateAgent"],
     "@id": absoluteUrl("/#organization"),
-    name: `${SITE_NAME} Argentina`,
+    name: SITE_NAME,
     alternateName: SITE_NAME,
     url: absoluteUrl("/"),
-    logo: absoluteUrl("/logo_folder/logo_tu_proximo.jpg"),
-    image: absoluteUrl("/logo_folder/logo_tu_proximo.jpg"),
+    logo: absoluteUrl("/logo_folder/icon-512.png"),
+    image: absoluteUrl("/logo_folder/icon-512.png"),
     telephone: `+${whatsappNumber}`,
     address: {
       "@type": "PostalAddress",
@@ -44,35 +38,44 @@ export function faqSchema() {
   };
 }
 
-export function vehicleSchema(vehicle: Vehicle, description: string) {
-  const url = absoluteUrl(`/autos/${vehicle.id}`);
+export function vehicleSchema(home: Vehicle, description: string) {
+  const url = absoluteUrl(`/casas/${home.id}`);
+  const features = [
+    ...(home.features ?? []).map((id) => HOME_FEATURE_LABEL[id]),
+    ...(home.amenities ?? []).map((id) => HOME_AMENITY_LABEL[id]),
+  ].filter(Boolean);
   return {
     "@context": "https://schema.org",
-    "@type": ["Vehicle", "Car"],
-    name: `${vehicle.year} ${vehicle.make} ${vehicle.model}`,
+    "@type": ["House", "Accommodation"],
+    name: home.name,
     url,
     description,
-    image: vehicle.images?.length ? vehicle.images : [vehicle.image],
-    brand: { "@type": "Brand", name: vehicle.make },
-    model: vehicle.model,
-    vehicleModelDate: String(vehicle.year),
-    bodyType: vehicle.bodyType,
-    fuelType: FUEL[vehicle.fuelType],
-    vehicleTransmission: vehicle.transmission,
-    ...(vehicle.color && { color: vehicle.color }),
-    mileageFromOdometer: {
+    image: home.images?.length ? home.images : [home.image],
+    numberOfBedrooms: home.bedrooms,
+    numberOfBathroomsTotal: home.bathrooms,
+    occupancy: {
       "@type": "QuantitativeValue",
-      value: mileageKm(vehicle.mileage),
-      unitCode: "KMT",
+      maxValue: home.guests,
     },
-    itemCondition: "https://schema.org/UsedCondition",
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: home.zone,
+      addressRegion: BUSINESS.region,
+      addressCountry: BUSINESS.country,
+    },
+    ...(features.length > 0 && {
+      amenityFeature: features.map((name) => ({
+        "@type": "LocationFeatureSpecification",
+        name,
+        value: true,
+      })),
+    }),
     offers: {
       "@type": "Offer",
       url,
-      price: vehicle.price,
-      priceCurrency: vehicle.priceCurrency ?? "USD",
+      price: home.price,
+      priceCurrency: home.priceCurrency ?? "USD",
       availability: "https://schema.org/InStock",
-      itemCondition: "https://schema.org/UsedCondition",
       seller: { "@id": absoluteUrl("/#organization") },
     },
   };

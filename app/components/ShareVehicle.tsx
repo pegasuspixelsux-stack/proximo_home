@@ -48,7 +48,7 @@ export default function ShareVehicle({ title, price, url, image }: Props) {
   const photoRequested = useRef(false);
 
   // Brand name rather than the dealership's: the portal is what gets promoted.
-  const caption = `Mirá este ${title} en Tu Próximo Auto: ${price}. ¡Consultanos!`;
+  const caption = `Mirá esta casa, ${title}, en Tu Próxima Casa: ${price}. ¡Consultanos!`;
   const text = `${caption} ${url}`;
 
   /** Starts downloading the photo on first interaction, so a share can attach it. */
@@ -58,7 +58,7 @@ export default function ShareVehicle({ title, price, url, image }: Props) {
     fetch(image)
       .then((r) => (r.ok ? r.blob() : Promise.reject()))
       .then((blob) => {
-        photo.current = new File([blob], "auto.jpg", { type: blob.type || "image/jpeg" });
+        photo.current = new File([blob], "casa.jpg", { type: blob.type || "image/jpeg" });
       })
       .catch(() => {});
   }
@@ -106,7 +106,7 @@ export default function ShareVehicle({ title, price, url, image }: Props) {
   return (
     <div data-testid="share-vehicle" className="mt-6">
       <p className="text-[10px] font-medium uppercase tracking-widest text-muted">
-        Compartir este auto
+        Compartir esta casa
       </p>
       <div className="mt-3 flex gap-3" onPointerEnter={prefetchPhoto} onTouchStart={prefetchPhoto} onFocus={prefetchPhoto}>
         <button type="button" onClick={shareWhatsApp} data-testid="share-whatsapp" className={BUTTON}>

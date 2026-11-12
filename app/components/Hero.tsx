@@ -62,7 +62,7 @@ export default function Hero({ slides }: { slides: HeroSlide[] }) {
   const slide = slides[Math.min(index, count - 1)];
   // The test-drive sentence is no longer shown, even where saved slides still contain it.
   const supportText = slide.supportText
-    ?.replace(/\s*Coordiná tu prueba de manejo hoy\.?/i, "")
+    ?.replace(/\s*Coordiná tu visita hoy\.?/i, "")
     .trim();
 
   // Start loading the other slides after the first one is on screen.
@@ -100,7 +100,7 @@ export default function Hero({ slides }: { slides: HeroSlide[] }) {
       className="hero-on-photo relative mx-auto mt-[10px] lg:mt-5 flex aspect-[2/1] w-[calc(100%-4px)] sm:aspect-[3/1] lg:aspect-auto lg:w-[calc(100%-3rem)] max-w-[1392px] flex-col rounded-xl lg:h-[calc((100svh_-_290px)_*_0.924)] lg:min-h-[443px] overflow-hidden bg-bg text-fg selection:bg-fg selection:text-bg"
     >
       <h1 className="sr-only">
-        Tu Próximo Auto – Autos usados en Buenos Aires
+        Tu Próxima Casa – Casas de vacaciones en Punta del Este
       </h1>
       <div className="absolute inset-0 z-0">
         {/* Fetch the other slides once the page has settled, so a slide change never waits on the network. */}

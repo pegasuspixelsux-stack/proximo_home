@@ -6,7 +6,7 @@ import LegalPage, { LegalSection, Todo } from "../components/LegalPage";
 export const metadata: Metadata = {
   title: "Política de cookies",
   description:
-    "Qué cookies y almacenamiento local usa Tu Próximo Auto Argentina, para qué sirven y cómo desactivarlos desde tu navegador cuando quieras.",
+    "Qué cookies y almacenamiento local usa Tu Próxima Casa Uruguay, para qué sirven y cómo desactivarlos desde tu navegador cuando quieras.",
   alternates: { canonical: "/cookies" },
 };
 

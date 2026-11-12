@@ -8,13 +8,13 @@ import SiteHeader from "../components/SiteHeader";
 import { getActiveDealerships, getVehicles } from "../data/vehicle-store";
 
 export const metadata: Metadata = {
-  title: "Concesionaria de autos usados en Tigre, Buenos Aires",
+  title: "Inmobiliarias de casas de vacaciones en Punta del Este",
   description:
-    "Conocé la concesionaria detrás de Tu Próximo Auto, en Tigre, Zona Norte. Mirá su stock de autos usados, financiación y coordiná tu visita por WhatsApp.",
-  alternates: { canonical: "/concesionarias" },
+    "Conocé las inmobiliarias detrás de Tu Próxima Casa, en Punta del Este. Mirá sus casas de vacaciones y coordiná tu visita por WhatsApp.",
+  alternates: { canonical: "/inmobiliarias" },
 };
 
-export default async function ConcesionariasPage() {
+export default async function InmobiliariasPage() {
   const [dealerships, vehicles] = await Promise.all([
     getActiveDealerships(),
     getVehicles(),
@@ -24,7 +24,7 @@ export default async function ConcesionariasPage() {
       <JsonLd
         data={breadcrumbs([
           { name: "Inicio", url: absoluteUrl("/") },
-          { name: "Concesionarias", url: absoluteUrl("/concesionarias") },
+          { name: "Inmobiliarias", url: absoluteUrl("/inmobiliarias") },
         ])}
       />
       <SiteHeader />
@@ -33,11 +33,11 @@ export default async function ConcesionariasPage() {
           Directorio
         </p>
         <h1 className="mt-2 text-balance text-3xl font-light tracking-[-0.02em] lg:text-5xl">
-          Concesionaria en Tigre
+          Inmobiliarias en Punta del Este
         </h1>
         <p className="mt-4 max-w-xl text-muted">
-          La concesionaria de Tu Próximo Auto, en Tigre, Zona Norte. Mirá su
-          stock de autos usados y coordiná tu visita.
+          Las inmobiliarias de Tu Próxima Casa, en Punta del Este. Mirá sus
+          casas de vacaciones y coordiná tu visita.
         </p>
 
         <ul className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -48,7 +48,7 @@ export default async function ConcesionariasPage() {
             return (
               <li key={dealer.id}>
                 <Link
-                  href={`/concesionarias/${dealer.slug}`}
+                  href={`/inmobiliarias/${dealer.slug}`}
                   data-testid={`dealer-${dealer.slug}`}
                   className="group block h-full rounded-xl border border-line bg-surface p-6 shadow-[var(--card-shadow)] transition-[transform,box-shadow,border-color] duration-300 ease-out [:root:not([data-theme=light])_&]:hover:border-brand/50 [:root:not([data-theme=light])_&]:hover:shadow-[0_0_36px_-6px_rgba(255,234,0,0.45)] hover:-translate-y-1 focus-visible:ring-2 focus-visible:ring-fg/60"
                 >
@@ -70,7 +70,7 @@ export default async function ConcesionariasPage() {
                   </p>
                   <div className="mt-6 flex items-center justify-between border-t border-line pt-4 text-sm">
                     <span className="text-muted">
-                      {count} {count === 1 ? "vehículo" : "vehículos"}
+                      {count} {count === 1 ? "casa" : "casas"}
                     </span>
                     {dealer.rating && (
                       <span className="inline-flex items-center gap-1 tabular-nums text-muted">

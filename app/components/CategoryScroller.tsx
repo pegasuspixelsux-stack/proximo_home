@@ -1,12 +1,10 @@
 "use client";
 
+import { ZONES } from "../data/vehicles";
+
 const CATEGORIES = [
-  { label: "Todos", bodyType: "" },
-  { label: "Autos", bodyType: "Auto" },
-  { label: "SUV", bodyType: "SUV" },
-  { label: "Camionetas", bodyType: "Camioneta" },
-  { label: "Motos", bodyType: "Moto" },
-  { label: "Camiones", bodyType: "Camión" },
+  { label: "Todas", zone: "" },
+  ...ZONES.map((z) => ({ label: z, zone: z as string })),
 ];
 
 /** Horizontal row of category pills; the selected one is filled. "" means all. */
@@ -15,23 +13,23 @@ export default function CategoryScroller({
   onChange,
 }: {
   value: string;
-  onChange: (bodyType: string) => void;
+  onChange: (zone: string) => void;
 }) {
   return (
     <div
       role="group"
-      aria-label="Categorías de vehículos"
+      aria-label="Zonas"
       data-testid="category-scroller"
       className="flex snap-x gap-2 overflow-x-auto py-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
     >
-      {CATEGORIES.map(({ label, bodyType }) => {
-        const selected = value === bodyType;
+      {CATEGORIES.map(({ label, zone }) => {
+        const selected = value === zone;
         return (
           <button
             key={label}
             type="button"
             aria-pressed={selected}
-            onClick={() => onChange(bodyType)}
+            onClick={() => onChange(zone)}
             className={`shrink-0 snap-start whitespace-nowrap rounded-full border px-4 py-2 text-xs font-medium transition-[color,background-color,border-color,transform] duration-150 active:scale-[0.97] ${
               selected
                 ? "border-transparent bg-inverse text-on-inverse"

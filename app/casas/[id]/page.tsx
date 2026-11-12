@@ -5,19 +5,15 @@ import { notFound } from "next/navigation";
 import {
   ArrowLeft,
   BadgeCheck,
-  Bike,
+  BedDouble,
+  Bath,
   Building2,
-  Calendar,
   CalendarCheck,
-  Car,
   Check,
-  Fuel,
-  Gauge,
   MapPin,
   MessageCircle,
-  Palette,
   Settings2,
-  Zap,
+  Users,
 } from "lucide-react";
 import JsonLd, { breadcrumbs } from "@/lib/json-ld";
 import { vehicleSchema } from "@/lib/schema";
@@ -25,8 +21,6 @@ import { absoluteUrl } from "@/lib/seo";
 import AboutSection from "../../components/AboutSection";
 import ConversionCTA from "../../components/ConversionCTA";
 import FAQSection from "../../components/FAQSection";
-import FinanceCalculator from "../../components/FinanceCalculator";
-import FinancingSection from "../../components/FinancingSection";
 import Footer from "../../components/Footer";
 import SeoIntro from "../../components/SeoIntro";
 import SiteHeader from "../../components/SiteHeader";
@@ -34,30 +28,23 @@ import ShareVehicle from "../../components/ShareVehicle";
 import WhatsAppLeadButton from "../../components/WhatsAppLeadButton";
 import VehicleCard from "../../components/VehicleCard";
 import VehicleSlideshow from "../../components/VehicleSlideshow";
-import { CAR_FEATURE_LABEL } from "../../data/car-features";
+import {
+  HOME_AMENITY_LABEL,
+  HOME_FEATURE_LABEL,
+} from "../../data/home-features";
 import { getSiteSettings } from "../../data/site-store";
 import { getVehicle, getVehicles } from "../../data/vehicle-store";
 import { fitParts, fitText, placeLabel } from "@/lib/place";
-import { calculateFinancing } from "@/lib/finance";
 import { formatPrice } from "../../data/site";
-import { mileageKm, vehicleReference, type Vehicle } from "../../data/vehicles";
+import { vehicleReference } from "../../data/vehicles";
 
 type Props = { params: Promise<{ id: string }> };
-
-const number = new Intl.NumberFormat("es-UY");
 
 const date = new Intl.DateTimeFormat("es-UY", {
   day: "numeric",
   month: "long",
   year: "numeric",
 });
-const FUEL_LABELS: Record<Vehicle["fuelType"], string> = {
-  Electric: "Eléctrico",
-  Gasoline: "Nafta",
-  Hybrid: "Híbrido",
-  Diesel: "Diésel",
-};
-
 export async function generateStaticParams() {
   return (await getVehicles()).map((v) => ({ id: v.id }));
 }
@@ -65,42 +52,37 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const vehicle = await getVehicle((await params).id);
   if (!vehicle) return {};
-  const title = `${vehicle.year} ${vehicle.make} ${vehicle.model}`;
-  const place = placeLabel(vehicle.location);
-  const km = number.format(mileageKm(vehicle.mileage));
-  // Page title budget: 60 chars minus the " | Tu Próximo Auto" suffix.
+  const title = vehicle.name;
+  const place = `${vehicle.zone}, Punta del Este`;
+  // Page title budget: 60 chars minus the site-name suffix.
   const pageTitle = fitText(
     [
-      `${title} usado en venta en ${place}`,
-      `${title} usado en venta en ${place.split(",")[0]}`,
-      `${title} usado en ${place.split(",")[0]}`,
-      `${title} usado`,
+      `${title}, casa de vacaciones en ${vehicle.zone}`,
+      `${title} en ${vehicle.zone}`,
       title,
     ],
     42,
   );
   const base = fitParts(
     [
-      `${title} usado en venta en ${place}.`,
-      `Año ${vehicle.year}, ${km} km,`,
-      `transmisión ${vehicle.transmission.toLowerCase()},`,
-      `${FUEL_LABELS[vehicle.fuelType].toLowerCase()}.`,
+      `${title}, casa de vacaciones en ${place}.`,
+      `${vehicle.bedrooms} dormitorios, ${vehicle.bathrooms} baños,`,
+      `hasta ${vehicle.guests} huéspedes.`,
       `${formatPrice(vehicle.price, vehicle.priceCurrency)}.`,
     ],
     160,
   );
   // Longest closing sentence that still fits in 160 chars.
   const tail = [
-    "Financiación, permuta y prueba de manejo en Zona Norte.",
-    "Financiación, permuta y prueba de manejo.",
-    "Financiación y prueba de manejo.",
+    "Coordiná una visita y consultá disponibilidad por WhatsApp.",
+    "Coordiná una visita por WhatsApp.",
     "Consultá por WhatsApp.",
   ].find((t) => base.length + 1 + t.length <= 160);
   const description = tail ? `${base} ${tail}` : base;
   return {
     title: pageTitle,
     description,
-    alternates: { canonical: `/autos/${vehicle.id}` },
+    alternates: { canonical: `/casas/${vehicle.id}` },
     // Without a photo, keep the site-wide generated image instead of an empty one.
     ...(vehicle.image && { openGraph: { images: [vehicle.image] } }),
   };
@@ -127,52 +109,32 @@ async function VehicleDetail({ params }: Props) {
   const vehicle = await getVehicle((await params).id);
   if (!vehicle) notFound();
 
-  const title = `${vehicle.year} ${vehicle.make} ${vehicle.model}`;
-  const { whatsappNumber, calculatorCurrency } = await getSiteSettings();
-  const whatsappMessage = `Hola, me interesa el ${title} publicado en Tu Próximo Auto.`;
-  const plan12 = calculateFinancing(vehicle.price, 12);
-  const plan24 = calculateFinancing(vehicle.price, 24);
-  const testDriveMessage = `Hola, quisiera agendar una prueba de manejo del ${title} publicado en Tu Próximo Auto.`;
+  const title = vehicle.name;
+  const { whatsappNumber } = await getSiteSettings();
+  const whatsappMessage = `Hola, me interesa la casa ${title} publicada en Tu Próxima Casa.`;
+  const visitMessage = `Hola, quisiera agendar una visita a la casa ${title} publicada en Tu Próxima Casa.`;
+  const zonePlace = `${vehicle.zone}, Punta del Este`;
+  const fullLocation = vehicle.location
+    ? `${vehicle.location}, ${zonePlace}`
+    : zonePlace;
 
   // Shown when the listing has no description of its own.
-  const fallbackDescription = `${title} ${FUEL_LABELS[vehicle.fuelType].toLowerCase()} con transmisión ${vehicle.transmission.toLowerCase()} y ${number.format(mileageKm(vehicle.mileage))} km, disponible en ${placeLabel(vehicle.location)}. Es una unidad lista para conocer en persona: podés verla, hacer una prueba de manejo y revisar toda la documentación antes de decidir. Contamos con opciones de financiamiento para que puedas concretar la compra de forma simple y segura, con un anticipo del 60% y el resto en cuotas. Escribinos por WhatsApp para consultar disponibilidad, pedir más fotos o coordinar una visita; te respondemos a la brevedad y te acompañamos en cada paso del proceso.`;
+  const fallbackDescription = `${title} es una casa de vacaciones en ${zonePlace} con ${vehicle.bedrooms} dormitorios, ${vehicle.bathrooms} baños y capacidad para ${vehicle.guests} huéspedes. Podés conocerla en persona y revisar todos los detalles antes de decidir. Escribinos por WhatsApp para consultar disponibilidad, pedir más fotos o coordinar una visita; te respondemos a la brevedad y te acompañamos en cada paso del proceso.`;
 
   const highlights = [
-    {
-      icon: vehicle.fuelType === "Electric" ? Zap : Fuel,
-      label: "Combustible",
-      value: FUEL_LABELS[vehicle.fuelType],
-    },
-    {
-      icon: Gauge,
-      label: vehicle.color ? "Kilometraje y color" : "Kilometraje",
-      value: [
-        `${number.format(mileageKm(vehicle.mileage))} km`,
-        vehicle.color,
-      ]
-        .filter(Boolean)
-        .join(" · "),
-    },
-    {
-      icon: vehicle.bodyType === "Moto" ? Bike : Car,
-      label: "Carrocería",
-      value: vehicle.bodyType,
-    },
+    { icon: BedDouble, label: "Dormitorios", value: `${vehicle.bedrooms} dorm.` },
+    { icon: Bath, label: "Baños", value: `${vehicle.bathrooms} baños` },
+    { icon: Users, label: "Huéspedes", value: `${vehicle.guests} huéspedes` },
   ];
 
   const specs = [
-    { icon: Calendar, label: "Año", value: String(vehicle.year) },
-    {
-      icon: Gauge,
-      label: "Kilometraje",
-      value: `${number.format(mileageKm(vehicle.mileage))} km`,
-    },
-    { icon: Fuel, label: "Combustible", value: FUEL_LABELS[vehicle.fuelType] },
-    { icon: Settings2, label: "Transmisión", value: vehicle.transmission },
-    ...(vehicle.color
-      ? [{ icon: Palette, label: "Color", value: vehicle.color }]
+    { icon: MapPin, label: "Zona", value: vehicle.zone },
+    ...(vehicle.location
+      ? [{ icon: MapPin, label: "Ubicación", value: vehicle.location }]
       : []),
-    { icon: MapPin, label: "Ubicación", value: placeLabel(vehicle.location) },
+    { icon: BedDouble, label: "Dormitorios", value: String(vehicle.bedrooms) },
+    { icon: Bath, label: "Baños", value: String(vehicle.bathrooms) },
+    { icon: Users, label: "Huéspedes", value: String(vehicle.guests) },
     ...Object.entries(vehicle.specs ?? {}).map(([label, value]) => ({
       icon: Settings2,
       label,
@@ -188,9 +150,9 @@ async function VehicleDetail({ params }: Props) {
 
   const all = await getVehicles();
   const related = all.filter(
-    (v) => v.id !== vehicle.id && v.fuelType === vehicle.fuelType,
+    (v) => v.id !== vehicle.id && v.zone === vehicle.zone,
   )
-    .concat(all.filter((v) => v.fuelType !== vehicle.fuelType))
+    .concat(all.filter((v) => v.zone !== vehicle.zone))
     .filter((v) => v.id !== vehicle.id)
     .slice(0, 12);
 
@@ -200,8 +162,8 @@ async function VehicleDetail({ params }: Props) {
       <JsonLd
         data={breadcrumbs([
           { name: "Inicio", url: absoluteUrl("/") },
-          { name: "Autos usados", url: absoluteUrl("/autos") },
-          { name: title, url: absoluteUrl(`/autos/${vehicle.id}`) },
+          { name: "Casas de vacaciones", url: absoluteUrl("/casas") },
+          { name: title, url: absoluteUrl(`/casas/${vehicle.id}`) },
         ])}
       />
       <SiteHeader />
@@ -211,7 +173,7 @@ async function VehicleDetail({ params }: Props) {
           className="inline-flex items-center gap-1.5 text-xs font-medium uppercase tracking-widest text-muted transition-colors duration-150 hover:text-fg"
         >
           <ArrowLeft className="h-3.5 w-3.5" strokeWidth={1.75} aria-hidden />
-          Ver todos los autos usados
+          Ver todas las casas
         </Link>
 
         <div className="mt-6 grid gap-8 lg:grid-cols-[1.4fr_1fr] lg:gap-12">
@@ -225,13 +187,13 @@ async function VehicleDetail({ params }: Props) {
 
           <div>
             <p className="text-xs font-medium uppercase tracking-widest text-muted">
-              {vehicle.year} · {FUEL_LABELS[vehicle.fuelType]}
+              {vehicle.zone} · Punta del Este
             </p>
             <h1
               data-testid="vehicle-title"
               className="mt-2 text-balance text-3xl font-semibold tracking-[-0.02em] lg:text-5xl"
             >
-              {vehicle.make} {vehicle.model}
+              {vehicle.name}
             </h1>
             <p
               data-testid="vehicle-price"
@@ -239,22 +201,6 @@ async function VehicleDetail({ params }: Props) {
             >
               {formatPrice(vehicle.price, vehicle.priceCurrency)}
             </p>
-            {plan12.price > 0 && (
-              <div data-testid="vehicle-monthly-payment" className="mt-2">
-                <p className="text-sm font-medium tabular-nums">
-                  12 cuotas de{" "}
-                  {formatPrice(plan12.monthly, vehicle.priceCurrency, 2)} · 24
-                  cuotas de{" "}
-                  {formatPrice(plan24.monthly, vehicle.priceCurrency, 2)}
-                </p>
-                <p className="mt-0.5 text-xs text-muted">
-                  Entrega inicial del 60% (
-                  {formatPrice(plan12.downPayment, vehicle.priceCurrency)}) y el
-                  40% restante en cuotas iguales, sin interés.
-                </p>
-              </div>
-            )}
-
             <hr className="mt-6 border-line" />
             <ul
               data-testid="vehicle-highlights"
@@ -284,12 +230,12 @@ async function VehicleDetail({ params }: Props) {
             </p>
 
             <section
-              aria-label="Vendedor"
+              aria-label="Anunciante"
               data-testid="seller-card"
               className="mt-8 rounded-xl border border-line bg-surface p-5 shadow-[var(--card-shadow)]"
             >
               <p className="text-[10px] font-medium uppercase tracking-widest text-muted">
-                Vendedor
+                Anunciante
               </p>
               <p className="mt-2 flex items-center gap-2 text-lg font-medium tracking-tight">
                 <Building2
@@ -297,7 +243,7 @@ async function VehicleDetail({ params }: Props) {
                   strokeWidth={1.75}
                   aria-hidden
                 />
-                {vehicle.dealership?.name ?? "Vendedor particular"}
+                {vehicle.dealership?.name ?? "Propietario particular"}
                 {vehicle.dealership?.verified && (
                   <BadgeCheck
                     className="h-4 w-4 shrink-0 text-muted"
@@ -312,7 +258,7 @@ async function VehicleDetail({ params }: Props) {
                   strokeWidth={1.75}
                   aria-hidden
                 />
-                {placeLabel(vehicle.location)}
+                {fullLocation}
               </p>
 
               {whatsappNumber && (
@@ -333,7 +279,7 @@ async function VehicleDetail({ params }: Props) {
               )}
               {whatsappNumber && (
                 <a
-                  href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(testDriveMessage)}`}
+                  href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(visitMessage)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   data-testid="vehicle-test-drive"
@@ -344,7 +290,7 @@ async function VehicleDetail({ params }: Props) {
                     strokeWidth={1.75}
                     aria-hidden
                   />
-                  Agendar una prueba de manejo
+                  Agendar una visita
                 </a>
               )}
             </section>
@@ -352,7 +298,7 @@ async function VehicleDetail({ params }: Props) {
             <ShareVehicle
               title={title}
               price={formatPrice(vehicle.price, vehicle.priceCurrency)}
-              url={absoluteUrl(`/autos/${vehicle.id}`)}
+              url={absoluteUrl(`/casas/${vehicle.id}`)}
               image={vehicle.image || undefined}
             />
           </div>
@@ -377,7 +323,7 @@ async function VehicleDetail({ params }: Props) {
               id="specs-heading"
               className="text-3xl font-semibold tracking-[-0.02em] lg:text-4xl"
             >
-              Ficha técnica
+              Detalles de la casa
             </h2>
             <dl className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3">
               {specs.map(({ icon: Icon, label, value }) => (
@@ -400,30 +346,53 @@ async function VehicleDetail({ params }: Props) {
           </section>
         </div>
 
-        {vehicle.features && vehicle.features.length > 0 && (
-          <section aria-labelledby="features-heading" className="mt-12 lg:mt-24">
-            <h2
-              id="features-heading"
-              className="text-3xl font-semibold tracking-[-0.02em] lg:text-4xl"
-            >
-              Equipamiento
-            </h2>
-            <ul
-              data-testid="vehicle-features"
-              className="mt-6 grid gap-x-6 gap-y-3 sm:grid-cols-2 lg:grid-cols-3"
-            >
-              {vehicle.features.map((id) => (
-                <li key={id} className="flex items-center gap-2 text-sm">
-                  <Check
-                    className="h-4 w-4 shrink-0 text-muted"
-                    strokeWidth={1.75}
-                    aria-hidden
-                  />
-                  {CAR_FEATURE_LABEL[id] ?? id}
-                </li>
-              ))}
-            </ul>
-          </section>
+        {(
+          [
+            {
+              key: "features",
+              heading: "Características",
+              ids: vehicle.features,
+              labels: HOME_FEATURE_LABEL,
+            },
+            {
+              key: "amenities",
+              heading: "Comodidades",
+              ids: vehicle.amenities,
+              labels: HOME_AMENITY_LABEL,
+            },
+          ] as const
+        ).map(
+          ({ key, heading, ids, labels }) =>
+            ids &&
+            ids.length > 0 && (
+              <section
+                key={key}
+                aria-labelledby={`${key}-heading`}
+                className="mt-12 lg:mt-24"
+              >
+                <h2
+                  id={`${key}-heading`}
+                  className="text-3xl font-semibold tracking-[-0.02em] lg:text-4xl"
+                >
+                  {heading}
+                </h2>
+                <ul
+                  data-testid={`vehicle-${key}`}
+                  className="mt-6 grid gap-x-6 gap-y-3 sm:grid-cols-2 lg:grid-cols-3"
+                >
+                  {ids.map((id) => (
+                    <li key={id} className="flex items-center gap-2 text-sm">
+                      <Check
+                        className="h-4 w-4 shrink-0 text-muted"
+                        strokeWidth={1.75}
+                        aria-hidden
+                      />
+                      {labels[id] ?? id}
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            ),
         )}
 
         <section aria-labelledby="related-heading" className="mt-12 lg:mt-24">
@@ -431,11 +400,11 @@ async function VehicleDetail({ params }: Props) {
             id="related-heading"
             className="text-3xl font-semibold tracking-[-0.02em] lg:text-4xl"
           >
-            Con más unidades
+            Más casas para conocer
           </h2>
           <ul
             tabIndex={0}
-            aria-label="Con más unidades, desplazá horizontalmente"
+            aria-label="Más casas, desplazá horizontalmente"
             data-testid="related-scroller"
             className="-mx-3 mt-6 flex snap-x snap-mandatory gap-5 overflow-x-auto scroll-px-3 px-3 pb-8 pt-4 [scrollbar-width:thin] lg:-mx-6 lg:scroll-px-6 lg:px-6"
           >
@@ -453,8 +422,6 @@ async function VehicleDetail({ params }: Props) {
       <div className="mx-auto w-full max-w-[1440px] bg-bg text-fg">
         {/* The same collapsible sections as the home page, in the same order. */}
         <SeoIntro />
-        <FinancingSection whatsappNumber={whatsappNumber} />
-        <FinanceCalculator defaultCurrency={calculatorCurrency} />
         <FAQSection />
         <AboutSection />
         <ConversionCTA whatsappNumber={whatsappNumber} />

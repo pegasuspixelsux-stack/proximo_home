@@ -97,9 +97,8 @@ export default function VehiclesSection({
         .sort((a, b) => b.createdAt.localeCompare(a.createdAt))
         .map((v) => ({
           id: v.id,
-          make: v.make,
-          model: v.model,
-          year: v.year,
+          name: v.name,
+          zone: v.zone,
           price: v.price,
           priceCurrency: v.priceCurrency,
           publishedAt: v.createdAt,
@@ -114,7 +113,7 @@ export default function VehiclesSection({
     return listings.filter(
       (l) =>
         (status === "all" || l.status === status) &&
-        (!q || `${l.year} ${l.make} ${l.model}`.toLowerCase().includes(q)),
+        (!q || `${l.name} ${l.zone}`.toLowerCase().includes(q)),
     );
   }, [listings, query, status]);
   const shown = limit ? filtered.slice(0, limit) : filtered;
@@ -185,7 +184,7 @@ export default function VehiclesSection({
       router.refresh();
       setImportMsg({
         ok: true,
-        text: `Importación lista: ${created} ${created === 1 ? "vehículo agregado" : "vehículos agregados"} y ${updated} ${updated === 1 ? "actualizado" : "actualizados"} (se identifican por la Referencia, así que no se duplican). Los vehículos sin fotos se muestran con un aviso hasta que las subas desde “Editar”.`,
+        text: `Importación lista: ${created} ${created === 1 ? "casa agregada" : "casas agregadas"} y ${updated} ${updated === 1 ? "actualizada" : "actualizadas"} (se identifican por la Referencia, así que no se duplican). Las casas sin fotos se muestran con un aviso hasta que las subas desde “Editar”.`,
         errors: [],
       });
     } catch {
@@ -203,7 +202,7 @@ export default function VehiclesSection({
   async function remove(l: DashboardListing) {
     if (
       !window.confirm(
-        `¿Eliminar ${l.year} ${l.make} ${l.model}? No se puede deshacer.`,
+        `¿Eliminar ${l.name}? No se puede deshacer.`,
       )
     )
       return;
@@ -233,7 +232,7 @@ export default function VehiclesSection({
           <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap">
             <div className="relative">
               <label htmlFor={searchId} className="sr-only">
-                Buscar vehículo
+                Buscar casa
               </label>
               <Search
                 className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted"
@@ -245,7 +244,7 @@ export default function VehiclesSection({
                 type="search"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                placeholder="Buscar marca o modelo"
+                placeholder="Buscar nombre o zona"
                 data-testid="listing-search"
                 className={`${FIELD} w-full pl-9 sm:w-64`}
               />
@@ -276,7 +275,7 @@ export default function VehiclesSection({
               className="inline-flex items-center justify-center gap-2 rounded-full bg-inverse px-5 py-2 text-xs font-semibold uppercase tracking-wider text-on-inverse transition-[transform,opacity] duration-150 hover:opacity-85 active:scale-95"
             >
               <Plus className="h-4 w-4" strokeWidth={1.75} aria-hidden />
-              Agregar Vehículo
+              Agregar Casa
             </button>
             <button
               type="button"
@@ -346,7 +345,7 @@ export default function VehiclesSection({
             <thead>
               <tr className="border-b border-line text-[10px] uppercase tracking-widest text-muted">
                 <th scope="col" className="px-4 py-3 font-medium">
-                  Vehículo
+                  Casa
                 </th>
                 <th scope="col" className="px-4 py-3 font-medium">
                   Precio
@@ -384,8 +383,9 @@ export default function VehiclesSection({
                           />
                         )}
                       </span>
-                      <span className="font-medium">
-                        {l.year} {l.make} {l.model}
+                      <span className="flex flex-col">
+                        <span className="font-medium">{l.name}</span>
+                        <span className="text-xs text-muted">{l.zone}</span>
                       </span>
                     </div>
                   </td>
@@ -401,8 +401,8 @@ export default function VehiclesSection({
                   <td className="px-4 py-3">
                     <div className="flex justify-end gap-1">
                       <Link
-                        href={`/autos/${l.id}`}
-                        aria-label={`Ver ${l.make} ${l.model}`}
+                        href={`/casas/${l.id}`}
+                        aria-label={`Ver ${l.name}`}
                         className="flex h-8 w-8 items-center justify-center rounded-full text-muted transition-colors duration-150 hover:bg-bg hover:text-fg"
                       >
                         <Eye
@@ -413,7 +413,7 @@ export default function VehiclesSection({
                       </Link>
                       <button
                         type="button"
-                        aria-label={`Editar ${l.make} ${l.model}`}
+                        aria-label={`Editar ${l.name}`}
                         onClick={() =>
                           setModal({ vehicle: vehicles.find((v) => v.id === l.id) })
                         }
@@ -427,7 +427,7 @@ export default function VehiclesSection({
                       </button>
                       <button
                         type="button"
-                        aria-label={`Eliminar ${l.make} ${l.model}`}
+                        aria-label={`Eliminar ${l.name}`}
                         onClick={() => remove(l)}
                         className="flex h-8 w-8 items-center justify-center rounded-full text-muted transition-colors duration-150 hover:bg-bg hover:text-red-400"
                       >
@@ -445,12 +445,12 @@ export default function VehiclesSection({
           </table>
           {shown.length === 0 && (
             <p className="px-4 py-12 text-center text-sm text-muted">
-              Ningún vehículo coincide con la búsqueda.
+              Ninguna casa coincide con la búsqueda.
             </p>
           )}
         </div>
         <p className="mt-3 text-xs tabular-nums text-subtle" aria-live="polite">
-          Mostrando {shown.length} de {listings.length} vehículos
+          Mostrando {shown.length} de {listings.length} casas
           {limit && listings.length > limit && (
             <>
               {" · "}

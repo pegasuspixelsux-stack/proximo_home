@@ -18,7 +18,7 @@ const COLUMNS: FooterColumn[] = [
     links: [
       ...NAV_LINKS,
       ...NAV_RIGHT_LINKS,
-      { label: "Autos usados en venta", href: "/autos" },
+      { label: "Casas de vacaciones", href: "/casas" },
     ],
   },
   {
@@ -102,18 +102,18 @@ export default async function Footer() {
         <div className="grid grid-cols-2 gap-x-6 gap-y-10 lg:grid-cols-4">
           <div className="col-span-2 lg:col-span-1">
             <p className="text-[21px] font-bold uppercase tracking-[0.2em] text-fg lg:text-[23px]">
-              Automotora
+              Inmobiliaria
             </p>
             <p className="mt-5 max-w-xs text-sm leading-relaxed text-muted">
-              Plataforma de venta de autos usados certificados, con salón de ventas
-              en Tigre, Zona Norte. Visitanos, probá la unidad y llevátela con
-              tranquilidad.
+              Plataforma de casas de vacaciones en Punta del Este: Península,
+              Playa Brava, Playa Mansa, La Barra, Manantiales y José Ignacio.
+              Coordiná tu visita y encontrá tu lugar en la costa.
             </p>
             {/* TODO(seo): add the street address once the owner provides it. */}
             <address className="mt-4 text-sm not-italic leading-relaxed text-muted">
-              Automotora
+              Inmobiliaria
               <br />
-              Salón de ventas en Tigre, Zona Norte, Buenos Aires
+              Punta del Este, Maldonado, Uruguay
               <br />
               Atención con cita previa
             </address>
@@ -188,22 +188,22 @@ export default async function Footer() {
           className="mt-16 border-t border-line pt-8 text-xs leading-relaxed text-subtle"
         >
           <p>
-            Automotora es una plataforma de publicidad. Nuestra única función
-            es publicar los avisos de la concesionaria. No somos parte de la
-            compraventa, no intervenimos en la negociación, el pago, la entrega
-            ni la transferencia de los vehículos, y no actuamos como
-            vendedores, intermediarios ni garantes. Los vehículos, la
-            información, las fotos y los precios publicados son de exclusiva
-            responsabilidad de la concesionaria. Automotora no garantiza su
-            exactitud ni su actualización, y no asume responsabilidad por el
-            estado, la titularidad, la documentación, el kilometraje, las
-            condiciones de venta ni cualquier otro aspecto de los vehículos
-            publicados, ni por los daños o perjuicios que puedan derivarse de una
-            operación. Es derecho y deber del comprador verificar por su cuenta
-            toda la información, inspeccionar el vehículo, revisar su
-            documentación y sus antecedentes, y completar la transacción de
-            manera legal y honesta, directamente con la concesionaria. Cualquier
-            reclamo debe dirigirse a la concesionaria.
+            Inmobiliaria es una plataforma de publicidad. Nuestra única función
+            es publicar los avisos de las inmobiliarias y propietarios. No somos
+            parte de la operación, no intervenimos en la negociación, el pago,
+            la reserva ni la escrituración de las propiedades, y no actuamos
+            como intermediarios ni garantes. Las propiedades, la información,
+            las fotos y los precios publicados son de exclusiva responsabilidad
+            del anunciante. Inmobiliaria no garantiza su exactitud ni su
+            actualización, y no asume responsabilidad por el estado, la
+            titularidad, la documentación, la disponibilidad, las condiciones
+            de la operación ni cualquier otro aspecto de las propiedades
+            publicadas, ni por los daños o perjuicios que puedan derivarse de una
+            operación. Es derecho y deber del interesado verificar por su cuenta
+            toda la información, visitar la propiedad, revisar su documentación
+            y sus antecedentes, y completar la transacción de manera legal y
+            honesta, directamente con el anunciante. Cualquier reclamo debe
+            dirigirse al anunciante.
           </p>
         </div>
 
@@ -225,7 +225,7 @@ export default async function Footer() {
           </nav>
           <div className="flex flex-wrap items-center gap-x-4 gap-y-3 sm:justify-end">
             <p className="text-xs text-subtle">
-              © 2026 Automotora. Todos los derechos reservados.
+              © 2026 Inmobiliaria. Todos los derechos reservados.
             </p>
             <ThemeToggle />
           </div>

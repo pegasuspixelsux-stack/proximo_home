@@ -2,9 +2,8 @@ export type ListingStatus = "Publicado" | "Pendiente de Pago" | "Vendido";
 
 export interface DashboardListing {
   id: string;
-  make: string;
-  model: string;
-  year: number;
+  name: string;
+  zone: string;
   price: number;
   priceCurrency?: "USD" | "ARS";
   /** ISO date the listing was published. */
@@ -28,21 +27,21 @@ export const TEAM: TeamMember[] = [
   {
     id: "t1",
     name: "Alejandro González",
-    email: "alejandro@tuproximoauto.com",
+    email: "alejandro@tuproximacasa.com",
     role: "Super Admin",
     status: "Activo",
   },
   {
     id: "t2",
     name: "Valentina Rossi",
-    email: "valentina@tuproximoauto.com",
+    email: "valentina@tuproximacasa.com",
     role: "Editor",
     status: "Activo",
   },
   {
     id: "t3",
     name: "Martín Pereira",
-    email: "martin@tuproximoauto.com",
+    email: "martin@tuproximacasa.com",
     role: "Soporte",
     status: "Invitado",
   },

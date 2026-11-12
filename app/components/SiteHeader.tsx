@@ -24,7 +24,7 @@ export default function SiteHeader({ transparent = false }: { transparent?: bool
         </div>
         <Link
           href="/"
-          aria-label="Automotora, inicio"
+          aria-label="Inmobiliaria, inicio"
           data-logo
           className="absolute inset-x-0 mx-auto w-fit"
         >
@@ -33,7 +33,7 @@ export default function SiteHeader({ transparent = false }: { transparent?: bool
             data-logo-text
             className={`block text-2xl font-bold uppercase tracking-[0.2em] sm:text-3xl ${transparent ? "text-white" : "text-fg"}`}
           >
-            Automotora
+            Inmobiliaria
           </span>
         </Link>
         <div className="hidden items-center gap-6 lg:flex">

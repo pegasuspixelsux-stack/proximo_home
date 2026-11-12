@@ -26,20 +26,20 @@ const nextConfig: NextConfig = {
     return [
       // The cover page used to live at /portada; it is now the home page.
       { source: "/portada", destination: "/", permanent: false },
-      // The old home page (featured cars) was removed; the inventory replaces it.
+      // The old home page (featured homes) was removed; the inventory replaces it.
       { source: "/inicio", destination: "/", permanent: false },
-      { source: "/autos", destination: "/", permanent: false },
+      { source: "/autos", destination: "/casas", permanent: true },
+      { source: "/autos/:id", destination: "/casas/:id", permanent: true },
       // Canonical host is www; Vercel already forces HTTPS.
       {
         source: "/:path*",
-        has: [{ type: "host", value: "tuproximoauto.online" }],
-        destination: "https://www.tuproximoauto.online/:path*",
+        has: [{ type: "host", value: "tuproximacasa.online" }],
+        destination: "https://www.tuproximacasa.online/:path*",
         permanent: true,
       },
-      // The public dealership directory and dealer pages are hidden (the dashboard still manages
-      // dealerships). Remove this redirect to bring /concesionarias back.
-      { source: "/concesionarias", destination: "/", permanent: false },
-      { source: "/concesionarias/:slug", destination: "/", permanent: false },
+      // The agency directory moved from /concesionarias to /inmobiliarias.
+      { source: "/concesionarias", destination: "/inmobiliarias", permanent: true },
+      { source: "/concesionarias/:slug", destination: "/inmobiliarias/:slug", permanent: true },
       {
         source: "/dashboard/leads",
         destination: "/dashboard/interesados",

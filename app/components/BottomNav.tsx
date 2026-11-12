@@ -1,10 +1,8 @@
 "use client";
 
 import {
-  Calculator,
-  Car,
+  Building2,
   CircleHelp,
-  CreditCard,
   Home,
   KeyRound,
   MessageCircle,
@@ -18,10 +16,8 @@ import { useEffect, useRef, useState, type MouseEvent } from "react";
 // One entry per section of the page, in page order.
 const ITEMS = [
   { label: "Inicio", href: "/", icon: Home },
-  { label: "Autos", href: "/#inventario", icon: Car },
-  { label: "Comprá tu auto", href: "/#comprar", icon: KeyRound },
-  { label: "Financiación", href: "/#financiacion", icon: CreditCard },
-  { label: "Calculadora", href: "/#calculadora", icon: Calculator },
+  { label: "Casas", href: "/#inventario", icon: Building2 },
+  { label: "Publicá tu casa", href: "/#publicar", icon: KeyRound },
   { label: "Preguntas frecuentes", href: "/#preguntas-frecuentes", icon: CircleHelp },
   { label: "Quiénes somos", href: "/#quienes-somos", icon: Users },
   { label: "Contacto", href: "/#contacto", icon: MessageCircle },

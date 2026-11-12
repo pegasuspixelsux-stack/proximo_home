@@ -8,13 +8,14 @@ import {
   SlidersHorizontal,
 } from "lucide-react";
 import { useState, type ReactNode } from "react";
+import { ZONES } from "../data/vehicles";
 import { readCriteria, type SearchCriteria } from "@/lib/vehicle-search";
 
 const EASE_OUT = [0.23, 1, 0.32, 1] as const;
 
 const QUICK_LINKS = [
-  { label: "Comprar un auto", href: "#inventory" },
-  { label: "Vender mi auto", href: "#" },
+  { label: "Ver casas", href: "#inventory" },
+  { label: "Publicar mi casa", href: "#" },
 ];
 const FIELD =
   "w-full rounded-xl border border-line bg-bg/60 px-3 py-2 text-sm text-fg outline-none transition-colors duration-150 placeholder:text-subtle focus:border-fg/40";
@@ -39,62 +40,35 @@ export function AdvancedFields({
 }) {
   return (
     <>
-      <Field label="Marca">
-        <input
-          type="text"
-          name="make"
-          defaultValue={defaults?.make}
-          placeholder="Ej. Audi"
-          className={FIELD}
-        />
-      </Field>
-      <Field label="Tipo">
-        <select name="bodyType" defaultValue={defaults?.bodyType ?? ""} className={FIELD}>
-          <option value="">Todos</option>
-          <option value="Auto">Auto</option>
-          <option value="SUV">SUV</option>
-          <option value="Deportivo">Deportivo</option>
-          <option value="Clásico">Clásico</option>
-          <option value="Moto">Moto</option>
-          <option value="Camioneta">Camioneta</option>
-          <option value="Camión">Camión</option>
-        </select>
-      </Field>
-      <Field label="Transmisión">
-        <select name="transmission" defaultValue={defaults?.transmission ?? ""} className={FIELD}>
+      <Field label="Zona">
+        <select name="zone" defaultValue={defaults?.zone ?? ""} className={FIELD}>
           <option value="">Todas</option>
-          <option value="Automática">Automática</option>
-          <option value="Manual">Manual</option>
+          {ZONES.map((z) => (
+            <option key={z} value={z}>
+              {z}
+            </option>
+          ))}
         </select>
       </Field>
-      <Field label="Combustible">
-        <select name="fuel" defaultValue={defaults?.fuel ?? ""} className={FIELD}>
-          <option value="">Todos</option>
-          <option value="Electric">Eléctrico</option>
-          <option value="Hybrid">Híbrido</option>
-          <option value="Gasoline">Nafta</option>
-          <option value="Diesel">Diésel</option>
-        </select>
-      </Field>
-      <Field label="Año desde">
+      <Field label="Dormitorios (mín.)">
         <input
           type="number"
-          name="yearMin"
-          defaultValue={defaults?.yearMin}
+          name="bedroomsMin"
+          defaultValue={defaults?.bedroomsMin}
           inputMode="numeric"
-          min={1990}
-          placeholder="2020"
+          min={1}
+          placeholder="3"
           className={FIELD}
         />
       </Field>
-      <Field label="Año hasta">
+      <Field label="Huéspedes (mín.)">
         <input
           type="number"
-          name="yearMax"
-          defaultValue={defaults?.yearMax}
+          name="guestsMin"
+          defaultValue={defaults?.guestsMin}
           inputMode="numeric"
-          min={1990}
-          placeholder="2025"
+          min={1}
+          placeholder="6"
           className={FIELD}
         />
       </Field>
@@ -105,7 +79,7 @@ export function AdvancedFields({
           defaultValue={defaults?.priceMin}
           inputMode="numeric"
           min={0}
-          placeholder="10000"
+          placeholder="200000"
           className={FIELD}
         />
       </Field>
@@ -116,36 +90,16 @@ export function AdvancedFields({
           defaultValue={defaults?.priceMax}
           inputMode="numeric"
           min={0}
-          placeholder="100000"
+          placeholder="2000000"
           className={FIELD}
         />
       </Field>
-      <Field label="Kilometraje máx.">
-        <input
-          type="number"
-          name="kmMax"
-          defaultValue={defaults?.kmMax}
-          inputMode="numeric"
-          min={0}
-          placeholder="50000"
-          className={FIELD}
-        />
-      </Field>
-      <Field label="Vendedor">
+      <Field label="Anunciante">
         <select name="seller" defaultValue={defaults?.seller ?? ""} className={FIELD}>
           <option value="">Todos</option>
           <option value="private">Particulares</option>
-          <option value="dealer">Concesionarias</option>
+          <option value="dealer">Inmobiliarias</option>
         </select>
-      </Field>
-      <Field label="Ubicación">
-        <input
-          type="text"
-          name="location"
-          defaultValue={defaults?.location}
-          placeholder="Ej. Tigre"
-          className={FIELD}
-        />
       </Field>
     </>
   );
@@ -206,11 +160,11 @@ export default function HeroSearch({
             type="search"
             name="q"
             defaultValue={initial?.q}
-            aria-label="Buscar en el inventario"
+            aria-label="Buscar casas"
             placeholder={
               compact
-                ? "Buscar marca o modelo"
-                : "Buscá por marca, modelo o palabra clave"
+                ? "Buscar casa o zona"
+                : "Buscá por nombre, zona o comodidad"
             }
             className="w-full bg-transparent text-sm text-fg [:root:not([data-theme=light])_&]:text-black outline-none placeholder:text-subtle [:root:not([data-theme=light])_&]:placeholder:text-zinc-500"
           />

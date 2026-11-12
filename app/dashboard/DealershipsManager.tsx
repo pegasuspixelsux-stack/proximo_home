@@ -123,7 +123,7 @@ export default function DealershipsManager({
   const remove = (d: Dealership) =>
     run(async () => {
       await deleteDoc(doc(db, "dealerships", d.id));
-    }, `Se eliminó la concesionaria ${d.name}.`);
+    }, `Se eliminó la inmobiliaria ${d.name}.`);
 
   const deactivate = (d: Dealership) =>
     run(async () => {
@@ -140,12 +140,12 @@ export default function DealershipsManager({
             id="dealerships-heading"
             className="text-xl font-medium tracking-tight"
           >
-            Todas las Concesionarias
+            Todas las Inmobiliarias
           </h2>
           <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap">
             <div className="relative">
               <label htmlFor={searchId} className="sr-only">
-                Buscar concesionaria
+                Buscar inmobiliaria
               </label>
               <Search
                 className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted"
@@ -204,7 +204,7 @@ export default function DealershipsManager({
               className="inline-flex items-center justify-center gap-2 rounded-full bg-inverse px-5 py-2 text-xs font-semibold uppercase tracking-wider text-on-inverse transition-[transform,opacity] duration-150 hover:opacity-85 active:scale-95"
             >
               <Plus className="h-4 w-4" strokeWidth={1.75} aria-hidden />
-              Nueva Concesionaria
+              Nueva Inmobiliaria
             </button>
           </div>
         </div>
@@ -238,7 +238,7 @@ export default function DealershipsManager({
             <thead>
               <tr className="border-b border-line text-[10px] uppercase tracking-widest text-muted">
                 <th scope="col" className="px-4 py-3 font-medium">
-                  Concesionaria
+                  Inmobiliaria
                 </th>
                 <th scope="col" className="px-4 py-3 font-medium">
                   Ubicación
@@ -247,7 +247,7 @@ export default function DealershipsManager({
                   Contacto
                 </th>
                 <th scope="col" className="px-4 py-3 font-medium">
-                  Vehículos
+                  Casas
                 </th>
                 <th scope="col" className="px-4 py-3 font-medium">
                   Estado
@@ -352,13 +352,13 @@ export default function DealershipsManager({
           {filtered.length === 0 && (
             <p className="px-4 py-12 text-center text-sm text-muted">
               {dealerships.length === 0
-                ? "Todavía no hay concesionarias. Creá la primera con “Nueva Concesionaria”."
-                : "Ninguna concesionaria coincide con la búsqueda."}
+                ? "Todavía no hay inmobiliarias. Creá la primera con “Nueva Inmobiliaria”."
+                : "Ninguna inmobiliaria coincide con la búsqueda."}
             </p>
           )}
         </div>
         <p className="mt-3 text-xs tabular-nums text-subtle" aria-live="polite">
-          Mostrando {filtered.length} de {dealerships.length} concesionarias
+          Mostrando {filtered.length} de {dealerships.length} inmobiliarias
         </p>
       </section>
 
@@ -398,7 +398,7 @@ export default function DealershipsManager({
             </h2>
             <p className="mt-2 text-sm text-muted">
               {linked > 0
-                ? `Tiene ${linked} ${linked === 1 ? "vehículo publicado" : "vehículos publicados"}. Eliminala solo después de reasignar o borrar esos vehículos. Mientras tanto podés desactivarla: deja de mostrarse en el sitio y conserva sus datos.`
+                ? `Tiene ${linked} ${linked === 1 ? "casa publicada" : "casas publicadas"}. Eliminala solo después de reasignar o borrar esas casas. Mientras tanto podés desactivarla: deja de mostrarse en el sitio y conserva sus datos.`
                 : "Se va a quitar del sistema y del sitio. Esta acción no se puede deshacer."}
             </p>
             <div className="mt-5 flex flex-wrap justify-end gap-2">

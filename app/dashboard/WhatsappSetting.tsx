@@ -46,7 +46,7 @@ export default function WhatsappSetting({ initial }: { initial: string }) {
       </h3>
       <p className="mt-1 text-xs text-muted">
         Un solo número para el pie de página (WhatsApp y llamadas), las fichas de
-        vehículos y los botones de contacto.
+        casas y los botones de contacto.
       </p>
       <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-end">
         <label className="flex flex-col gap-1.5 sm:w-80">

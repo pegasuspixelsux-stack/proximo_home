@@ -4,31 +4,31 @@ import type { LucideIcon } from "lucide-react";
 const FEATURES: { icon: LucideIcon; title: string; description: string }[] = [
   {
     icon: Wrench,
-    title: "Inspección de 100 puntos",
+    title: "Casas verificadas",
     description:
-      "Cada vehículo pasa por una revisión técnica y mecánica rigurosa antes de publicarse.",
+      "Cada casa se visita y se revisa en detalle antes de publicarse.",
   },
   {
     icon: Handshake,
     title: "Compra sin presión",
     description:
-      "Tomate tu tiempo para ver, probar y decidir. Te asesoramos sin apuros ni insistencias.",
+      "Tomate tu tiempo para conocer la casa y decidir. Te asesoramos sin apuros ni insistencias.",
   },
   {
     icon: FileCheck2,
     title: "Documentación al día",
     description:
-      "Verificamos la titularidad y los papeles de cada auto para una transferencia sin sorpresas.",
+      "Verificamos la titularidad y los papeles de cada propiedad para una operación sin sorpresas.",
   },
   {
     icon: KeyRound,
-    title: "Entrega inmediata",
+    title: "Visitas rápidas",
     description:
-      "Elegí tu auto, coordiná la visita y llevátelo sin demoras ni trámites innecesarios.",
+      "Elegí tu casa, coordiná la visita y avanzá sin demoras ni trámites innecesarios.",
   },
 ];
 
-/** Four trust highlights shown above the financing callout on the home page. */
+/** Four trust highlights shown on the home page. */
 export default function TrustFeatures() {
   return (
     <section

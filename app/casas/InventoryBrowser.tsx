@@ -42,9 +42,9 @@ export default function InventoryBrowser({
     const fromUrl = { ...EMPTY_CRITERIA };
     for (const key of Object.keys(fromUrl) as (keyof SearchCriteria)[])
       fromUrl[key] = (params.get(key) ?? "").trim();
-    // The body type is shown by the category pills instead of the filter panel.
-    const urlCategory = fromUrl.bodyType;
-    fromUrl.bodyType = "";
+    // The zone is shown by the category pills instead of the filter panel.
+    const urlCategory = fromUrl.zone;
+    fromUrl.zone = "";
     if (!hasCriteria(fromUrl) && !urlCategory) return;
     // Deferred so the first (server-matching) render stays untouched.
     queueMicrotask(() => {
@@ -65,7 +65,7 @@ export default function InventoryBrowser({
     const list = vehicles.filter(
       (v) =>
         pillTest(v) &&
-        (!category || v.bodyType === category) &&
+        (!category || v.zone === category) &&
         matchesCriteria(v, criteria, arsRate),
     );
     // Newest first.
@@ -109,9 +109,9 @@ export default function InventoryBrowser({
           setCriteria((c) => ({ ...c, q: e.target.value }));
           setPage(1);
         }}
-        aria-label="Buscar en el inventario"
+        aria-label="Buscar casas"
         data-testid={testId}
-        placeholder="Buscá por marca, modelo o palabra clave"
+        placeholder="Buscá por nombre, zona o comodidad"
         className="w-full min-w-0 bg-transparent text-base text-fg outline-none placeholder:text-subtle sm:text-sm [&::-webkit-search-cancel-button]:hidden"
       />
       {criteria.q && (
@@ -134,10 +134,10 @@ export default function InventoryBrowser({
     <>
       <header className="pt-[10px] lg:pt-5">
         <h1 className="sr-only">
-          Autos usados en venta
+          Casas de vacaciones en Punta del Este
         </h1>
         <p className="mt-1 max-w-2xl text-center text-muted sm:text-left">
-          Explorá nuestro inventario de autos usados.
+          Explorá nuestras casas de vacaciones en Punta del Este.
         </p>
       </header>
 
@@ -168,7 +168,7 @@ export default function InventoryBrowser({
             <div
               ref={pillsRef}
               role="group"
-              aria-label="Filtrar vehículos"
+              aria-label="Filtrar por zona"
               className="flex min-w-0 flex-1 snap-x gap-2 overflow-x-auto py-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
             >
               {FILTER_PILLS.map((f) => {
@@ -223,7 +223,7 @@ export default function InventoryBrowser({
             className="flex flex-col items-center gap-4 py-24 text-center"
           >
             <p className="text-sm text-muted">
-              Ningún vehículo coincide con los filtros. Probá con otros o
+              Ninguna casa coincide con los filtros. Probá con otros o
               limpialos.
             </p>
             {filtering && (
@@ -257,7 +257,7 @@ export default function InventoryBrowser({
           className="mt-4 text-left text-sm tabular-nums text-muted"
         >
           Mostrando {items.length} de {results.length}{" "}
-          {results.length === 1 ? "vehículo" : "vehículos"}
+          {results.length === 1 ? "casa" : "casas"}
         </p>
 
         {pageCount > 1 && (

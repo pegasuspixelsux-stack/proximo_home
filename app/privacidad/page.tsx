@@ -6,7 +6,7 @@ import LegalPage, { LegalSection, Todo } from "../components/LegalPage";
 export const metadata: Metadata = {
   title: "Política de privacidad",
   description:
-    "Cómo Tu Próximo Auto Argentina trata tus datos personales: qué información recopilamos, para qué la usamos y cómo ejercer tus derechos según la Ley 25.326.",
+    "Cómo Tu Próxima Casa Uruguay trata tus datos personales: qué información recopilamos, para qué la usamos y cómo ejercer tus derechos según la Ley 18.331.",
   alternates: { canonical: "/privacidad" },
 };
 
@@ -27,8 +27,8 @@ export default function PrivacidadPage() {
       <LegalSection title="Qué datos recopilamos">
         <ul className="list-disc space-y-2 pl-5">
           <li>
-            <strong className="text-fg">Formularios de contacto y de cita:</strong> nombre, teléfono, el
-            vehículo que te interesa, fecha y hora de la visita, medio de contacto preferido y los comentarios
+            <strong className="text-fg">Formularios de contacto y de cita:</strong> nombre, teléfono, la
+            casa o zona que te interesa, fecha y hora de la visita, medio de contacto preferido y los comentarios
             que escribas.
           </li>
           <li>
@@ -41,22 +41,22 @@ export default function PrivacidadPage() {
       </LegalSection>
       <LegalSection title="Para qué usamos tus datos">
         <ul className="list-disc space-y-2 pl-5">
-          <li>Responder tu consulta y coordinar la visita o la prueba de manejo.</li>
-          <li>Pasar tu contacto a la concesionaria del vehículo por el que consultaste.</li>
+          <li>Responder tu consulta y coordinar la visita.</li>
+          <li>Pasar tu contacto a la inmobiliaria o el propietario de la casa por la que consultaste.</li>
           <li>Mejorar el sitio y entender qué avisos y secciones se usan más.</li>
         </ul>
-        <p>No vendemos tus datos. Solo los compartimos con la concesionaria involucrada y con proveedores que alojan o procesan la información para operar el sitio, como los servicios de infraestructura y base de datos.</p>
+        <p>No vendemos tus datos. Solo los compartimos con la inmobiliaria o el propietario involucrado y con proveedores que alojan o procesan la información para operar el sitio, como los servicios de infraestructura y base de datos.</p>
       </LegalSection>
-      <LegalSection title="Tus derechos (Ley 25.326)">
+      <LegalSection title="Tus derechos (Ley 18.331)">
         <p>
-          Conforme a la Ley 25.326 de Protección de los Datos Personales, podés acceder a tus datos,
+          Conforme a la Ley 18.331 de Protección de los Datos Personales, podés acceder a tus datos,
           rectificarlos, actualizarlos y solicitar su supresión. El acceso es gratuito a intervalos no
           inferiores a seis meses, salvo que acredites un interés legítimo.
         </p>
         <p>
           Para ejercer estos derechos escribinos a <Todo>email de contacto</Todo> indicando tu nombre y el
           teléfono con el que nos contactaste. La Agencia de Acceso a la Información Pública es el órgano de
-          control de la Ley 25.326 y atiende denuncias y reclamos por incumplimientos en materia de datos
+          control de la Ley 18.331 y atiende denuncias y reclamos por incumplimientos en materia de datos
           personales.
         </p>
       </LegalSection>

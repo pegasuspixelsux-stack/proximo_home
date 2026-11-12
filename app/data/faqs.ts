@@ -1,77 +1,47 @@
 export const FAQS: { question: string; answer: string }[] = [
   {
-    question:
-      "¿Dónde está ubicado el salón de ventas y cómo coordino una visita?",
+    question: "¿Cómo coordino una visita a una casa?",
     answer:
-      "Nuestro salón de ventas principal se encuentra en Zona Norte (Tigre). Para brindarte una atención personalizada, realizar pruebas de manejo y evaluar tu unidad, atendemos exclusivamente bajo cita previa. Podés agendar tu turno directamente por WhatsApp o mediante nuestro formulario.",
+      "Elegís la casa en nuestro catálogo y nos escribís por WhatsApp. Coordinamos día y horario de la visita con cita previa, para que puedas recorrer la propiedad con tranquilidad.",
   },
   {
-    question: "¿Puedo entregar mi auto usado como parte de pago (Permuta)?",
+    question: "¿Qué zonas de Punta del Este cubren?",
     answer:
-      "Sí, aceptamos permutas. En tu visita al salón de ventas realizamos la inspección técnica y tasación comercial de tu vehículo en el acto para tomarlo como parte de pago de tu próximo auto.",
+      "Trabajamos con casas de vacaciones en Península, Playa Brava, Playa Mansa, La Barra, Manantiales y José Ignacio. Podés filtrar el catálogo por zona desde la página principal.",
   },
   {
-    question: "¿Cómo funciona la financiación con tarjeta de crédito?",
+    question: "¿Qué comodidades incluyen las casas?",
     answer:
-      "Podés financiar hasta el 40% del valor del vehículo utilizando tarjetas de crédito en cuotas fijas (Visa, Mastercard, Cabal). Además, tenés la posibilidad de combinar múltiples tarjetas de crédito para cubrir el saldo.",
+      "Cada aviso detalla sus características (vista al mar, jardín, parrillero, chimenea, etc.) y sus comodidades (piscina, Wi-Fi, aire acondicionado, seguridad, entre otras), además de la cantidad de dormitorios, baños y huéspedes.",
   },
   {
-    question: "¿Los vehículos cuentan con documentación al día y garantía?",
+    question: "¿Las fotos y los datos son reales?",
     answer:
-      "Todas las unidades de nuestro catálogo están verificadas, cuentan con VTV vigente, libre de deudas de patentes e infracciones, y la documentación completa lista para transferir de manera inmediata.",
+      "Sí. Cada propiedad se revisa antes de publicarse y los datos de los avisos son responsabilidad del anunciante. Ante cualquier duda, pedinos más fotos por WhatsApp.",
   },
   {
-    question: "¿Qué documentación necesito presentar para cerrar la compra?",
+    question: "¿Qué métodos de pago se aceptan?",
     answer:
-      "Únicamente necesitás tu DNI argentino vigente. Nosotros nos encargamos de coordinar la gestoría y los trámites de transferencia para que te lleves el auto sin complicaciones.",
+      "Los precios se publican en dólares estadounidenses (USD) o pesos argentinos (ARS). Las condiciones de pago se coordinan directamente con el anunciante a través de nuestro equipo.",
   },
   {
-    question:
-      "¿Cuáles son los métodos de pago aceptados para el saldo o compra contado?",
+    question: "¿Puedo reservar una casa desde la web?",
     answer:
-      "Aceptamos dólares estadounidenses (USD), pesos argentinos (ARS) a la cotización del día, transferencias bancarias directas y financiación con tarjeta de crédito hasta el 40%.",
+      "Podés solicitar la reserva o el bloqueo temporal de una propiedad coordinando directamente con un asesor por WhatsApp.",
   },
   {
-    question: "¿Puedo realizar una prueba de manejo (Test Drive) del vehículo?",
+    question: "¿Qué documentación necesito?",
     answer:
-      "Por supuesto. Al agendar tu cita previa por WhatsApp, preparamos la unidad de tu interés en el salón de ventas para que realicés la prueba de manejo antes de tomar cualquier decisión.",
+      "Depende de la operación y del anunciante. Un asesor te indica qué documentos necesitás una vez que elijas la casa y coordines la visita.",
   },
   {
-    question: "¿Tienen descuento o beneficio por pago de contado?",
+    question: "¿Puedo publicar mi casa en la plataforma?",
     answer:
-      "Sí, las compras realizadas 100% de contado o mediante transferencia directa acceden a precios promocionales bonificados y prioridad en la entrega del vehículo.",
+      "Sí. Completá el formulario con los datos de tu casa, subí las fotos y tu aviso se publica. Las inmobiliarias pueden además cargar todas sus propiedades y tener una página propia.",
   },
   {
-    question:
-      "¿Cuánto tiempo demora la entrega del vehículo una vez reservado?",
+    question: "¿Cómo elegir una casa de vacaciones en Punta del Este?",
     answer:
-      "Si la compra es de contado o con financiación con tarjeta, la entrega es prácticamente inmediata dentro de las 24 a 48 horas hábiles, una vez completada la documentación de transferencia.",
-  },
-  {
-    question:
-      "¿Puedo reservar un auto desde la web antes de ir al salón de ventas?",
-    answer:
-      "Sí. Podés realizar una seña previa o solicitar el bloqueo temporal de la unidad coordinando directamente con un asesor a través de WhatsApp.",
-  },
-  {
-    question: "¿Cómo comprar un auto usado en Buenos Aires?",
-    answer:
-      "Elegís la unidad en nuestro catálogo, nos escribís por WhatsApp para coordinar una visita con cita previa en el salón de Tigre, probás el auto, revisás la documentación y, si te convence, cerrás la compra. Atendemos a clientes de Tigre, Zona Norte, Gran Buenos Aires, Provincia de Buenos Aires y CABA.",
-  },
-  {
-    question: "¿Se puede financiar un auto usado?",
-    answer:
-      "Sí. Podés financiar hasta el 40% del valor del vehículo con tarjeta de crédito en cuotas fijas, y calcular tu cuota con el simulador de la web.",
-  },
-  {
-    question: "¿Cómo es la transferencia de un auto usado en Argentina?",
-    answer:
-      "Nosotros coordinamos la gestoría y los trámites de transferencia. Vos solo necesitás tu DNI vigente, y las unidades llegan con la documentación al día y libres de deudas de patentes e infracciones.",
-  },
-  {
-    question:
-      "¿Atienden en Nordelta, Don Torcuato, General Pacheco, San Fernando y Pilar?",
-    answer:
-      "Sí, recibimos a clientes de Tigre y alrededores, como Nordelta, Don Torcuato, General Pacheco, San Fernando y Pilar, además de toda la Zona Norte, CABA y el resto del Gran Buenos Aires.",
+      "Primero definí la zona que más se ajusta a lo que buscás: la Península y las playas Brava y Mansa son más urbanas, mientras que La Barra, Manantiales y José Ignacio ofrecen un ambiente más tranquilo y de naturaleza. Luego filtrá por dormitorios, huéspedes y precio, y coordiná una visita por WhatsApp.",
   },
 ];

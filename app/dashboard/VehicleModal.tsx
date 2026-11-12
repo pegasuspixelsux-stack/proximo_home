@@ -17,18 +17,16 @@ import {
   uploadPhoto,
 } from "@/lib/imagekit-upload";
 import { isHeic, processVehicleImage } from "@/lib/utils/imageProcessor";
-import { COMMON_CAR_FEATURES } from "../data/car-features";
+import { HOME_AMENITIES, HOME_FEATURES } from "../data/home-features";
 import {
+  ZONES,
   vehicleReference,
-  type BodyType,
-  Dealership,
-  FuelType,
-  SellerType,
-  Vehicle,
+  type Dealership,
+  type SellerType,
+  type Vehicle,
+  type Zone,
 } from "../data/vehicles";
 import { revalidateVehicles } from "./actions";
-
-const KM_PER_MILE = 1.60934;
 
 const PHOTO_ERROR =
   "Error al procesar o subir la imagen. Por favor intente nuevamente o use formato JPG/PNG.";
@@ -67,14 +65,6 @@ function logPhotoError(error: unknown, file?: File) {
 const FIELD =
   "w-full rounded-xl border border-line bg-bg/60 px-3 py-2 text-sm text-fg outline-none transition-colors duration-150 placeholder:text-subtle focus:border-fg/40";
 
-const FUELS: [FuelType, string][] = [
-  ["Gasoline", "Nafta"],
-  ["Diesel", "Diésel"],
-  ["Hybrid", "Híbrido"],
-  ["Electric", "Eléctrico"],
-];
-const BODIES: BodyType[] = ["Auto", "SUV", "Deportivo", "Clásico", "Moto", "Camioneta", "Camión"];
-
 /** Parses "Label: value" lines into the extra technical-sheet rows. */
 function parseSpecs(text: string) {
   const specs: Record<string, string> = {};
@@ -85,13 +75,6 @@ function parseSpecs(text: string) {
     if (i > 0 && label && value) specs[label] = value;
   }
   return specs;
-}
-
-/** Soft warning (never blocks saving) when the location looks like a street address. */
-function locationProblem(value: string) {
-  return /\d|\b(av|avda|avenida|calle)\b/i.test(value)
-    ? "Parece incluir una calle o un número. Usá solo Ciudad, Buenos Aires."
-    : "";
 }
 
 function Labeled({
@@ -140,9 +123,6 @@ export default function VehicleModal({
   });
   // Photo batch progress: overall 0-100 plus what is happening right now.
   const [uploadProgress, setUploadProgress] = useState(0);
-  const [locationWarning, setLocationWarning] = useState(() =>
-    locationProblem(vehicle?.location ?? ""),
-  );
   const [currentStepText, setCurrentStepText] = useState("");
   const [isUploading, setIsUploading] = useState(false);
   // Shown right under the photo picker so a failure is never out of sight.
@@ -257,7 +237,7 @@ export default function VehicleModal({
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    if (!images.length) return setError("Subí al menos una foto del vehículo.");
+    if (!images.length) return setError("Subí al menos una foto de la casa.");
     const f = new FormData(e.currentTarget);
     const str = (k: string) => String(f.get(k) ?? "").trim();
     const dealership =
@@ -265,7 +245,7 @@ export default function VehicleModal({
         ? dealerships.find((d) => d.id === str("dealershipId"))
         : undefined;
     if (sellerType === "dealer" && !dealership)
-      return setError("Elegí una concesionaria.");
+      return setError("Elegí una inmobiliaria.");
 
     const reference = str("reference");
     if (!/^[A-Za-z0-9-]{1,20}$/.test(reference))
@@ -277,7 +257,7 @@ export default function VehicleModal({
         (v) => v.id !== vehicle?.id && vehicleReference(v) === reference,
       )
     )
-      return setError("Ese número de referencia ya lo usa otro vehículo.");
+      return setError("Ese número de referencia ya lo usa otra casa.");
 
     // The price is stored exactly as entered, with the currency it was listed in.
     const price = Number(priceInput);
@@ -286,22 +266,20 @@ export default function VehicleModal({
 
     const fields = {
       reference,
-      make: str("make"),
-      model: str("model"),
-      year: Number(str("year")),
+      name: str("name"),
+      zone: str("zone") as Zone,
+      location: str("location"),
+      bedrooms: Number(str("bedrooms")),
+      bathrooms: Number(str("bathrooms")),
+      guests: Number(str("guests")),
       price,
       priceCurrency,
-      mileage: Math.round(Number(str("km")) / KM_PER_MILE),
-      transmission: str("transmission"),
-      fuelType: str("fuelType") as FuelType,
-      bodyType: str("bodyType") as BodyType,
       image: images[featured] ?? images[0],
       images,
-      color: str("color"),
       specs: parseSpecs(str("specs")),
       features: f.getAll("features").map(String),
+      amenities: f.getAll("amenities").map(String),
       description: str("description"),
-      location: dealership?.location ?? str("location"),
       sellerType,
     };
 
@@ -351,7 +329,7 @@ export default function VehicleModal({
       >
         <div className="flex items-center justify-between border-b border-line px-5 py-4">
           <h2 id={titleId} className="text-lg font-medium tracking-tight">
-            {vehicle ? "Editar vehículo" : "Agregar vehículo"}
+            {vehicle ? "Editar casa" : "Agregar casa"}
           </h2>
           <button
             type="button"
@@ -380,7 +358,7 @@ export default function VehicleModal({
                     >
                       <Image
                         src={src}
-                        alt={`Foto ${i + 1} del vehículo`}
+                        alt={`Foto ${i + 1} de la casa`}
                         fill
                         sizes="144px"
                         className="object-cover"
@@ -493,30 +471,72 @@ export default function VehicleModal({
                 className={FIELD}
               />
             </Labeled>
-            <Labeled label="Marca">
+            <Labeled label="Nombre de la casa" wide>
               <input
-                name="make"
+                name="name"
                 required
-                defaultValue={vehicle?.make}
+                defaultValue={vehicle?.name}
+                placeholder="Casa Los Pinos"
+                data-testid="home-name"
                 className={FIELD}
               />
             </Labeled>
-            <Labeled label="Modelo">
-              <input
-                name="model"
+            <Labeled label="Zona">
+              <select
+                name="zone"
                 required
-                defaultValue={vehicle?.model}
+                defaultValue={vehicle?.zone ?? ""}
+                data-testid="home-zone"
+                className={FIELD}
+              >
+                <option value="" disabled>
+                  Elegí una zona…
+                </option>
+                {ZONES.map((z) => (
+                  <option key={z} value={z}>
+                    {z}
+                  </option>
+                ))}
+              </select>
+            </Labeled>
+            <Labeled label="Ubicación (barrio o referencia)">
+              <input
+                name="location"
+                defaultValue={vehicle?.location}
+                placeholder="Ej. Barrio Los Médanos"
                 className={FIELD}
               />
             </Labeled>
-            <Labeled label="Año">
+            <Labeled label="Dormitorios">
               <input
-                name="year"
+                name="bedrooms"
                 type="number"
                 required
-                min={1900}
-                max={2100}
-                defaultValue={vehicle?.year}
+                min={0}
+                max={50}
+                defaultValue={vehicle?.bedrooms}
+                className={FIELD}
+              />
+            </Labeled>
+            <Labeled label="Baños">
+              <input
+                name="bathrooms"
+                type="number"
+                required
+                min={0}
+                max={50}
+                defaultValue={vehicle?.bathrooms}
+                className={FIELD}
+              />
+            </Labeled>
+            <Labeled label="Huéspedes (máx.)">
+              <input
+                name="guests"
+                type="number"
+                required
+                min={1}
+                max={100}
+                defaultValue={vehicle?.guests}
                 className={FIELD}
               />
             </Labeled>
@@ -545,74 +565,18 @@ export default function VehicleModal({
                 className={FIELD}
               />
             </Labeled>
-            <Labeled label="Kilometraje (km)">
-              <input
-                name="km"
-                type="number"
-                required
-                min={0}
-                defaultValue={
-                  vehicle
-                    ? Math.round(vehicle.mileage * KM_PER_MILE)
-                    : undefined
-                }
-                className={FIELD}
-              />
-            </Labeled>
-            <Labeled label="Transmisión">
-              <select
-                name="transmission"
-                defaultValue={vehicle?.transmission ?? "Automática"}
-                className={FIELD}
-              >
-                <option>Automática</option>
-                <option>Manual</option>
-              </select>
-            </Labeled>
-            <Labeled label="Combustible">
-              <select
-                name="fuelType"
-                defaultValue={vehicle?.fuelType ?? "Gasoline"}
-                className={FIELD}
-              >
-                {FUELS.map(([value, label]) => (
-                  <option key={value} value={value}>
-                    {label}
-                  </option>
-                ))}
-              </select>
-            </Labeled>
-            <Labeled label="Carrocería">
-              <select
-                name="bodyType"
-                defaultValue={vehicle?.bodyType ?? "Auto"}
-                className={FIELD}
-              >
-                {BODIES.map((b) => (
-                  <option key={b}>{b}</option>
-                ))}
-              </select>
-            </Labeled>
-            <Labeled label="Color">
-              <input
-                name="color"
-                defaultValue={vehicle?.color}
-                placeholder="Negro"
-                className={FIELD}
-              />
-            </Labeled>
             <Labeled label="Vendedor">
               <select
                 value={sellerType}
                 onChange={(e) => setSellerType(e.target.value as SellerType)}
                 className={FIELD}
               >
-                <option value="dealer">Concesionaria</option>
+                <option value="dealer">Inmobiliaria</option>
                 <option value="private">Particular</option>
               </select>
             </Labeled>
             {sellerType === "dealer" ? (
-              <Labeled label="Concesionaria">
+              <Labeled label="Inmobiliaria">
                 <select
                   name="dealershipId"
                   required
@@ -631,25 +595,7 @@ export default function VehicleModal({
               </Labeled>
             ) : (
               <>
-                <Labeled label="Ubicación">
-                  <input
-                    name="location"
-                    required
-                    placeholder="Ciudad, Buenos Aires"
-                    defaultValue={vehicle?.location}
-                    onChange={(e) => setLocationWarning(locationProblem(e.target.value))}
-                    className={FIELD}
-                  />
-                  <span className="text-xs normal-case tracking-normal text-subtle">
-                    Ciudad, Buenos Aires (sin calle)
-                  </span>
-                  {locationWarning && (
-                    <span role="alert" className="text-xs normal-case tracking-normal text-amber-400">
-                      {locationWarning}
-                    </span>
-                  )}
-                </Labeled>
-                <Labeled label="WhatsApp del vendedor" wide>
+                <Labeled label="WhatsApp del propietario" wide>
                   <input
                     name="sellerPhone"
                     required
@@ -672,15 +618,15 @@ export default function VehicleModal({
               rows={4}
               maxLength={2000}
               defaultValue={vehicle?.description}
-              placeholder="Estado general, historial de service, detalles a destacar…"
-              data-testid="vehicle-description"
+              placeholder="Descripción de la casa, entorno, distancia a la playa, detalles a destacar…"
+              data-testid="home-description"
               className={`${FIELD} resize-y`}
             />
           </label>
 
           <label className="mt-6 flex flex-col gap-1.5">
             <span className="text-[10px] font-medium uppercase tracking-widest text-muted">
-              Ficha técnica (una línea por dato, «Etiqueta: valor»)
+              Datos adicionales (una línea por dato, «Etiqueta: valor»)
             </span>
             <textarea
               name="specs"
@@ -688,7 +634,7 @@ export default function VehicleModal({
               defaultValue={Object.entries(vehicle?.specs ?? {})
                 .map(([k, v]) => `${k}: ${v}`)
                 .join("\n")}
-              placeholder={"Motor: 2.0 turbo\nPotencia: 250 hp\nTracción: Delantera"}
+              placeholder={"Superficie: 320 m²\nTerreno: 1.200 m²\nDistancia al mar: 300 m"}
               data-testid="vehicle-specs"
               className={`${FIELD} resize-y`}
             />
@@ -696,10 +642,10 @@ export default function VehicleModal({
 
           <fieldset className="mt-6">
             <legend className="text-[10px] font-medium uppercase tracking-widest text-muted">
-              Equipamiento
+              Características
             </legend>
             <div className="mt-3 grid gap-2 sm:grid-cols-2">
-              {COMMON_CAR_FEATURES.map(({ id, label }) => (
+              {HOME_FEATURES.map(({ id, label }) => (
                 <label
                   key={id}
                   className="flex cursor-pointer items-center gap-2 text-sm"
@@ -709,6 +655,29 @@ export default function VehicleModal({
                     name="features"
                     value={id}
                     defaultChecked={vehicle?.features?.includes(id)}
+                    className="h-4 w-4 shrink-0 accent-[var(--inverse)]"
+                  />
+                  {label}
+                </label>
+              ))}
+            </div>
+          </fieldset>
+
+          <fieldset className="mt-6">
+            <legend className="text-[10px] font-medium uppercase tracking-widest text-muted">
+              Amenities
+            </legend>
+            <div className="mt-3 grid gap-2 sm:grid-cols-2">
+              {HOME_AMENITIES.map(({ id, label }) => (
+                <label
+                  key={id}
+                  className="flex cursor-pointer items-center gap-2 text-sm"
+                >
+                  <input
+                    type="checkbox"
+                    name="amenities"
+                    value={id}
+                    defaultChecked={vehicle?.amenities?.includes(id)}
                     className="h-4 w-4 shrink-0 accent-[var(--inverse)]"
                   />
                   {label}

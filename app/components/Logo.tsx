@@ -1,4 +1,4 @@
-/** Argentina flag with a short label; "ARG" on small screens. */
+/** Uruguay flag with a short label; "UY" on small screens. */
 export function Country({ className = "" }: { className?: string }) {
   return (
     <span className={`inline-flex items-center gap-1 align-middle ${className}`}>
@@ -7,20 +7,25 @@ export function Country({ className = "" }: { className?: string }) {
         className="h-5 w-[30px] rounded-[2px]"
         aria-hidden
       >
-        <rect width="18" height="12" fill="#74ACDF" />
-        <rect y="4" width="18" height="4" fill="#fff" />
-        <circle cx="9" cy="6" r="1.4" fill="#F6B40E" />
+        <rect width="18" height="12" fill="#fff" />
+        <path
+          d="M0 1.33h18M0 4h18M0 6.67h18M0 9.33h18"
+          stroke="#0038A8"
+          strokeWidth="1.33"
+        />
+        <rect width="6.67" height="6.67" fill="#fff" />
+        <circle cx="3.33" cy="3.33" r="1.5" fill="#FCD116" />
       </svg>
       <span className="text-[8px] font-semibold uppercase tracking-[0.2em] text-fg lg:text-[9px]">
-        <span className="sm:hidden">Arg</span>
-        <span className="hidden sm:inline">Argentina</span>
+        <span className="sm:hidden">UY</span>
+        <span className="hidden sm:inline">Uruguay</span>
       </span>
     </span>
   );
 }
 
 /**
- * The wordmark: "TU PRÓXIMO" followed by a boxed, highlighted "AUTO".
+ * The wordmark: "TU PRÓXIMA" followed by a boxed, highlighted "CASA".
  * With `countryOnMobile` off, the country only shows from sm up (the header
  * places it in the right corner on mobile instead).
  */
@@ -39,9 +44,9 @@ export default function Logo({
       className={`whitespace-nowrap text-[21px] font-bold uppercase tracking-[-0.02em] lg:text-[23px] ${className}`}
     >
       <span data-logo-word>
-        Tu Próximo
+        Tu Próxima
         <span className="ml-[0.25em] bg-black px-1.5 py-0.5 text-brand [:root:not([data-theme=light])_&]:bg-white [:root:not([data-theme=light])_&]:text-black">
-          Auto
+          Casa
         </span>
       </span>
       {showCountry && (

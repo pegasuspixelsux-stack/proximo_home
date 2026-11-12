@@ -1,5 +1,5 @@
 import {
-  CarFront,
+  Home,
   CheckCircle2,
   Clock,
   Layers,
@@ -31,15 +31,15 @@ const KPIS: Kpi[] = [
     icon: Clock,
   },
   {
-    label: "Vehículos ingresados (último mes)",
+    label: "Casas ingresadas (último mes)",
     value: "18",
     trend: "+4 vs. mes anterior",
     good: true,
     up: true,
-    icon: CarFront,
+    icon: Home,
   },
   {
-    label: "Vehículos vendidos (último mes)",
+    label: "Casas vendidas (último mes)",
     value: "12",
     trend: "+2 vs. mes anterior",
     good: true,
@@ -118,7 +118,7 @@ export default function Overview({
         vehicles={vehicles}
         dealerships={dealerships}
         limit={6}
-        title="Últimos 6 Vehículos Publicados"
+        title="Últimas 6 Casas Publicadas"
       />
     </main>
   );

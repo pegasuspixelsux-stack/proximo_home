@@ -6,22 +6,22 @@ import LegalPage, { LegalSection, Todo } from "../components/LegalPage";
 export const metadata: Metadata = {
   title: "Soporte y contacto",
   description:
-    "Contactá a Tu Próximo Auto Argentina: cómo escribirnos, coordinar una visita o hacer una consulta sobre un auto usado, financiación, permuta y documentación.",
+    "Contactá a Tu Próxima Casa Uruguay: cómo escribirnos, coordinar una visita o hacer una consulta sobre una casa de vacaciones, disponibilidad y documentación.",
   alternates: { canonical: "/soporte" },
 };
 
 const FAQS = [
   {
-    q: "¿Cómo consulto por un auto?",
+    q: "¿Cómo consulto por una casa?",
     a: "Entrá al aviso y escribinos por WhatsApp o dejá tus datos en el formulario. Te respondemos a la brevedad.",
   },
   {
-    q: "¿Cómo coordino una visita o una prueba de manejo?",
+    q: "¿Cómo coordino una visita?",
     a: "Atendemos con cita previa. Pedí tu turno por WhatsApp o desde el formulario de contacto de nuestro sitio.",
   },
   {
-    q: "¿Puedo financiar o entregar mi usado?",
-    a: "Sí, trabajamos con financiación con tarjeta de crédito y aceptamos permutas. Los detalles están en las preguntas frecuentes de nuestro sitio.",
+    q: "¿Puedo reservar una casa desde la web?",
+    a: "Podés solicitar la reserva coordinando con un asesor por WhatsApp. Los detalles están en las preguntas frecuentes de nuestro sitio.",
   },
   {
     q: "¿Cómo pido que borren o corrijan mis datos?",
@@ -34,7 +34,7 @@ export default function SoportePage() {
     <LegalPage
       path="/soporte"
       title="Soporte y contacto"
-      intro="¿Tenés una duda sobre un auto, una visita o tus datos? Estas son las formas de comunicarte con nosotros."
+      intro="¿Tenés una duda sobre una casa, una visita o tus datos? Estas son las formas de comunicarte con nosotros."
     >
       <LegalSection title="Cómo contactarnos">
         <ul className="list-disc space-y-2 pl-5">
@@ -67,7 +67,7 @@ export default function SoportePage() {
           Mirá todas las{" "}
           <Link className="underline underline-offset-4" href="/#preguntas-frecuentes">preguntas frecuentes</Link>,
           explorá los{" "}
-          <Link className="underline underline-offset-4" href="/#inventario">autos usados en venta</Link> o leé los{" "}
+          <Link className="underline underline-offset-4" href="/#inventario">casas de vacaciones</Link> o leé los{" "}
           <Link className="underline underline-offset-4" href="/terminos">términos y condiciones</Link>.
         </p>
       </LegalSection>

@@ -3,7 +3,7 @@
 import {
   ArrowLeft,
   Building2,
-  Car,
+  Home,
   LayoutDashboard,
   Inbox,
   LogOut,
@@ -22,8 +22,8 @@ import { auth } from "@/lib/firebase";
 
 const LINKS = [
   { label: "Panel de Control", href: "/dashboard", icon: LayoutDashboard },
-  { label: "Listado de Vehículos", href: "/dashboard/vehiculos", icon: Car },
-  { label: "Concesionarias", href: "/dashboard/concesionarias", icon: Building2 },
+  { label: "Listado de Casas", href: "/dashboard/vehiculos", icon: Home },
+  { label: "Inmobiliarias", href: "/dashboard/inmobiliarias", icon: Building2 },
   { label: "Interesados", href: "/dashboard/interesados", icon: Inbox },
   { label: "Usuarios & Equipo", href: "/dashboard/equipo", icon: Users },
   { label: "Configuración", href: "/dashboard/configuracion", icon: Settings },
@@ -34,7 +34,7 @@ function Brand({ compact }: { compact?: boolean }) {
     return (
       <Link
         href="/dashboard"
-        aria-label="Tu Próximo Auto"
+        aria-label="Tu Próxima Casa"
         className="flex h-9 w-9 items-center justify-center bg-brand text-sm font-bold text-black"
       >
         A
@@ -43,8 +43,8 @@ function Brand({ compact }: { compact?: boolean }) {
   return (
     <Link href="/dashboard" className="flex items-center gap-3">
       <span className="text-base font-bold uppercase tracking-[-0.02em]">
-        Tu Próximo{" "}
-        <span className="bg-brand px-1.5 py-0.5 text-black">Auto</span>
+        Tu Próxima{" "}
+        <span className="bg-brand px-1.5 py-0.5 text-black">Casa</span>
       </span>
       <span className="rounded-full border border-line px-2 py-0.5 font-mono text-[10px] text-muted">
         v1.0
