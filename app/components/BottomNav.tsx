@@ -73,7 +73,7 @@ export default function BottomNav() {
   }
 
   const iconBtn =
-    "flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.55)] transition-[transform,background-color,color] duration-150 hover:bg-white/15 active:scale-95";
+    "flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.55)] transition-[transform,background-color,color] duration-150 hover:bg-white/15 active:scale-95 [:root[data-theme=light]_&]:text-neutral-950 [:root[data-theme=light]_&]:drop-shadow-none [:root[data-theme=light]_&]:hover:bg-black/10";
 
   return (
     <nav
@@ -85,14 +85,14 @@ export default function BottomNav() {
         {moreOpen && (
           <ul
             id="bottom-nav-more"
-            className="absolute bottom-full right-0 mb-2 w-64 overflow-hidden rounded-2xl border border-white/20 bg-black/70 p-1.5 text-white shadow-[0_10px_30px_-6px_rgba(0,0,0,0.5)] backdrop-blur-2xl"
+            className="absolute bottom-full right-0 mb-2 w-64 overflow-hidden rounded-2xl border border-white/20 bg-black/70 p-1.5 text-white shadow-[0_10px_30px_-6px_rgba(0,0,0,0.5)] backdrop-blur-2xl [:root[data-theme=light]_&]:border-black/10 [:root[data-theme=light]_&]:bg-white/85 [:root[data-theme=light]_&]:text-neutral-950"
           >
             {ITEMS.map(({ label, href, icon: Icon }) => (
               <li key={label}>
                 <Link
                   href={href}
                   onClick={(e) => go(e, href)}
-                  className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors duration-150 hover:bg-white/10 active:bg-white/15"
+                  className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors duration-150 hover:bg-white/10 active:bg-white/15 [:root[data-theme=light]_&]:hover:bg-black/5 [:root[data-theme=light]_&]:active:bg-black/10"
                 >
                   <Icon className="h-5 w-5 shrink-0" strokeWidth={1.75} aria-hidden />
                   {label}
@@ -101,7 +101,7 @@ export default function BottomNav() {
             ))}
           </ul>
         )}
-        <div className="flex items-center gap-1 rounded-full border border-white/30 bg-gradient-to-b from-white/20 to-white/5 p-2 backdrop-blur-2xl backdrop-saturate-200 shadow-[0_10px_30px_-6px_rgba(0,0,0,0.35),inset_0_1px_0_rgba(255,255,255,0.5)]">
+        <div className="flex items-center gap-1 rounded-full border border-white/30 bg-gradient-to-b from-white/20 to-white/5 p-2 backdrop-blur-2xl backdrop-saturate-200 shadow-[0_10px_30px_-6px_rgba(0,0,0,0.35),inset_0_1px_0_rgba(255,255,255,0.5)] [:root[data-theme=light]_&]:border-black/10 [:root[data-theme=light]_&]:from-white/85 [:root[data-theme=light]_&]:to-white/60 [:root[data-theme=light]_&]:shadow-[0_10px_30px_-6px_rgba(0,0,0,0.18),inset_0_1px_0_rgba(255,255,255,0.9)]">
           {/* Four icons are visible at a time; swipe sideways for the rest (scrollbar hidden). */}
           <ul className="flex min-w-0 flex-1 snap-x snap-mandatory items-center overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
             {ITEMS.map(({ label, href, icon: Icon }) => (
@@ -123,7 +123,7 @@ export default function BottomNav() {
             aria-expanded={moreOpen}
             aria-controls="bottom-nav-more"
             onClick={() => setMoreOpen((o) => !o)}
-            className={`${iconBtn} border border-white/30 bg-white/10 ${moreOpen ? "rotate-45" : ""}`}
+            className={`${iconBtn} border border-white/30 bg-white/10 [:root[data-theme=light]_&]:border-black/15 [:root[data-theme=light]_&]:bg-black/5 ${moreOpen ? "rotate-45" : ""}`}
           >
             <Plus className="h-5 w-5" strokeWidth={1.75} aria-hidden />
           </button>
