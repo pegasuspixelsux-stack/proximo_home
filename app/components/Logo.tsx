@@ -1,16 +1,7 @@
 /** Argentina flag with a short label; "ARG" on small screens. */
-export function Country({
-  className = "",
-  dataLogoFlag = false,
-}: {
-  className?: string;
-  dataLogoFlag?: boolean;
-}) {
+export function Country({ className = "" }: { className?: string }) {
   return (
-    <span
-      data-logo-flag={dataLogoFlag ? "" : undefined}
-      className={`inline-flex items-center gap-1 align-middle ${className}`}
-    >
+    <span className={`inline-flex items-center gap-1 align-middle ${className}`}>
       <svg
         viewBox="0 0 18 12"
         className="h-5 w-[30px] rounded-[2px]"
@@ -36,9 +27,12 @@ export function Country({
 export default function Logo({
   className = "",
   countryOnMobile = true,
+  showCountry = true,
 }: {
   className?: string;
   countryOnMobile?: boolean;
+  /** Off in the top nav: the flag only appears in the footer. */
+  showCountry?: boolean;
 }) {
   return (
     <span
@@ -50,7 +44,9 @@ export default function Logo({
           Auto
         </span>
       </span>
-      <Country className={`ml-1.5 ${countryOnMobile ? "" : "max-sm:hidden"}`} dataLogoFlag />
+      {showCountry && (
+        <Country className={`ml-1.5 ${countryOnMobile ? "" : "max-sm:hidden"}`} />
+      )}
     </span>
   );
 }

@@ -9,7 +9,7 @@ export default function SiteHeader({ transparent = false }: { transparent?: bool
     <header data-cover={transparent ? "" : undefined} className={transparent ? "fixed inset-x-0 top-0 z-40 border-b border-transparent bg-transparent transition-[background-color,border-color,box-shadow] duration-200" : "sticky top-0 z-40 border-b border-line shadow-[0_4px_12px_-2px_rgba(0,0,0,0.12)] bg-bg/80 backdrop-blur-xl backdrop-saturate-150"}>
       <nav
         aria-label="Principal"
-        className="relative mx-auto flex max-w-[1440px] items-center justify-between px-3 py-[11px] sm:py-6 lg:px-6"
+        className="relative mx-auto flex max-w-[1440px] items-center justify-between px-3 pb-[11px] pt-[calc(11px+env(safe-area-inset-top))] sm:py-6 lg:px-6"
       >
         <MobileMenu />
         <div className="hidden items-center gap-6 lg:flex">
@@ -29,7 +29,7 @@ export default function SiteHeader({ transparent = false }: { transparent?: bool
           data-logo
           className="absolute inset-x-0 mx-auto w-fit"
         >
-          <Logo />
+          <Logo showCountry={false} />
         </Link>
         <div className="hidden items-center gap-6 lg:flex">
           {NAV_RIGHT_LINKS.map((link) => (

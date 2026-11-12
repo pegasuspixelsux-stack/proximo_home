@@ -12,17 +12,19 @@ export default function ThemeColor() {
   const pathname = usePathname();
   useEffect(() => {
     const html = document.documentElement;
-    let meta = document.querySelector<HTMLMetaElement>('meta[name="theme-color"][data-live]');
-    if (!meta) {
-      document.querySelectorAll('meta[name="theme-color"]').forEach((m) => m.remove());
-      meta = document.createElement("meta");
-      meta.name = "theme-color";
-      meta.dataset.live = "";
-      document.head.appendChild(meta);
-    }
+    // Next renders the theme-color tag itself (see `viewport` in layout.tsx), and React owns
+    // it: only change its content, never remove or replace the element.
     const apply = () => {
       const bg = getComputedStyle(document.body).backgroundColor;
-      if (bg && meta) meta.content = bg;
+      if (!bg) return;
+      let metas = document.querySelectorAll<HTMLMetaElement>('meta[name="theme-color"]');
+      if (metas.length === 0) {
+        const created = document.createElement("meta");
+        created.name = "theme-color";
+        document.head.appendChild(created);
+        metas = document.querySelectorAll<HTMLMetaElement>('meta[name="theme-color"]');
+      }
+      metas.forEach((m) => (m.content = bg));
     };
     apply();
     const observer = new MutationObserver(apply);

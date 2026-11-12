@@ -50,7 +50,7 @@ export default async function HomePage() {
       <SiteHeader transparent />
       <section
         data-testid="cover"
-        className="relative flex h-dvh w-full items-end justify-center overflow-hidden bg-black text-white"
+        className="relative flex h-dvh w-full justify-center overflow-hidden bg-black text-white"
       >
         <Image
           src="/hero_image/eq_hero.webp"
@@ -61,14 +61,16 @@ export default async function HomePage() {
           className="object-cover object-[68%_center] lg:object-center"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/15 to-black/40" />
-        <div className="relative z-10 mx-auto flex w-full max-w-[1440px] flex-col items-start px-4 pb-[9dvh] text-left sm:px-8 lg:px-10">
+        <div className="relative z-10 mx-auto flex h-full w-full max-w-[1440px] flex-col items-start justify-between px-4 pb-[calc(6rem+env(safe-area-inset-bottom))] pt-[calc(4.5rem+env(safe-area-inset-top))] text-left sm:px-8 sm:pt-32 lg:px-10 lg:pb-[9dvh]">
+          <div>
           <h1 className="text-balance text-5xl font-semibold leading-[1.02] tracking-[-0.03em] sm:text-7xl lg:text-8xl xl:text-9xl">
             Encontrá tu próximo auto.
           </h1>
           <p className="mt-4 max-w-xl text-balance text-base text-white/80 sm:text-lg">
             Autos usados seleccionados y verificados en Tigre y Buenos Aires.
           </p>
-          <div className="mt-8 flex w-full max-w-xl flex-col items-center">
+          </div>
+          <div className="flex w-full max-w-xl flex-col items-center">
             <div className="hidden w-full sm:block">
               <LinkDrum links={QUICK_LINKS} />
             </div>
@@ -83,7 +85,7 @@ export default async function HomePage() {
             </a>
           </div>
         </div>
-        <p className="absolute inset-x-0 bottom-3 z-10 text-center text-xs font-medium tracking-wide text-white/70">
+        <p className="absolute inset-x-0 bottom-3 z-10 hidden text-center lg:block text-xs font-medium tracking-wide text-white/70">
           Dealio v 3.0
         </p>
       </section>

@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import BottomNav from "./components/BottomNav";
@@ -34,6 +34,18 @@ export const metadata: Metadata = {
     type: "website",
   },
   twitter: { card: "summary_large_image" },
+  // When added to the home screen on iPhone: real full screen, status bar over the page.
+  appleWebApp: { capable: true, statusBarStyle: "black-translucent", title: SITE_NAME },
+};
+
+// Let the page extend under the notch / home indicator (the hero fills the whole screen);
+// the browser's own bars are tinted by ThemeColor and the dark color-scheme.
+export const viewport: Viewport = {
+  viewportFit: "cover",
+  colorScheme: "dark light",
+  // Server-rendered first paint: black, the home page background. ThemeColor keeps it in
+  // sync with the real background (and the light theme) afterwards.
+  themeColor: "#000000",
 };
 
 export default async function RootLayout({
@@ -52,7 +64,7 @@ export default async function RootLayout({
         {/* Applies the saved theme (dark by default, not the system setting) before first paint to avoid a flash. */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `try{var t=localStorage.getItem("theme");if(t!=="light"&&t!=="dark"){t="dark"}document.documentElement.dataset.theme=t;var m=document.createElement("meta");m.name="theme-color";m.content=t==="light"?"#fbfbfd":"#000000";document.head.appendChild(m)}catch(e){}`,
+            __html: `try{var t=localStorage.getItem("theme");if(t!=="light"&&t!=="dark"){t="dark"}document.documentElement.dataset.theme=t}catch(e){}`,
           }}
         />
       </head>

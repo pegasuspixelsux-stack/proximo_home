@@ -29,7 +29,7 @@
 
 /* Home page: the site background is black. Sections below the hero are transparent with the
    normal light-on-dark text in dark mode, and sit on one white panel in light mode. */
-body:has([data-site-home]) { background: #000; }
+html:has([data-site-home]), body:has([data-site-home]) { background: #000; }
 :root[data-theme="light"] .light-surface {
   color-scheme: light;
   --bg: #ffffff;
@@ -195,19 +195,6 @@ html[data-past-hero] header[data-cover] {
   box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.12);
   backdrop-filter: blur(24px) saturate(1.5);
 }
-/* Over the hero only: drop the "Tu Próximo Auto" wordmark and put the flag in the right
-   corner as the last item of the nav row, right after the search icon / right-hand links.
-   Past the hero the centered wordmark comes back. */
-html:not([data-past-hero]) header[data-cover] [data-logo-word] { display: none; }
-html:not([data-past-hero]) header[data-cover] [data-logo-flag] { margin-left: 0; }
-html:not([data-past-hero]) header[data-cover] a[data-logo] {
-  position: static;
-  order: 99;
-  margin: 0 0 0 0.75rem;
-}
-/* Push the right-hand group (search icon on mobile, links on desktop) to the right edge. */
-html:not([data-past-hero]) header[data-cover] nav > :nth-last-child(-n + 2) { margin-left: auto; }
-@media (min-width: 1024px) {
-  html:not([data-past-hero]) header[data-cover] a[data-logo] { margin-left: 1.5rem; }
-}
-html:not([data-past-hero]) .cover-bottom-nav { display: none; }
+/* Over the hero only: no "Tu Próximo Auto" wordmark in the nav (past the hero it returns,
+   centered). The link would be empty, so it is hidden along with it. */
+html:not([data-past-hero]) header[data-cover] a[data-logo] { display: none; }

@@ -21,9 +21,9 @@ export default function BottomNav() {
     <nav
       aria-label="Navegación inferior"
       data-testid="bottom-nav"
-      className={`${pathname === "/" ? "cover-bottom-nav " : ""}pointer-events-none fixed inset-x-0 bottom-0 z-40 px-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] lg:hidden`}
+      className={`pointer-events-none fixed inset-x-0 bottom-0 z-40 px-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] lg:hidden`}
     >
-      <ul className="pointer-events-auto mx-auto flex max-w-xl items-center justify-between rounded-full bg-white p-2 shadow-[0_10px_30px_-6px_rgba(0,0,0,0.45)]">
+      <ul className="pointer-events-auto mx-auto flex max-w-xl items-center justify-between rounded-full border border-white/30 bg-gradient-to-b from-white/20 to-white/5 p-2 backdrop-blur-2xl backdrop-saturate-200 shadow-[0_10px_30px_-6px_rgba(0,0,0,0.35),inset_0_1px_0_rgba(255,255,255,0.5)]">
         {ITEMS.map(({ label, href, icon: Icon }) => {
           // Only page links can be "current"; the anchors live on the home page.
           const active = !href.includes("#") && href !== "/" && pathname === href;
@@ -50,7 +50,7 @@ export default function BottomNav() {
                   }
                 }}
                 aria-current={active ? "page" : undefined}
-                className="mx-auto flex h-11 w-11 items-center justify-center rounded-full text-black transition-[transform,background-color,color] duration-150 hover:bg-black/5 active:scale-95 aria-[current=page]:bg-black aria-[current=page]:text-white"
+                className="mx-auto flex h-11 w-11 items-center justify-center rounded-full text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.55)] transition-[transform,background-color,color] duration-150 hover:bg-white/15 active:scale-95 aria-[current=page]:bg-white aria-[current=page]:text-black aria-[current=page]:drop-shadow-none"
               >
                 <Icon className="h-5 w-5" strokeWidth={1.75} aria-hidden />
               </Link>
