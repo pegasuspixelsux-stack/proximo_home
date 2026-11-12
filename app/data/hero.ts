@@ -14,8 +14,8 @@ export interface HeroSlide {
 }
 
 export const HERO_IMAGES = [
-  { value: "/hero_image/audi_hero.webp", label: "Imagen 1 (temporal)" },
-  { value: "/hero_image/buyers.webp", label: "Imagen 2 (temporal)" },
+  { value: "/hero_image/pde_aerial.webp", label: "Imagen 1 (temporal)" },
+  { value: "/hero_image/about_home.webp", label: "Imagen 2 (temporal)" },
 ];
 
 export const MAX_HERO_SLIDES = 6;
@@ -23,7 +23,7 @@ export const MAX_HERO_SLIDES = 6;
 export const DEFAULT_SLIDES: HeroSlide[] = [
   {
     id: "slide-1",
-    image: "/hero_image/audi_hero.webp",
+    image: "/hero_image/pde_aerial.webp",
     eyebrow: "Casas de vacaciones en Punta del Este",
     highlight: "La casa que buscás.",
     heading: "El verano que te falta.",
@@ -35,7 +35,7 @@ export const DEFAULT_SLIDES: HeroSlide[] = [
   },
   {
     id: "slide-2",
-    image: "/hero_image/buyers.webp",
+    image: "/hero_image/about_home.webp",
     eyebrow: "Península · La Barra · José Ignacio",
     highlight: "Elegí tu zona.",
     heading: "Disfrutá la costa.",

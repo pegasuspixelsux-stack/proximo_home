@@ -29,7 +29,7 @@ export default function AboutSection() {
       id="quienes-somos"
       aria-labelledby="about-heading"
       data-testid="about-section"
-      className="scroll-mt-4 md:px-3 md:py-12 lg:px-6"
+      className="scroll-mt-4 lg:px-6 lg:py-12"
     >
       <button
         type="button"
@@ -37,7 +37,7 @@ export default function AboutSection() {
         aria-controls="about-content"
         data-testid="about-toggle"
         onClick={() => setOpen((o) => !o)}
-        className="flex w-full items-center justify-between gap-4 border-y border-line px-3 py-4 text-left md:hidden"
+        className="flex w-full items-center justify-between gap-4 border-y border-line px-3 py-4 text-left lg:hidden"
       >
         <span className="text-xs font-medium uppercase tracking-widest text-fg">
           Quiénes somos
@@ -51,7 +51,7 @@ export default function AboutSection() {
 
       <div
         id="about-content"
-        className={open ? "px-3 pb-10 pt-8 md:p-0" : "hidden md:block"}
+        className={open ? "px-3 pb-10 pt-8 md:px-10 lg:p-0" : "hidden lg:block"}
       >
         <div className="mx-auto grid max-w-[1000px] items-center gap-8 md:grid-cols-2 md:gap-12">
           <div>
@@ -74,8 +74,8 @@ export default function AboutSection() {
           </div>
           <div className="relative aspect-[4/3] overflow-hidden rounded-xl border border-line bg-neutral-900">
             <Image
-              src="/hero_image/buyers-1080.webp"
-              alt="Clientes recibiendo las llaves de su casa"
+              src="/hero_image/about_home.webp"
+              alt="Llaves y maqueta de una casa"
               fill
               sizes="(min-width: 768px) 50vw, 100vw"
               className="object-cover"

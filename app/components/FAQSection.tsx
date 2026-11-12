@@ -75,7 +75,7 @@ export default function FAQSection() {
       id="preguntas-frecuentes"
       data-testid="faq-section"
       aria-labelledby="faq-heading"
-      className="scroll-mt-4 md:px-3 md:py-12 lg:px-6"
+      className="scroll-mt-4 lg:px-6 lg:py-12"
     >
       <button
         type="button"
@@ -83,7 +83,7 @@ export default function FAQSection() {
         aria-controls="faq-content"
         data-testid="faq-toggle"
         onClick={() => setSectionOpen((o) => !o)}
-        className="flex w-full items-center justify-between gap-4 border-y border-line px-3 py-4 text-left md:hidden"
+        className="flex w-full items-center justify-between gap-4 border-y border-line px-3 py-4 text-left lg:hidden"
       >
         <span className="text-xs font-medium uppercase tracking-widest text-fg">
           Preguntas frecuentes
@@ -97,7 +97,7 @@ export default function FAQSection() {
 
       <div
         id="faq-content"
-        className={`${sectionOpen ? "px-3 pb-10 pt-8 md:p-0" : "hidden md:block"} md:max-lg:px-10`}
+        className={`${sectionOpen ? "px-3 pb-10 pt-8 lg:p-0" : "hidden lg:block"} md:max-lg:px-10`}
       >
         <div className="mx-auto max-w-3xl text-center">
           <p className="hidden text-xs font-semibold uppercase tracking-widest text-muted md:block">

@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 };
 
 const BACKGROUND =
-  "/hero_image/audi_hero.webp";
+  "/hero_image/pde_aerial.webp";
 
 export default function LoginPage() {
   return (

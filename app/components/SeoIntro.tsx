@@ -29,7 +29,7 @@ export default function SeoIntro() {
       id="comprar"
       aria-labelledby="seo-intro-heading"
       data-testid="seo-intro"
-      className="scroll-mt-24 md:px-3 md:py-12 lg:px-6"
+      className="scroll-mt-24 lg:px-6 lg:py-12"
     >
       <button
         type="button"
@@ -37,7 +37,7 @@ export default function SeoIntro() {
         aria-controls="seo-intro-content"
         data-testid="seo-intro-toggle"
         onClick={() => setOpen((o) => !o)}
-        className="flex w-full items-center justify-between gap-4 border-y border-line px-3 py-4 text-left md:hidden"
+        className="flex w-full items-center justify-between gap-4 border-y border-line px-3 py-4 text-left lg:hidden"
       >
         <span className="text-xs font-medium uppercase tracking-widest text-fg">
           Casas de vacaciones
@@ -53,8 +53,8 @@ export default function SeoIntro() {
         id="seo-intro-content"
         className={
           open
-            ? "px-5 pb-10 pt-8 md:px-10 md:py-0 lg:px-16"
-            : "hidden md:block md:px-10 lg:px-16"
+            ? "px-5 pb-10 pt-8 md:px-10 lg:py-0 lg:px-16"
+            : "hidden lg:block lg:px-16"
         }
       >
         <h2

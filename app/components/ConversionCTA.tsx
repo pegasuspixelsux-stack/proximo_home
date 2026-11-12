@@ -271,7 +271,7 @@ export default function ConversionCTA({
       id="contacto"
       data-testid="conversion-cta"
       aria-labelledby="cta-heading"
-      className="scroll-mt-4 md:px-3 md:py-12 lg:px-6"
+      className="scroll-mt-4 lg:px-6 lg:py-12"
     >
       <button
         type="button"
@@ -279,7 +279,7 @@ export default function ConversionCTA({
         aria-controls="cta-content"
         data-testid="cta-toggle"
         onClick={() => setOpen((o) => !o)}
-        className="flex w-full items-center justify-between gap-4 border-y border-line px-3 py-4 text-left md:hidden"
+        className="flex w-full items-center justify-between gap-4 border-y border-line px-3 py-4 text-left lg:hidden"
       >
         <span className="text-xs font-medium uppercase tracking-widest text-fg">
           Contacto
@@ -293,7 +293,7 @@ export default function ConversionCTA({
 
       <div
         id="cta-content"
-        className={open ? "px-3 pb-10 pt-8 md:p-0" : "hidden md:block"}
+        className={open ? "px-3 pb-10 pt-8 md:px-10 lg:p-0" : "hidden lg:block"}
       >
         <div className="mx-auto max-w-3xl text-center">
           <p className="hidden text-xs font-semibold uppercase tracking-widest text-muted md:block">
