@@ -31,6 +31,8 @@
 
 /* Home page: the site background is black. Sections below the hero are transparent with the
    normal light-on-dark text in dark mode, and sit on one white panel in light mode. */
+/* Canvas behind the body (overscroll, notch, home-indicator areas) follows the theme. */
+html { background-color: var(--bg); }
 /* Dark: black page. Light: white page, so nothing black shows under the footer. */
 :root:not([data-theme="light"]):has([data-site-home]), :root:not([data-theme="light"]) body:has([data-site-home]) { background: #000; }
 :root[data-theme="light"]:has([data-site-home]), :root[data-theme="light"] body:has([data-site-home]) { background: #fff; }

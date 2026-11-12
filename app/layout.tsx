@@ -64,7 +64,7 @@ export default async function RootLayout({
         {/* Applies the saved theme (dark by default, not the system setting) before first paint to avoid a flash. */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `try{var t=localStorage.getItem("theme");if(t!=="light"&&t!=="dark"){t="dark"}document.documentElement.dataset.theme=t}catch(e){}`,
+            __html: `try{var t=localStorage.getItem("theme");if(t!=="light"&&t!=="dark"){t="dark"}document.documentElement.dataset.theme=t;var c=t==="light"?"#ffffff":"#000000";var m=document.querySelector('meta[name="theme-color"]');if(m){m.content=c}else{document.addEventListener("DOMContentLoaded",function(){var n=document.querySelector('meta[name="theme-color"]');if(n)n.content=c})}}catch(e){}`,
           }}
         />
       </head>
