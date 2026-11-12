@@ -53,12 +53,12 @@ export default async function HomePage() {
         <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/15 to-black/40" />
         <div className="relative z-10 mx-auto flex h-full w-full max-w-[1440px] flex-col items-start justify-end px-3 pb-[calc(max(0.75rem,env(safe-area-inset-bottom))+4.625rem)] pt-[calc(4.5rem+env(safe-area-inset-top))] text-left sm:px-8 sm:pt-32 lg:px-10 lg:pb-8">
           <div className="w-full">
-          <h1 className="text-balance text-4xl font-semibold leading-[1.05] tracking-[-0.03em] sm:text-5xl lg:text-6xl xl:text-7xl">
+          <h1 className="text-balance text-[calc((100vw-1.5rem)/7.3)] font-semibold leading-[1.05] tracking-[-0.03em] sm:text-5xl lg:text-6xl xl:text-7xl">
             Encontrá tu
             <br />
             próximo auto.
           </h1>
-          <p className="mt-3 max-w-xl text-balance text-sm text-white/80 sm:text-base">
+          <p className="mt-3 max-w-xl text-balance text-base text-white/80 sm:text-lg lg:text-xl">
             Autos usados seleccionados y verificados en Tigre y Buenos Aires.
           </p>
           <div className="mt-8 flex w-full max-w-xl flex-col items-start self-center lg:self-start">
