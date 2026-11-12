@@ -200,6 +200,8 @@ html[data-past-hero] header[data-cover] {
   box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.12);
   backdrop-filter: blur(24px) saturate(1.5);
 }
-/* Over the hero only: no "Tu Próximo Auto" wordmark in the nav (past the hero it returns,
-   centered). The link would be empty, so it is hidden along with it. */
-html:not([data-past-hero]) header[data-cover] a[data-logo] { display: none; }
+/* Home nav: the dealer name ("Automotora") is always the centered title and stays in the
+   sticky nav while scrolling; the "Tu Próximo Auto" wordmark is not shown here. */
+header[data-cover] [data-logo-word] { display: none; }
+header[data-cover] [data-logo-text] { display: block; }
+html[data-past-hero] header[data-cover] [data-logo-text] { color: var(--fg); }

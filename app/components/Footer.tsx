@@ -1,7 +1,6 @@
 import { MessageCircle, Phone } from "lucide-react";
 import Link from "next/link";
 import type { ReactNode } from "react";
-import Logo from "./Logo";
 import { NAV_LINKS, NAV_RIGHT_LINKS } from "./navLinks";
 import ThemeToggle from "./ThemeToggle";
 import { formatPhone } from "../data/site";
@@ -102,7 +101,9 @@ export default async function Footer() {
       <div className="mx-auto max-w-[1440px] px-3 py-16 md:max-lg:px-[52px] lg:px-6">
         <div className="grid grid-cols-2 gap-x-6 gap-y-10 lg:grid-cols-4">
           <div className="col-span-2 lg:col-span-1">
-            <Logo />
+            <p className="text-[21px] font-bold uppercase tracking-[0.2em] text-fg lg:text-[23px]">
+              Automotora
+            </p>
             <p className="mt-5 max-w-xs text-sm leading-relaxed text-muted">
               Plataforma de venta de autos usados certificados, con salón de ventas
               en Tigre, Zona Norte. Visitanos, probá la unidad y llevátela con
@@ -110,7 +111,7 @@ export default async function Footer() {
             </p>
             {/* TODO(seo): add the street address once the owner provides it. */}
             <address className="mt-4 text-sm not-italic leading-relaxed text-muted">
-              Tu Próximo Auto
+              Automotora
               <br />
               Salón de ventas en Tigre, Zona Norte, Buenos Aires
               <br />
@@ -187,13 +188,13 @@ export default async function Footer() {
           className="mt-16 border-t border-line pt-8 text-xs leading-relaxed text-subtle"
         >
           <p>
-            Tu Próximo Auto es una plataforma de publicidad. Nuestra única función
+            Automotora es una plataforma de publicidad. Nuestra única función
             es publicar los avisos de la concesionaria. No somos parte de la
             compraventa, no intervenimos en la negociación, el pago, la entrega
             ni la transferencia de los vehículos, y no actuamos como
             vendedores, intermediarios ni garantes. Los vehículos, la
             información, las fotos y los precios publicados son de exclusiva
-            responsabilidad de la concesionaria. Tu Próximo Auto no garantiza su
+            responsabilidad de la concesionaria. Automotora no garantiza su
             exactitud ni su actualización, y no asume responsabilidad por el
             estado, la titularidad, la documentación, el kilometraje, las
             condiciones de venta ni cualquier otro aspecto de los vehículos
@@ -224,7 +225,7 @@ export default async function Footer() {
           </nav>
           <div className="flex flex-wrap items-center gap-x-4 gap-y-3 sm:justify-end">
             <p className="text-xs text-subtle">
-              © 2026 Tu Próximo Auto. Todos los derechos reservados.
+              © 2026 Automotora. Todos los derechos reservados.
             </p>
             <ThemeToggle />
           </div>

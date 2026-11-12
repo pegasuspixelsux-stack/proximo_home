@@ -3,6 +3,7 @@ import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import JsonLd, { breadcrumbs } from "@/lib/json-ld";
 import { absoluteUrl } from "@/lib/seo";
+import AboutSection from "./components/AboutSection";
 import ConversionCTA from "./components/ConversionCTA";
 import FAQSection from "./components/FAQSection";
 import FinanceCalculator from "./components/FinanceCalculator";
@@ -23,6 +24,7 @@ const QUICK_LINKS = [
   { label: "Financiación", href: "/#financiacion" },
   { label: "Calculadora", href: "/#calculadora" },
   { label: "Preguntas frecuentes", href: "/#preguntas-frecuentes" },
+  { label: "Quiénes somos", href: "/#quienes-somos" },
   { label: "Contacto", href: "/#contacto" },
 ];
 
@@ -61,16 +63,7 @@ export default async function HomePage() {
           className="object-cover object-[68%_center] lg:object-center"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/15 to-black/40" />
-        <div className="relative z-10 mx-auto flex h-full w-full max-w-[1440px] flex-col items-start justify-between px-4 pb-[calc(6rem+env(safe-area-inset-bottom))] pt-[calc(4.5rem+env(safe-area-inset-top))] text-left sm:px-8 sm:pt-32 lg:px-10 lg:pb-[9dvh]">
-          {/* Dealer logo, top center of the hero. */}
-          <Image
-            src="/hero_image/dealer_logo.webp"
-            alt="Logo de la concesionaria"
-            width={354}
-            height={187}
-            priority
-            className="mx-auto h-[5.625rem] w-auto sm:h-[7.5rem]"
-          />
+        <div className="relative z-10 mx-auto flex h-full w-full max-w-[1440px] flex-col items-start justify-end px-4 pb-[calc(6rem+env(safe-area-inset-bottom))] pt-[calc(4.5rem+env(safe-area-inset-top))] text-left sm:px-8 sm:pt-32 lg:px-10 lg:pb-[9dvh]">
           <div className="w-full">
           <h1 className="text-balance text-5xl font-semibold leading-[1.02] tracking-[-0.03em] sm:text-7xl lg:text-8xl xl:text-9xl">
             Encontrá tu próximo auto.
@@ -110,6 +103,7 @@ export default async function HomePage() {
         <FinancingSection whatsappNumber={whatsappNumber} />
         <FinanceCalculator defaultCurrency={calculatorCurrency} />
         <FAQSection />
+        <AboutSection />
         <ConversionCTA whatsappNumber={whatsappNumber} />
         <Footer />
       </div>
