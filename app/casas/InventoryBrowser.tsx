@@ -136,7 +136,7 @@ export default function InventoryBrowser({
         <h1 className="sr-only">
           Casas de vacaciones en Punta del Este
         </h1>
-        <p className="mt-1 max-w-2xl text-center text-muted sm:text-left">
+        <p className="mt-1 max-w-2xl text-center text-muted max-sm:text-balance sm:text-left">
           Explorá nuestras casas de vacaciones en Punta del Este.
         </p>
       </header>
