@@ -64,7 +64,7 @@ export default function VehicleCard({
       whileHover={reduce ? undefined : { y: -4 }}
       whileTap={{ scale: 0.99 }}
       transition={{ type: "spring", duration: 0.5, bounce: 0.1 }}
-      className={`card-glow group relative w-full min-w-0 cursor-pointer overflow-hidden rounded-xl border border-line bg-[var(--card-bg)] shadow-[var(--card-shadow)] backdrop-blur-xl focus-within:ring-2 focus-within:ring-fg/60 flex flex-col ${compact === true ? "aspect-square" : "max-sm:aspect-auto aspect-[3/4]"}`}
+      className={`group relative w-full min-w-0 cursor-pointer overflow-hidden rounded-xl border border-line bg-[var(--card-bg)] shadow-[var(--card-shadow)] backdrop-blur-xl focus-within:ring-2 focus-within:ring-fg/60 flex flex-col ${compact === true ? "aspect-square" : "max-sm:aspect-auto aspect-[3/4]"}`}
     >
       <div
         className={`relative w-full overflow-hidden bg-neutral-900 ${
