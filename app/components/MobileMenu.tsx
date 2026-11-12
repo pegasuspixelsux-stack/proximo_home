@@ -3,13 +3,15 @@
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
 import { createPortal } from "react-dom";
-import { NAV_LINKS, NAV_RIGHT_LINKS } from "./navLinks";
-
-const ALL_LINKS = [...NAV_LINKS, ...NAV_RIGHT_LINKS];
+import { MENU_LINKS } from "./navLinks";
+import { goToSection } from "./sectionNav";
+import { SOCIALS } from "./socials";
 
 export default function MobileMenu() {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
   const closeRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
@@ -77,11 +79,16 @@ export default function MobileMenu() {
                 className="flex-1 overflow-y-auto px-3 pb-8"
               >
                 <ul className="space-y-1">
-                  {ALL_LINKS.map((link) => (
+                  {MENU_LINKS.map((link) => (
                     <li key={link.label}>
                       <Link
                         href={link.href}
-                        onClick={() => setOpen(false)}
+                        onClick={(e) => {
+                          // Unlock scrolling first so the jump to the section works.
+                          document.body.style.overflow = "";
+                          setOpen(false);
+                          goToSection(e, link.href, pathname);
+                        }}
                         className="block rounded-xl px-3 py-3.5 text-lg font-light tracking-tight text-fg transition-colors duration-150 hover:bg-surface"
                       >
                         {link.label}
@@ -90,6 +97,24 @@ export default function MobileMenu() {
                   ))}
                 </ul>
               </nav>
+              <div className="border-t border-line px-5 pb-[max(1.25rem,env(safe-area-inset-bottom))] pt-5">
+                <p className="text-xs font-medium uppercase tracking-widest text-muted">
+                  Seguinos
+                </p>
+                <ul className="mt-3 flex gap-2">
+                  {SOCIALS.map(({ label, href, icon }) => (
+                    <li key={label}>
+                      <a
+                        href={href}
+                        aria-label={label}
+                        className="flex h-10 w-10 items-center justify-center rounded-full border border-line text-muted transition-[color,border-color,transform] duration-150 hover:border-fg/40 hover:text-fg active:scale-95"
+                      >
+                        {icon}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </div>,
           document.body,

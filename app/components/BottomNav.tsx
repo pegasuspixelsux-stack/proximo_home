@@ -12,6 +12,7 @@ import {
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState, type MouseEvent } from "react";
+import { goToSection } from "./sectionNav";
 
 // One entry per section of the page, in page order.
 const ITEMS = [
@@ -51,25 +52,9 @@ export default function BottomNav() {
   if (pathname.startsWith("/dashboard") || pathname.startsWith("/login"))
     return null;
 
-  // Section links scroll in place when the section is on this page (home and car detail pages
-  // both have them); otherwise the link navigates to the home page. Collapsible sections open
-  // (and scroll) through "hashchange", even if the hash is unchanged.
   function go(e: MouseEvent<HTMLAnchorElement>, href: string) {
     setMoreOpen(false);
-    const hash = href.includes("#") ? `#${href.split("#")[1]}` : "";
-    if (!hash) {
-      if (pathname !== "/") return;
-      e.preventDefault();
-      window.history.replaceState(null, "", "/");
-      window.scrollTo({ top: 0, behavior: "smooth" });
-      return;
-    }
-    const target = document.querySelector(hash);
-    if (!target) return;
-    e.preventDefault();
-    window.history.replaceState(null, "", `${pathname}${hash}`);
-    if (hash === "#inventario") target.scrollIntoView({ behavior: "smooth" });
-    else window.dispatchEvent(new HashChangeEvent("hashchange"));
+    goToSection(e, href, pathname);
   }
 
   const iconBtn =
