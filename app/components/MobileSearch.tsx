@@ -54,10 +54,10 @@ export default function MobileSearch() {
               onClick={() => setOpen(false)}
               className="absolute inset-0 bg-black/60"
             />
-            {/* Plain GET to /autos: the inventory page reads the query and pre-fills its filters. */}
+            {/* Plain GET to /: the inventory page reads the query and pre-fills its filters. */}
             <form
               role="search"
-              action="/autos"
+              action="/"
               method="get"
               onSubmit={() => setOpen(false)}
               className="relative flex max-h-full w-full max-w-md md:max-w-xl flex-col rounded-2xl border border-line bg-bg shadow-2xl"

@@ -62,7 +62,7 @@ export default function FAQSection() {
     const expand = () => {
       if (window.location.hash === "#preguntas-frecuentes") {
         setSectionOpen(true);
-        centerSection("preguntas-frecuentes");
+        centerSection("preguntas-frecuentes", "top");
       }
     };
     expand();

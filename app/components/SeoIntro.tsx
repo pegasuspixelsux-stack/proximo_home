@@ -17,7 +17,7 @@ export default function SeoIntro() {
     const expand = () => {
       if (window.location.hash !== "#comprar") return;
       setOpen(true);
-      centerSection("comprar");
+      centerSection("comprar", "top");
     };
     expand();
     window.addEventListener("hashchange", expand);
@@ -80,7 +80,7 @@ export default function SeoIntro() {
           </p>
         </div>
         <p className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-sm font-medium">
-          <Link href="/autos" className="underline underline-offset-4">
+          <Link href="/#inventario" className="underline underline-offset-4">
             Ver todos los autos usados en venta
           </Link>
         </p>

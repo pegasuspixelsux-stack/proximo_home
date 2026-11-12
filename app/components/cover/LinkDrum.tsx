@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import SlideLink from "./SlideLink";
 import { useEffect, useRef, useState, type PointerEvent } from "react";
 
 interface DrumLink {
@@ -117,7 +116,7 @@ export default function LinkDrum({ links }: { links: DrumLink[] }) {
         const cls =
           "absolute inset-x-0 flex items-center justify-center whitespace-nowrap font-semibold [text-shadow:0_1px_12px_rgba(0,0,0,0.6)] motion-reduce:!transition-none";
         // Links into the inventory slide the cover away; the others navigate normally.
-        const Anchor = link.href.startsWith("/autos") ? SlideLink : Link;
+        const Anchor = Link;
         return isActive ? (
           <Anchor
             key={link.label}

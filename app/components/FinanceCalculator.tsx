@@ -96,7 +96,7 @@ export default function FinanceCalculator({
     const expand = () => {
       if (window.location.hash !== "#calculadora") return;
       setOpen(true);
-      centerSection("calculadora");
+      centerSection("calculadora", "top");
     };
     expand();
     window.addEventListener("hashchange", expand);

@@ -258,7 +258,7 @@ export default function ConversionCTA({
       if (window.location.hash !== "#contacto") return;
       setOpen(true);
       // Scroll once the section has expanded.
-      centerSection("contacto");
+      centerSection("contacto", "top");
     };
     expand();
     window.addEventListener("hashchange", expand);

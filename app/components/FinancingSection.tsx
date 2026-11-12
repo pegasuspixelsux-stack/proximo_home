@@ -62,7 +62,7 @@ export default function FinancingSection({
       if (window.location.hash !== "#financiacion") return;
       setOpen(true);
       // Scroll once the section has expanded.
-      centerSection("financiacion");
+      centerSection("financiacion", "top");
     };
     expand();
     window.addEventListener("hashchange", expand);

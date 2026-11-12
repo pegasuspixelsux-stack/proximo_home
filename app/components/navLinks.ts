@@ -8,12 +8,12 @@ export interface NavLink {
 /** Left side of the top nav. */
 export const NAV_LINKS: NavLink[] = [
   { label: "Inicio", href: "/" },
-  { label: "Compra tu auto", href: "/autos" },
-  { label: "Vende tu auto", href: "/autos#financiacion" },
+  { label: "Compra tu auto", href: "/#inventario" },
+  { label: "Vende tu auto", href: "/#financiacion" },
 ];
 
 /** Right side of the top nav. */
 export const NAV_RIGHT_LINKS: NavLink[] = [
-  { label: "Financiación", href: "/autos#financiacion", wide: true },
-  { label: "Contacto", href: "/autos#contacto", wide: true },
+  { label: "Financiación", href: "/#financiacion", wide: true },
+  { label: "Contacto", href: "/#contacto", wide: true },
 ];
