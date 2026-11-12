@@ -62,15 +62,23 @@ export default async function HomePage() {
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/15 to-black/40" />
         <div className="relative z-10 mx-auto flex h-full w-full max-w-[1440px] flex-col items-start justify-between px-4 pb-[calc(6rem+env(safe-area-inset-bottom))] pt-[calc(4.5rem+env(safe-area-inset-top))] text-left sm:px-8 sm:pt-32 lg:px-10 lg:pb-[9dvh]">
-          <div>
+          {/* Dealer logo, top center of the hero. */}
+          <Image
+            src="/hero_image/dealer_logo.webp"
+            alt="Logo de la concesionaria"
+            width={354}
+            height={187}
+            priority
+            className="mx-auto h-[5.625rem] w-auto sm:h-[7.5rem]"
+          />
+          <div className="w-full">
           <h1 className="text-balance text-5xl font-semibold leading-[1.02] tracking-[-0.03em] sm:text-7xl lg:text-8xl xl:text-9xl">
             Encontrá tu próximo auto.
           </h1>
           <p className="mt-4 max-w-xl text-balance text-base text-white/80 sm:text-lg">
             Autos usados seleccionados y verificados en Tigre y Buenos Aires.
           </p>
-          </div>
-          <div className="flex w-full max-w-xl flex-col items-center">
+          <div className="mt-8 flex w-full max-w-xl flex-col items-center">
             <div className="hidden w-full sm:block">
               <LinkDrum links={QUICK_LINKS} />
             </div>
@@ -83,6 +91,7 @@ export default async function HomePage() {
                 <ArrowRight className="h-4 w-4" strokeWidth={1.75} />
               </span>
             </a>
+          </div>
           </div>
         </div>
         <p className="absolute inset-x-0 bottom-3 z-10 hidden text-center lg:block text-xs font-medium tracking-wide text-white/70">
