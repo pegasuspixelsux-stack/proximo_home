@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Logo from "./Logo";
 import MobileMenu from "./MobileMenu";
 import MobileSearch from "./MobileSearch";
 import { NAV_LINKS, NAV_RIGHT_LINKS } from "./navLinks";
@@ -25,20 +24,17 @@ export default function SiteHeader({ transparent = false }: { transparent?: bool
         </div>
         <Link
           href="/"
-          aria-label="Tu Próximo Auto Argentina, inicio"
+          aria-label="Automotora, inicio"
           data-logo
           className="absolute inset-x-0 mx-auto w-fit"
         >
-          <Logo showCountry={false} />
-          {transparent && (
-            // Over the hero the dealer name replaces the wordmark (see globals.css).
-            <span
-              data-logo-text
-              className="hidden text-2xl font-bold uppercase tracking-[0.2em] text-white sm:text-3xl"
-            >
-              Automotora
-            </span>
-          )}
+          {/* Dealer name as the nav title on every page. White over the home hero (globals.css). */}
+          <span
+            data-logo-text
+            className={`block text-2xl font-bold uppercase tracking-[0.2em] sm:text-3xl ${transparent ? "text-white" : "text-fg"}`}
+          >
+            Automotora
+          </span>
         </Link>
         <div className="hidden items-center gap-6 lg:flex">
           {NAV_RIGHT_LINKS.map((link) => (

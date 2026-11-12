@@ -200,8 +200,6 @@ html[data-past-hero] header[data-cover] {
   box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.12);
   backdrop-filter: blur(24px) saturate(1.5);
 }
-/* Home nav: the dealer name ("Automotora") is always the centered title and stays in the
-   sticky nav while scrolling; the "Tu Próximo Auto" wordmark is not shown here. */
-header[data-cover] [data-logo-word] { display: none; }
-header[data-cover] [data-logo-text] { display: block; }
+/* The dealer name ("Automotora") is the centered nav title and stays in the sticky nav. On
+   the home page it is white over the hero and switches to the theme text colour after it. */
 html[data-past-hero] header[data-cover] [data-logo-text] { color: var(--fg); }

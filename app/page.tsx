@@ -98,7 +98,7 @@ export default async function HomePage() {
       >
         <InventoryBrowser vehicles={vehicles} />
       </main>
-      <div className="mx-auto w-full max-w-[1440px] bg-bg pb-24 text-fg lg:pb-0">
+      <div className="mx-auto w-full max-w-[1440px] bg-bg text-fg">
         <SeoIntro />
         <FinancingSection whatsappNumber={whatsappNumber} />
         <FinanceCalculator defaultCurrency={calculatorCurrency} />
