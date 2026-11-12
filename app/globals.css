@@ -12,6 +12,7 @@
   --inverse: #f5f5f0;
   --on-inverse: #000000;
   --card-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.06) inset;
+  --card-bg: #1a1a1d;
 }
 
 :root[data-theme="light"] {
@@ -25,6 +26,7 @@
   --inverse: #1d1d1f;
   --on-inverse: #ffffff;
   --card-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 8px 24px -12px rgba(0, 0, 0, 0.12);
+  --card-bg: #ffffff;
 }
 
 /* Home page: the site background is black. Sections below the hero are transparent with the
@@ -41,6 +43,7 @@ html:has([data-site-home]), body:has([data-site-home]) { background: #000; }
   --inverse: #1d1d1f;
   --on-inverse: #ffffff;
   --card-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 8px 24px -12px rgba(0, 0, 0, 0.12);
+  --card-bg: #ffffff;
   background: #ffffff;
   color: var(--fg);
 }
@@ -124,6 +127,7 @@ body {
   --inverse: #f5f5f0;
   --on-inverse: #000000;
   --card-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.06) inset;
+  --card-bg: #1a1a1d;
 }
 
 /* Always-light scope (dashboard), regardless of the chosen theme. */
@@ -138,6 +142,7 @@ body {
   --inverse: #1d1d1f;
   --on-inverse: #ffffff;
   --card-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 8px 24px -12px rgba(0, 0, 0, 0.12);
+  --card-bg: #ffffff;
 }
 
 /* Shared hover glow for cards and boxes (yellow in dark, blue in light). */
