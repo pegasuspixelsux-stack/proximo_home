@@ -3,14 +3,14 @@
 import { useEffect } from "react";
 
 /**
- * Flags <html data-past-hero> once the hero has scrolled out of view, so the transparent
+ * Flags <html data-past-hero> as soon as the page starts scrolling, so the transparent
  * header (and mobile bottom nav) can switch to their solid look. See globals.css.
  */
 export default function HeroScrollState() {
   useEffect(() => {
     const html = document.documentElement;
     const update = () => {
-      if (window.scrollY > window.innerHeight - 96) html.dataset.pastHero = "1";
+      if (window.scrollY > 8) html.dataset.pastHero = "1";
       else delete html.dataset.pastHero;
     };
     update();
