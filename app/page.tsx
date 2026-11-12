@@ -51,7 +51,7 @@ export default async function HomePage() {
           className="object-cover object-[68%_center] lg:object-center"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/15 to-black/40" />
-        <div className="relative z-10 mx-auto flex h-full w-full max-w-[1440px] flex-col items-start justify-end px-4 pb-[calc(6rem+env(safe-area-inset-bottom))] pt-[calc(4.5rem+env(safe-area-inset-top))] text-left sm:px-8 sm:pt-32 lg:px-10 lg:pb-8">
+        <div className="relative z-10 mx-auto flex h-full w-full max-w-[1440px] flex-col items-start justify-end px-3 pb-[calc(max(0.75rem,env(safe-area-inset-bottom))+4.625rem)] pt-[calc(4.5rem+env(safe-area-inset-top))] text-left sm:px-8 sm:pt-32 lg:px-10 lg:pb-8">
           <div className="w-full">
           <h1 className="text-balance text-4xl font-semibold leading-[1.05] tracking-[-0.03em] sm:text-5xl lg:text-6xl xl:text-7xl">
             Encontrá tu
@@ -61,13 +61,13 @@ export default async function HomePage() {
           <p className="mt-3 max-w-xl text-balance text-sm text-white/80 sm:text-base">
             Autos usados seleccionados y verificados en Tigre y Buenos Aires.
           </p>
-          <div className="mt-8 flex w-full max-w-xl flex-col items-start">
+          <div className="mt-8 flex w-full max-w-xl flex-col items-start self-center lg:self-start">
             <a
               href="#inventario"
-              className="relative flex w-[30%] min-w-[10.8rem] items-center justify-center rounded-full bg-white py-2.5 pl-4 pr-12 text-sm font-semibold text-black shadow-[0_10px_30px_-6px_rgba(0,0,0,0.45)] transition-[transform,opacity] duration-150 hover:opacity-90 active:scale-[0.98] sm:text-base"
+              className="relative flex h-[3.875rem] w-full items-center justify-center rounded-full bg-white px-14 text-base font-semibold text-black lg:w-[30%] lg:min-w-[10.8rem] lg:pl-4 lg:pr-14 shadow-[0_10px_30px_-6px_rgba(0,0,0,0.45)] transition-[transform,opacity] duration-150 hover:opacity-90 active:scale-[0.98]"
             >
               Explorar
-              <span className="absolute right-2 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-black text-white">
+              <span className="absolute right-2 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-black text-white">
                 <ArrowRight className="h-4 w-4" strokeWidth={1.75} />
               </span>
             </a>
