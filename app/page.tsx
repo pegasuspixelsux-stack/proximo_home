@@ -87,6 +87,7 @@ export default async function HomePage() {
           Dealio v 3.0
         </p>
       </section>
+      <div data-site-home className="light-surface">
       <main
         id="inventario"
         className="mx-auto w-full max-w-[1440px] scroll-mt-20 bg-bg px-3 pb-6 pt-4 text-fg md:pb-12 lg:px-6"
@@ -100,6 +101,7 @@ export default async function HomePage() {
         <FAQSection />
         <ConversionCTA whatsappNumber={whatsappNumber} />
         <Footer />
+      </div>
       </div>
     </>
   );

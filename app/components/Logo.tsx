@@ -1,7 +1,16 @@
 /** Argentina flag with a short label; "ARG" on small screens. */
-export function Country({ className = "" }: { className?: string }) {
+export function Country({
+  className = "",
+  dataLogoFlag = false,
+}: {
+  className?: string;
+  dataLogoFlag?: boolean;
+}) {
   return (
-    <span className={`inline-flex items-center gap-1 align-middle ${className}`}>
+    <span
+      data-logo-flag={dataLogoFlag ? "" : undefined}
+      className={`inline-flex items-center gap-1 align-middle ${className}`}
+    >
       <svg
         viewBox="0 0 18 12"
         className="h-5 w-[30px] rounded-[2px]"
@@ -35,11 +44,13 @@ export default function Logo({
     <span
       className={`whitespace-nowrap text-[21px] font-bold uppercase tracking-[-0.02em] lg:text-[23px] ${className}`}
     >
-      Tu Próximo
-      <span className="ml-[0.25em] bg-black px-1.5 py-0.5 text-brand [:root:not([data-theme=light])_&]:bg-white [:root:not([data-theme=light])_&]:text-black">
-        Auto
+      <span data-logo-word>
+        Tu Próximo
+        <span className="ml-[0.25em] bg-black px-1.5 py-0.5 text-brand [:root:not([data-theme=light])_&]:bg-white [:root:not([data-theme=light])_&]:text-black">
+          Auto
+        </span>
       </span>
-      <Country className={`ml-1.5 ${countryOnMobile ? "" : "max-sm:hidden"}`} />
+      <Country className={`ml-1.5 ${countryOnMobile ? "" : "max-sm:hidden"}`} dataLogoFlag />
     </span>
   );
 }

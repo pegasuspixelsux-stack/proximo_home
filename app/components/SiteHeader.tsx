@@ -26,6 +26,7 @@ export default function SiteHeader({ transparent = false }: { transparent?: bool
         <Link
           href="/"
           aria-label="Tu Próximo Auto Argentina, inicio"
+          data-logo
           className="absolute left-1/2 -translate-x-1/2"
         >
           <Logo />

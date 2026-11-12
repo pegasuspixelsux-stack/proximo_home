@@ -27,6 +27,23 @@
   --card-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 8px 24px -12px rgba(0, 0, 0, 0.12);
 }
 
+/* Home page: the site background is black; every section below the hero sits on white. */
+body:has([data-site-home]) { background: #000; }
+.light-surface {
+  color-scheme: light;
+  --bg: #ffffff;
+  --fg: #1d1d1f;
+  --muted: #55555a;
+  --subtle: #6e6e73;
+  --surface: #ffffff;
+  --line: rgba(0, 0, 0, 0.1);
+  --inverse: #1d1d1f;
+  --on-inverse: #ffffff;
+  --card-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 8px 24px -12px rgba(0, 0, 0, 0.12);
+  background: #ffffff;
+  color: var(--fg);
+}
+
 @theme inline {
   --color-brand: #ffea00;
   --font-sans: var(--font-geist-sans);
@@ -176,6 +193,23 @@ html[data-past-hero] header[data-cover] {
   border-bottom-color: var(--line);
   box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.12);
   backdrop-filter: blur(24px) saturate(1.5);
+}
+/* Over the hero only: drop the "Tu Próximo Auto" wordmark and park the flag in the right
+   corner (the nav makes room for it). Past the hero the centered wordmark comes back. */
+html:not([data-past-hero]) header[data-cover] [data-logo-word] { display: none; }
+html:not([data-past-hero]) header[data-cover] [data-logo-flag] { margin-left: 0; }
+html:not([data-past-hero]) header[data-cover] a[data-logo] {
+  left: auto;
+  right: 0.75rem;
+  transform: none;
+}
+html:not([data-past-hero]) header[data-cover] nav { padding-right: 5.25rem; }
+@media (min-width: 640px) {
+  html:not([data-past-hero]) header[data-cover] nav { padding-right: 9rem; }
+}
+@media (min-width: 1024px) {
+  html:not([data-past-hero]) header[data-cover] a[data-logo] { right: 1.5rem; }
+  html:not([data-past-hero]) header[data-cover] nav { padding-right: 10.5rem; }
 }
 html:not([data-past-hero]) .cover-bottom-nav { display: none; }
 
